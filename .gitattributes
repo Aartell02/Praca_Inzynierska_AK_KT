@@ -1,3 +1,10 @@
+* text=auto
+*.cs text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+Library/** -text
+
 *.wav filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
