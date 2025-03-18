@@ -6,12 +6,14 @@ using UnityEngine.UIElements;
 public class EnemyPathFinding : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float roamingRange = 1f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer sprite;
     private Vector2 moveDir;
     private bool isFacingRight = true;
+    
 
     private void Awake()
     {
@@ -23,22 +25,24 @@ public class EnemyPathFinding : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveDir * (moveSpeed * Time.fixedDeltaTime));
+        animator.SetFloat("move", moveDir.magnitude);
         FlipSprite();
     }
     public void MoveTo(Vector2 targetPosition)
     {
         moveDir = (targetPosition - rb.position).normalized;
     }
-
+    public Vector2 GetRoamingPosition()
+    {
+        return rb.position + new Vector2(Random.Range(-roamingRange, roamingRange), Random.Range(-roamingRange, roamingRange));
+    }
     void FlipSprite()
     {
         if (moveDir.x < 0 && isFacingRight)
         {
-            sprite.flipX = true;
-        }
-        else
-        {
-            sprite.flipX = false;
+            isFacingRight = !isFacingRight;
+            sprite.flipX = !sprite.flipX;
         }
     }
+
 }
