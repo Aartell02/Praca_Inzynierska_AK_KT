@@ -1,9 +1,10 @@
-using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInputActions playerControls;
+    [SerializeField] public PlayerInputActions playerControls;
+    private PlayerAttack playerAttack;
     private Animator animator;
     private Vector2 movement;
     private float speed = 4.0f;
@@ -16,14 +17,22 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerInputActions();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        mySprite = rb.GetComponent<SpriteRenderer>();
-    }
+        mySprite = GetComponent<SpriteRenderer>();
+        playerAttack = GetComponent<PlayerAttack>();
+}
     private void OnEnable()
     {
         playerControls.Enable();
+        playerControls.Movement.Roll.started += OnRoll;
+        playerControls.Combat.Attack.started += OnAttack;
+
+
     }
-    void Start()
+    private void OnDisable()
     {
+        playerControls.Movement.Roll.started -= OnRoll;
+        playerControls.Combat.Attack.started -= OnAttack;
+        playerControls.Disable();
     }
 
     void Update()
@@ -31,49 +40,36 @@ public class PlayerController : MonoBehaviour
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
         rb.MovePosition(rb.position + movement * (speed * Time.fixedDeltaTime));
         animator.SetFloat("move",movement.magnitude);
-
         FlipSprite();
         
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetBool("isRolling", true);
-            speed = rollSpeed;
-        }
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Roll") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.2f)
-        {
-            animator.SetBool("isRolling", false);
-            speed = runningSpeed;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            animator.SetBool("isAttacking", true);
-        }
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.2f)
-        {
-            animator.SetBool("isAttacking", false);
-
-        }
-            
+           
     }
-    void FixedUpdate()
+    public void OnRoll(InputAction.CallbackContext context)
     {
- 
+        animator.SetBool("isRolling", true);
+        speed = rollSpeed;
     }
+    public void OnRollFinishEvent()
+    {
+        animator.SetBool("isRolling", false);
+        speed = runningSpeed;
+    }
+        
+    void OnAttack(InputAction.CallbackContext context) 
+    {
 
+        animator.SetBool("isAttacking", true);
+        playerAttack.Attack();
+    }
+    void OnAttackFinishEvent()
+    {
+        animator.SetBool("isAttacking", false);
+
+    }
     void FlipSprite()
     {
-        Vector3 mousePos = Input.mousePosition;
+        Vector3 mousePos = Mouse.current.position.ReadValue();
         Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        if (mousePos.x < playerScreenPoint.x )
-        {
-            mySprite.flipX = true;
-        }
-        else
-        {
-            mySprite.flipX = false;
-        }
+        mySprite.flipX = mousePos.x < playerScreenPoint.x;
     }
 }

@@ -1,38 +1,36 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject swordHitbox; 
+    public GameObject hitboxPrefab; 
     public Transform attackPoint; 
     public float attackRange = 1f;
     public LayerMask enemyLayers;
+    public float hitboxLifetime = 0.2f;
 
 
     public void Attack()
     {
-        Vector2 attackDirection = GetMouseDirection();
-        SpawnHitbox(attackDirection);
-    }
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        mouseWorldPos.z = 0; // Keep it in 2D space
 
-    Vector2 GetMouseDirection()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - transform.position).normalized;
-        return direction;
-    }
+        Vector3 characterPos = transform.position;
+        Vector3 direction = (mouseWorldPos - characterPos).normalized;
 
-    void SpawnHitbox(Vector2 direction)
-    {
-        GameObject hitbox = Instantiate(swordHitbox, attackPoint.position, Quaternion.identity);
-        hitbox.transform.right = direction; 
-
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
+        Vector3 spawnPos = characterPos;
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            Debug.Log("Hit " + enemy.name);
+            spawnPos += new Vector3(Mathf.Sign(direction.x) * attackRange, 0, 0);
+        }
+        else
+        {
+            spawnPos += new Vector3(0, Mathf.Sign(direction.y) * attackRange, 0);
         }
 
-        Destroy(hitbox, 0.2f); 
+        GameObject hitbox = Instantiate(hitboxPrefab, spawnPos, Quaternion.identity);
+        hitbox.GetComponent<Collider2D>().isTrigger = true; // Ensure it's a trigger
+        Destroy(hitbox, 0.5f); // Auto-destroy after 0.5 seconds
     }
+
 }
