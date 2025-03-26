@@ -10,27 +10,32 @@ public class PlayerAttack : MonoBehaviour
     public float hitboxLifetime = 0.2f;
 
 
-    public void Attack()
+    public void Attack(Rigidbody2D rb)
     {
+        // Get mouse position in world space
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        mouseWorldPos.z = 0; // Keep it in 2D space
+        mouseWorldPos.z = 0; // Ensure it's in 2D space
 
-        Vector3 characterPos = transform.position;
-        Vector3 direction = (mouseWorldPos - characterPos).normalized;
+        // Calculate correct direction from player to mouse
+        Vector3 direction = (mouseWorldPos - (Vector3)rb.position).normalized;
 
-        Vector3 spawnPos = characterPos;
+        // Determine the spawn position of the hitbox around the player
+        Vector2 spawnPos = rb.position;
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            spawnPos += new Vector3(Mathf.Sign(direction.x) * attackRange, 0, 0);
+            spawnPos += new Vector2(Mathf.Sign(direction.x) * attackRange, 0);
         }
         else
         {
-            spawnPos += new Vector3(0, Mathf.Sign(direction.y) * attackRange, 0);
+            spawnPos += new Vector2(0, Mathf.Sign(direction.y) * attackRange);
         }
 
+        // Instantiate the hitbox at the correct position
         GameObject hitbox = Instantiate(hitboxPrefab, spawnPos, Quaternion.identity);
-        hitbox.GetComponent<Collider2D>().isTrigger = true; // Ensure it's a trigger
-        Destroy(hitbox, 0.5f); // Auto-destroy after 0.5 seconds
+        hitbox.GetComponent<Collider2D>().isTrigger = true;
+
+        // Destroy hitbox after some time
+        Destroy(hitbox, 0.5f);
     }
 
 }

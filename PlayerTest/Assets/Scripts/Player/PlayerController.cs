@@ -35,19 +35,18 @@ public class PlayerController : MonoBehaviour
         playerControls.Disable();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
         rb.MovePosition(rb.position + movement * (speed * Time.fixedDeltaTime));
         animator.SetFloat("move",movement.magnitude);
         FlipSprite();
-        
-           
+
     }
     public void OnRoll(InputAction.CallbackContext context)
     {
         animator.SetBool("isRolling", true);
-        speed = rollSpeed;
+        if(animator.GetBool("isRolling")) speed = rollSpeed;
     }
     public void OnRollFinishEvent()
     {
@@ -59,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
 
         animator.SetBool("isAttacking", true);
-        playerAttack.Attack();
+        playerAttack.Attack(rb);
     }
     void OnAttackFinishEvent()
     {
