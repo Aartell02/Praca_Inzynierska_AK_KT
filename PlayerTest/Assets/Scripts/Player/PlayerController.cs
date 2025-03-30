@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public PlayerInputActions playerControls;
+    private PlayerInputActions playerControls;
     private PlayerAttack playerAttack;
     private Animator animator;
     private Vector2 movement;
@@ -23,32 +23,33 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         playerControls.Enable();
-        playerControls.Movement.Roll.started += OnRoll;
-        playerControls.Combat.Attack.started += OnAttack;
+        playerControls.Player.Roll.started += OnRoll;
+        playerControls.Player.Attack.started += OnAttack;
+        
 
 
     }
     private void OnDisable()
     {
-        playerControls.Movement.Roll.started -= OnRoll;
-        playerControls.Combat.Attack.started -= OnAttack;
+        playerControls.Player.Roll.started -= OnRoll;
+        playerControls.Player.Attack.started -= OnAttack;
         playerControls.Disable();
     }
 
     void FixedUpdate()
     {
-        movement = playerControls.Movement.Move.ReadValue<Vector2>();
+        movement = playerControls.Player.Move.ReadValue<Vector2>();
         rb.MovePosition(rb.position + movement * (speed * Time.fixedDeltaTime));
         animator.SetFloat("move",movement.magnitude);
         FlipSprite();
 
     }
-    public void OnRoll(InputAction.CallbackContext context)
+    private void OnRoll(InputAction.CallbackContext context)
     {
         animator.SetBool("isRolling", true);
         if(animator.GetBool("isRolling")) speed = rollSpeed;
     }
-    public void OnRollFinishEvent()
+    private void OnRollFinishEvent()
     {
         animator.SetBool("isRolling", false);
         speed = runningSpeed;

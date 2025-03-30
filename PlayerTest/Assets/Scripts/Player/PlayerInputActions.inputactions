@@ -2,7 +2,7 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Player",
             "id": "9ba73d04-2d0b-43d4-8fc3-cf93428f1b8f",
             "actions": [
                 {
@@ -10,6 +10,15 @@
                     "type": "PassThrough",
                     "id": "839d992e-04f4-4753-8d60-c6aa0e01e42f",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "a04f363c-2efa-4675-b70e-aa44036ea5c2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -82,40 +91,23 @@
                 },
                 {
                     "name": "",
+                    "id": "a913ce17-5af8-4ec4-b5b0-ea6ebff09d65",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7eade55e-4a5b-4a09-a56b-7de79a882606",
                     "path": "<Keyboard>/space",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Combat",
-            "id": "2a96f4af-6d29-4b8a-8b4d-42acc5e12895",
-            "actions": [
-                {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "16625388-6d49-48b8-bb00-adb2c1e40ccb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "07884029-6046-45d0-80e3-65a54712559f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -138,7 +130,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7d8d1082-57ea-42d9-af66-b5bf359b71a5",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -147,7 +139,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "41b4892c-352a-4e89-81ff-fcb35bcced1e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -211,6 +203,15 @@
                     "type": "PassThrough",
                     "id": "8139ae82-ac6a-455b-b964-d853548488c1",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "08861b38-4bfc-4c93-a346-b929151ecb8c",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -632,6 +633,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80839c78-1b45-4bcd-92e8-5171908d9c14",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
