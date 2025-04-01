@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EnemyPathFinding : MonoBehaviour
+public class EnemyRoaming : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float roamingRange = 1f;
@@ -19,7 +19,7 @@ public class EnemyPathFinding : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        sprite = rb.GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()

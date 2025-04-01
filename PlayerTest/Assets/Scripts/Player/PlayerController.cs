@@ -42,7 +42,12 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement * (speed * Time.fixedDeltaTime));
         animator.SetFloat("move",movement.magnitude);
         FlipSprite();
-
+    }
+    void FlipSprite()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        mySprite.flipX = mousePos.x < playerScreenPoint.x;
     }
     private void OnRoll(InputAction.CallbackContext context)
     {
@@ -66,10 +71,5 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isAttacking", false);
 
     }
-    void FlipSprite()
-    {
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        mySprite.flipX = mousePos.x < playerScreenPoint.x;
-    }
+    
 }

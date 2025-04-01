@@ -3,17 +3,18 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+
     private enum State
     {
         Roaming
     }
 
     private State state;
-    private EnemyPathFinding enemyPathfinding;
+    private EnemyRoaming enemyPathfinding;
 
     private void Awake()
     {
-        enemyPathfinding = GetComponent<EnemyPathFinding>();
+        enemyPathfinding = GetComponent<EnemyRoaming>();
         state = State.Roaming;
     }
 
@@ -31,6 +32,6 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(1f,3f));
         }
     }
-
     
+
 }

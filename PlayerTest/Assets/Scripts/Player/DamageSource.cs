@@ -5,9 +5,9 @@ public class DamageSource : MonoBehaviour
     [SerializeField] private int damageAmount = 1;
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<EnemyHealth>())
+        if (other.gameObject.GetComponent<EnemyStats>())
         {
-            EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+            EnemyStats enemyHealth = other.gameObject.GetComponent<EnemyStats>();
             enemyHealth.TakeDamage(damageAmount);
         }
     }
