@@ -27,7 +27,7 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
-    void OnAttackFinishEvent()
+    public void OnDeathEvent()
     {
         animator.speed = 0;
     }
