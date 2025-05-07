@@ -24,18 +24,18 @@ public class ObjectLifeStatus : MonoBehaviour
     private void DetectDeath()
     {
         if (currentHealth <= 0) {
+            Destroy(gameObject);
             animator.ResetTrigger("TookHit");
             Vector3 spawnPosition = transform.position;
             Quaternion spawnRotation = transform.rotation;
             Instantiate(deadBodyPrefab, spawnPosition, spawnRotation);
             Debug.Log("Prefab zainstancjonowany: " + deadBodyPrefab.name);
-
             ObjectDeathStatus db = deadBodyPrefab.GetComponent<ObjectDeathStatus>();
             if (db == null)
                 Debug.LogError("DeadBody script NIE ZNALEZIONY!");
             else
                 Debug.Log("DeadBody script znaleziony!");
-            Destroy(gameObject);
+            
         }
     }
 }
