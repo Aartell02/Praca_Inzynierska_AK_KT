@@ -1,0 +1,26 @@
+root = true
+
+# --- Ogólne ---
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# --- C# Style ---
+[*.cs]
+indent_style = tab 
+indent_size = 4
+
+# --- Ukrywanie plików w Solution Explorer (VS 2019/2022) ---
+[*.asmdef]
+build_action = None
+visible = false
+
+[*.asmref]
+build_action = None
+visible = false
+
+[*.meta]
+build_action = None
+visible = false
