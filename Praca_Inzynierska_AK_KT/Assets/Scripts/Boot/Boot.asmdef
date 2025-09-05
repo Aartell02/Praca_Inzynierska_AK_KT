@@ -1,3 +1,20 @@
 {
-	"name": "Boot"
+    "name": "Boot",
+    "rootNamespace": "Boot",
+    "references": [
+        "GUID:db6cb664d983c4a49bec8417b93d046c",
+        "GUID:267998bb6ff7aa9438422eea9549f4a2",
+        "GUID:a2ed07e033252ab45a07fb15dd43c980",
+        "GUID:89025b83056692e4ba5d479f9371a9fb",
+        "GUID:7d2a3f54767a02b448d1613fa19c87b2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
