@@ -2,9 +2,7 @@ using Unity.Entities;
 using UnityEngine;
 using Core.Services;
 
-
-// Input Handling
-namespace DOTS
+namespace DOTS.Systems.Player
 {
 	partial class PlayerSystem : SystemBase
 	{

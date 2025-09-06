@@ -3,7 +3,13 @@
     "rootNamespace": "DOTS",
     "references": [
         "GUID:db6cb664d983c4a49bec8417b93d046c",
-        "GUID:734d92eba21c94caba915361bd5ac177"
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:8819f35a0fc84499b990e90a4ca1911f",
+        "GUID:a5baed0c9693541a5bd947d336ec7659",
+        "GUID:63afb046c8423dd448ae7aba042ea63d",
+        "GUID:fe25561d224ed4743af4c60938a59d0b",
+        "GUID:2665a8d13d1b3f18800f46e256720795"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
