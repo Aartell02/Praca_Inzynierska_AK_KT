@@ -21,36 +21,24 @@ namespace DOTS.Components.Player
 			Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
 			AddComponent<PlayerInitializeTag>(entity);
-			AddComponentObject(entity, new PlayerModelComponent
+			AddComponent(entity, new PlayerModelComponent
 			{
-				Prefab = authoring.PlayerModelPrefab
+				Prefab = GetEntity(authoring.PlayerModelPrefab,TransformUsageFlags.None)
 			});
-			AddComponent(entity, new PlayerStatsComponent
+			AddComponent(entity, new PlayerDataComponent
 			{
 				MoveSpeed = authoring.MoveSpeed,
 				Health = authoring.Health
 			});
+			AddComponent<PlayerInputComponent>(entity);
 
 		}
 	}
 
-	public struct PlayerInputComponent : IComponentData
+	struct PlayerModelComponent : IComponentData
 	{
-		public Vector2 inputVector;
+		internal Entity Prefab;
 	}
 
-	public struct PlayerStatsComponent : IComponentData
-	{
-		public float MoveSpeed;
-		public float Health;
-		public float AttackDamage;
-		public float AttackSpeed;
-	}
-
-	public class PlayerModelComponent : IComponentData
-	{
-		public GameObject Prefab;
-	}
-
-	public struct PlayerInitializeTag : IComponentData { }
+	struct PlayerInitializeTag : IComponentData { }
 }
