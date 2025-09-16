@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenes:
-  - Gameplay
-  - Booting
+  - BootScene
+  - 
+  - GameplayScene
   persistAcrossScenes: 0
 --- !u!4 &1745525092
 Transform:
