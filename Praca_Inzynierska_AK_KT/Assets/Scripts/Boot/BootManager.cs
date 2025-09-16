@@ -15,7 +15,7 @@ namespace Boot
 		public static BootManager Instance { get; private set; }
 
 		[Header("Boot Configuration")]
-		[EnumLabels(typeof(GameState))]
+		[EnumLabeledArray(typeof(GameState))]
 		public string[] scenes;
 
 		[SerializeField, Tooltip("If true, BootManager won't destroy itself when new scene loads.")]
@@ -51,7 +51,7 @@ namespace Boot
 			if (scenes is not null)
 			{
 				OnBootLog?.Invoke($"BootManager: Loading initial scene '{scenes[0]}'...");
-				yield return StartCoroutine(LoadSceneAsync(scenes[0]));
+				yield return StartCoroutine(LoadSceneAsync(scenes[(int)GameState.Gameplay]));
 			}
 			OnBootLog?.Invoke("BootManager: Boot sequence completed successfully.");
 			OnBootCompleted?.Invoke();
@@ -62,7 +62,7 @@ namespace Boot
 			var aso = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
 			if (aso == null)
 			{
-				Debug.LogError($"BootManager: Scene '{name}' not found or failed to start loading.");
+				Debug.LogError($"BootManager: Scene '{scene}' not found or failed to start loading.");
 				yield break;
 			}
 			while (!aso.isDone)

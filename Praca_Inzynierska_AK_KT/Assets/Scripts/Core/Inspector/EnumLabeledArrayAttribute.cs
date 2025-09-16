@@ -4,14 +4,15 @@ using UnityEngine;
 namespace Core.Inspector
 {
 	[AttributeUsage(AttributeTargets.Field)]
-	public class EnumLabelsAttribute : PropertyAttribute
+	public class EnumLabeledArrayAttribute : PropertyAttribute
 	{
 		public Type EnumType { get; private set; }
 
-		public EnumLabelsAttribute(Type enumType)
+		public EnumLabeledArrayAttribute(Type enumType)
 		{
 			if (!enumType.IsEnum)
-				throw new ArgumentException("EnumLabelsAttribute: Provided type is not an enum");
+				throw new ArgumentException("EnumLabeledArrayAttribute: Type must be an enum!");
+
 			EnumType = enumType;
 		}
 	}
