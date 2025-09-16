@@ -1,6 +1,11 @@
 using UnityEngine;
 
-public class Enums
+namespace Core
 {
-    
+	public enum GameState
+	{
+		Booting,
+		MainMenu,
+		Gameplay
+	}
 }

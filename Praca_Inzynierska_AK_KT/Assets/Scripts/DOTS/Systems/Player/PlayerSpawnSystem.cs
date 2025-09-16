@@ -26,7 +26,7 @@ namespace DOTS.Systems.Player
 			ecb.Playback(state.EntityManager);
 			ecb.Dispose();
 
-			//state.Enabled = false;
+			state.Enabled = false;
 		}
 	}
 }

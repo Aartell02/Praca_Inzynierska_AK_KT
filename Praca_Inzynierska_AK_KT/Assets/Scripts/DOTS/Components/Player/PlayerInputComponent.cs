@@ -1,9 +1,10 @@
+using Unity.Entities;
 using UnityEngine;
 
-namespace DOTS
+namespace DOTS.Components.Player
 {
-    public class PlayerInputComponent
-    {
-    
-    }
+	struct PlayerInputComponent : IComponentData
+	{
+		public Vector2 Move;
+	}
 }
