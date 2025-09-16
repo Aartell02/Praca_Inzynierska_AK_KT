@@ -12,13 +12,12 @@ namespace Core.Inspector
 			EnumLabeledArrayAttribute enumAttr = (EnumLabeledArrayAttribute)attribute;
 			string[] enumNames = Enum.GetNames(enumAttr.EnumType);
 
-			// jeśli to element tablicy (Unity daje nazwy w stylu data[0], data[1], …)
 			if (property.propertyPath.Contains("Array.data["))
 			{
 				int index = GetIndexFromPropertyPath(property.propertyPath);
 				if (index >= 0 && index < enumNames.Length)
 				{
-					label.text = enumNames[index]; // ← podmieniamy "Element X"
+					label.text = enumNames[index];
 				}
 			}
 
@@ -27,7 +26,6 @@ namespace Core.Inspector
 
 		private int GetIndexFromPropertyPath(string path)
 		{
-			// np. "statValues.Array.data[2]"
 			int start = path.IndexOf("[") + 1;
 			int end = path.IndexOf("]", start);
 			if (start >= 0 && end > start)
