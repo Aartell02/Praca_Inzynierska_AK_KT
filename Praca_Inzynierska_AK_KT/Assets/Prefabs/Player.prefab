@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerModelPrefab: {fileID: 0}
-  MoveSpeed: 10
+  MoveSpeed: 1
   Health: 100
 --- !u!65 &7091638085552669918
 BoxCollider:
