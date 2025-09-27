@@ -8,4 +8,11 @@ namespace Core
 		MainMenu,
 		Gameplay
 	}
+
+	public enum EnemyType
+	{
+		Scout,
+		Soldier,
+		General
+	}
 }
