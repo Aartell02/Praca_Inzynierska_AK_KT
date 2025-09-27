@@ -1,6 +1,5 @@
 using UnityEngine;
 
-public class Enums
+namespace DOTS
 {
-    
 }
