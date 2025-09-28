@@ -6,5 +6,7 @@ namespace DOTS.Components.Player
 	struct PlayerInputComponent : IComponentData
 	{
 		public Vector2 Move;
+
+		public Vector2 MousePosition;
 	}
 }

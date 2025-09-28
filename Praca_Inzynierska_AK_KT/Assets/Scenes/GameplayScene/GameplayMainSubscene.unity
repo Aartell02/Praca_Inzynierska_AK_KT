@@ -164,6 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 8016658214583311117, guid: 5f67bcc61f53d6d4ba0f3a6e41fc2392, type: 3}
+  EnemiesPrefab:
+  - {fileID: 6529996829581106454, guid: f994173a6caa6104ebc475eaf56fb260, type: 3}
+  - {fileID: 6529996829581106454, guid: 7aee877ff15ff5447ac0ef900822cf8e, type: 3}
+  - {fileID: 6529996829581106454, guid: a5200d560cf58294686b14523706980a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
