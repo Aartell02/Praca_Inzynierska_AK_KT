@@ -5,32 +5,28 @@ using UnityEngine.InputSystem;
 
 namespace Core.Services
 {
-	internal static class PlayerInputService
+	public interface IPlayerInputService
 	{
-		static PlayerInputActions _inputActions;
-		static PlayerInputService()
+		Vector2 MousePos { get; }
+		Vector2 Move { get; }
+	}
+
+	internal class PlayerInputService : IPlayerInputService
+	{
+		PlayerInputActions inputActions;
+
+		public Vector2 MousePos => Mouse.current.position.ReadValue();
+		public Vector2 Move => inputActions.Player.Move.ReadValue<Vector2>();
+
+		PlayerInputService(PlayerInputActions inputActions)
 		{
-			_inputActions = new PlayerInputActions();
-			_inputActions.Enable();
+			this.inputActions = inputActions;
+			this.inputActions.Enable();
 		}
 
-		public static Vector2 MousePosition => Mouse.current.position.ReadValue();
-		public static Vector2 Move => _inputActions.Player.Move.ReadValue<Vector2>();
-
-		public static void TogglePlayerInputActions(bool option)
+		~PlayerInputService()
 		{
-			if (option)
-				_inputActions.Player.Enable();
-			else
-				_inputActions.Player.Disable();
-		}
-
-		public static void ToggleUIInputActions(bool option)
-		{
-			if (option)
-				_inputActions.UI.Enable();
-			else
-				_inputActions.UI.Disable();
+			this.inputActions.Disable();
 		}
 	}
 }

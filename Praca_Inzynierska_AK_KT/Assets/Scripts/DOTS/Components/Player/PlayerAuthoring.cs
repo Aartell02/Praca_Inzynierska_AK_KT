@@ -28,7 +28,6 @@ namespace DOTS.Components.Player
 			AddComponent(entity, new PlayerDataComponent
 			{
 				MoveSpeed = authoring.MoveSpeed,
-				MaxMoveSpeed = authoring.MoveSpeed * 5,
 				Health = authoring.Health
 			});
 			AddComponent<PlayerInputComponent>(entity);

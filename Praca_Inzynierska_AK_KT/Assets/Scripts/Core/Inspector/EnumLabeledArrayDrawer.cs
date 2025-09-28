@@ -4,60 +4,37 @@ using UnityEngine;
 
 namespace Core.Inspector
 {
-	[CustomPropertyDrawer(typeof(EnumArrayAttribute))]
-	public class EnumArrayDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(EnumLabeledArrayAttribute))]
+	public class EnumLabeledArrayDrawer : PropertyDrawer
 	{
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			EnumArrayAttribute enumAttr = (EnumArrayAttribute)attribute;
+			EnumLabeledArrayAttribute enumAttr = (EnumLabeledArrayAttribute)attribute;
 			string[] enumNames = Enum.GetNames(enumAttr.EnumType);
 
-			// Przygotuj etykietę jaka ma być widoczna (nie zmieniamy oryginalnego 'label' bezpośrednio)
-			GUIContent displayedLabel = new GUIContent(label);
-
-			// Jeśli to element tablicy (np. Array.data[x]) -> podstaw nazwę enuma
-			int index = TryGetArrayIndex(property.propertyPath);
-			if (index >= 0 && index < enumNames.Length)
+			// jeśli to element tablicy (Unity daje nazwy w stylu data[0], data[1], …)
+			if (property.propertyPath.Contains("Array.data["))
 			{
-				displayedLabel.text = enumNames[index];
+				int index = GetIndexFromPropertyPath(property.propertyPath);
+				if (index >= 0 && index < enumNames.Length)
+				{
+					label.text = enumNames[index]; // ← podmieniamy "Element X"
+				}
 			}
 
-			EditorGUI.BeginProperty(position, displayedLabel, property);
-			// true -> rysujemy również dzieci (rozszerzalne pola struktury)
-			EditorGUI.PropertyField(position, property, displayedLabel, true);
-			EditorGUI.EndProperty();
+			EditorGUI.PropertyField(position, property, label, true);
 		}
 
-		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		private int GetIndexFromPropertyPath(string path)
 		{
-			// Musimy użyć tej samej etykiety jak w OnGUI, żeby wysokość się zgadzała
-			EnumArrayAttribute enumAttr = (EnumArrayAttribute)attribute;
-			string[] enumNames = Enum.GetNames(enumAttr.EnumType);
-
-			GUIContent displayedLabel = new GUIContent(label);
-			int index = TryGetArrayIndex(property.propertyPath);
-			if (index >= 0 && index < enumNames.Length)
+			// np. "statValues.Array.data[2]"
+			int start = path.IndexOf("[") + 1;
+			int end = path.IndexOf("]", start);
+			if (start >= 0 && end > start)
 			{
-				displayedLabel.text = enumNames[index];
+				if (int.TryParse(path.Substring(start, end - start), out int result))
+					return result;
 			}
-
-			// EditorGUI.GetPropertyHeight NIE jest naszą metodą override — to statyczne API Unity,
-			// które zwraca prawidłową wysokość łącznie z dziećmi gdy trzeci parametr = true.
-			return EditorGUI.GetPropertyHeight(property, displayedLabel, true);
-		}
-
-		private int TryGetArrayIndex(string propertyPath)
-		{
-			// Szukamy wzorca "Array.data[<index>]" i wyciągamy <index>
-			const string marker = "Array.data[";
-			int m = propertyPath.IndexOf(marker, StringComparison.Ordinal);
-			if (m < 0) return -1;
-			int start = m + marker.Length;
-			int end = propertyPath.IndexOf(']', start);
-			if (end < 0) return -1;
-
-			if (int.TryParse(propertyPath.Substring(start, end - start), out int result))
-				return result;
 			return -1;
 		}
 	}

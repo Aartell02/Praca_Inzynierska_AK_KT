@@ -15,7 +15,7 @@ namespace Boot
 		public static BootManager Instance { get; private set; }
 
 		[Header("Boot Configuration")]
-		[EnumArray(typeof(GameState))]
+		[EnumLabeledArray(typeof(GameState))]
 		public string[] scenes;
 
 		[SerializeField, Tooltip("If true, BootManager won't destroy itself when new scene loads.")]
