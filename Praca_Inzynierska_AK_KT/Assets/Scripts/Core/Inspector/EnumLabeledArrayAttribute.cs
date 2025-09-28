@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Core.Inspector
 {
 	[AttributeUsage(AttributeTargets.Field)]
-	public class EnumLabeledArrayAttribute : PropertyAttribute
+	public class EnumArrayAttribute : PropertyAttribute
 	{
 		public Type EnumType { get; private set; }
 
-		public EnumLabeledArrayAttribute(Type enumType)
+		public EnumArrayAttribute(Type enumType)
 		{
 			if (!enumType.IsEnum)
 				throw new ArgumentException("EnumLabeledArrayAttribute: Type must be an enum!");
