@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace DOTS.Systems.Player
 {
@@ -41,8 +42,6 @@ namespace DOTS.Systems.Player
 
 				var moveVector = moveDirection * playerData.ValueRW.CurrentMoveSpeed;
 				velocity.ValueRW.Linear = new float3(moveVector.x, moveVector.y, velocity.ValueRW.Linear.z);
-
-
 
 			}
 		}

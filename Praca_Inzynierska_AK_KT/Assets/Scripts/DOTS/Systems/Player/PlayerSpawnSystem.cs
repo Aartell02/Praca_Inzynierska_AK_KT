@@ -1,9 +1,8 @@
+using DOTS.Authoring;
+using DOTS.Components.Player;
 using Unity.Entities;
-using UnityEngine;
-using Core.Services;
-using Unity.Collections;
-using DOTS.Components;
-using Unity.Transforms;
+using Unity.Mathematics;
+using static UnityEngine.GraphicsBuffer;
 
 namespace DOTS.Systems.Player
 {
@@ -21,8 +20,18 @@ namespace DOTS.Systems.Player
 
 			var ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
-			ecb.Instantiate(entityReferences.playerReference);
+			var player = ecb.Instantiate(entityReferences.playerReference);
 
+			var camera = ecb.Instantiate(entityReferences.cameraReference);
+
+
+			CameraSingleton cameraSingleton = CameraSingleton.Instance;
+			ecb.AddComponent(camera, new CameraTargetComponent
+			{
+				Target = player,
+				CameraTransform = cameraSingleton.transform
+			});
+	
 			ecb.Playback(state.EntityManager);
 			ecb.Dispose();
 
