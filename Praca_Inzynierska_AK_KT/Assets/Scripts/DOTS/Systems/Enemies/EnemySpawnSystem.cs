@@ -1,7 +1,7 @@
-using DOTS.Components;
 using Unity.Entities;
 using Gameplay;
 using Core;
+using DOTS.Authoring;
 
 namespace DOTS.Systems.Enemies
 {

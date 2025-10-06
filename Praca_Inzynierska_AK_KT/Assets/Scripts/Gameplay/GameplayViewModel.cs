@@ -23,7 +23,6 @@ namespace Gameplay
 				return;
 			}
 			Instance = this;
-			DontDestroyOnLoad(gameObject);
 		}
 
 		public EnemySpawnConfig GetConfig() => enemyConfig;

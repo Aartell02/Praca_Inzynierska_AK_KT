@@ -3,12 +3,15 @@ using Core;
 using Unity.Entities;
 using UnityEngine;
 
-namespace DOTS.Components
+namespace DOTS.Authoring
 {
 	public class EntityReferencesAuthoring : MonoBehaviour
 	{
 		[SerializeField]
 		internal GameObject PlayerPrefab;
+
+		[SerializeField]
+		internal GameObject CaneraPrefab;
 
 		[SerializeField]
 		[EnumArray(typeof(EnemyType))]
@@ -20,9 +23,9 @@ namespace DOTS.Components
 			{
 				Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-				AddComponent(entity, new EntityReferences
-				{
+				AddComponent(entity, new EntityReferences{
 					playerReference = GetEntity(authoring.PlayerPrefab, TransformUsageFlags.Dynamic),
+					cameraReference = GetEntity(authoring.CaneraPrefab, TransformUsageFlags.Dynamic),
 				});
 
 				DynamicBuffer<EnemyReferenceBuffer> buffer = AddBuffer<EnemyReferenceBuffer>(entity);
@@ -40,6 +43,7 @@ namespace DOTS.Components
 	internal struct EntityReferences : IComponentData
 	{
 		internal Entity playerReference;
+		internal Entity cameraReference;
 	}
 
 	internal struct EnemyReferenceBuffer : IBufferElementData

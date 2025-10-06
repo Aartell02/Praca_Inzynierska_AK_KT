@@ -27,6 +27,8 @@ namespace DOTS.Components.Enemies
 			{
 				Type = authoring.EnemyType
 			});
+
+			AddComponent<PhysicsInitializeTag>(entity);
 		}
 	}
 
