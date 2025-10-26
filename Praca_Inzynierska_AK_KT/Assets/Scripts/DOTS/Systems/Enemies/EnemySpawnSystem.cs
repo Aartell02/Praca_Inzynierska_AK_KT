@@ -10,6 +10,7 @@ namespace DOTS.Systems.Enemies
 	{
 		public void OnCreate(ref SystemState state)
 		{
+
 			state.RequireForUpdate<EntityReferences>();
 		}
 
@@ -23,7 +24,8 @@ namespace DOTS.Systems.Enemies
 
 			var ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
 
-			var enemyConfig = GameplayViewModel.Instance.GetConfig();
+
+			var enemyConfig = ConfigReferences.Instance.enemyConfig;
 
 			foreach (var enemyData in enemyConfig.EnemySpawnData)
 			{
