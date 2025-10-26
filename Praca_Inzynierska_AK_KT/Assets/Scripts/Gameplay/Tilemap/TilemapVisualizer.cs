@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace DOTS
+namespace Gameplay
 {
     public class TilemapVisualizer : MonoBehaviour
     {

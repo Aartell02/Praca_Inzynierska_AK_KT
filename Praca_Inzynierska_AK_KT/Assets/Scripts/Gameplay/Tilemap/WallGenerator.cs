@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DOTS
+namespace Gameplay
 {
     public static class WallGenerator
     {

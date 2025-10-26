@@ -11,10 +11,6 @@ namespace Boot
 	public class BootManager : MonoBehaviour
 	{
 		public static BootManager Instance { get; private set; }
-		[Header("Boot Configuration")]
-		[EnumArray(typeof(GameState))]
-		public string[] scenes;
-
 		[SerializeField, Tooltip("If true, BootManager won't destroy itself when new scene loads.")]
 		private bool persistAcrossScenes = true;
 
@@ -45,18 +41,27 @@ namespace Boot
 			OnBootLog?.Invoke("BootManager: Starting bootstrap sequence.");
 
 			float overallStart = Time.realtimeSinceStartup;
-			if (scenes is not null)
-			{
-				OnBootLog?.Invoke($"BootManager: Loading initial scene '{scenes[0]}'...");
-				yield return StartCoroutine(LoadSceneAsync(scenes[(int)GameState.Gameplay]));
-			}
+
+			OnBootLog?.Invoke($"BootManager: Loading initial scene 'ConfigScene'...");
+			yield return StartCoroutine(LoadSceneAsync("ConfigScene"));
+
+			OnBootLog?.Invoke($"BootManager: Loading initial scene 'WorldScene'...");
+			yield return StartCoroutine(LoadSceneAsync("WorldScene"));
+
+			OnBootLog?.Invoke($"BootManager: Loading initial scene 'GameplayScene'...");
+			yield return StartCoroutine(LoadSceneAsync("GameplayScene"));
+
+			SceneManager.UnloadSceneAsync("BootScene");
+
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameplayScene"));
+
 			OnBootLog?.Invoke("BootManager: Boot sequence completed successfully.");
 			OnBootCompleted?.Invoke();
 		}
 
 		private IEnumerator LoadSceneAsync(string scene)
 		{
-			var aso = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Single);
+			var aso = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 			if (aso == null)
 			{
 				Debug.LogError($"BootManager: Scene '{scene}' not found or failed to start loading.");

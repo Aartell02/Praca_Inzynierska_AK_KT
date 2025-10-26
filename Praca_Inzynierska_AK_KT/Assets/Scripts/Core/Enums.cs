@@ -6,7 +6,8 @@ namespace Core
 	{
 		Booting,
 		MainMenu,
-		Gameplay
+		Gameplay,
+		World
 	}
 
 	public enum EnemyType

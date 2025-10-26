@@ -1,0 +1,24 @@
+using UnityEngine;
+
+namespace Gameplay
+{
+    [CreateAssetMenu(fileName = "WorldGenerationConfig", menuName = "Config/Gameplay/WorldGenerationConfig")]
+    public class WorldGenerationConfig : ScriptableObject
+    {
+		[SerializeField]
+		public Vector2Int startPosition = Vector2Int.zero;
+
+		[SerializeField]
+		public int corridorLength = 14;
+
+		[SerializeField]
+		public int corridorCount = 5;
+
+		[SerializeField]
+		[Range(0.1f, 1)]
+		public float roomPercent = 0.8f;
+
+		[SerializeField]
+		public RandomWalkData randomWalkParameters;
+	}
+}

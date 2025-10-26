@@ -14,12 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: a615864f947e76d43bb8e0b7a7f78151
-  m_SerializeEntries:
-  - m_GUID: ad3b4e56888f04941a7d9711ffd31772
-    m_Address: Assets/Datas/Config/DOTS/WorldGenerationConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f535037f0efeaaf40b7f8bd5b953269a, type: 2}
   m_SchemaSet:

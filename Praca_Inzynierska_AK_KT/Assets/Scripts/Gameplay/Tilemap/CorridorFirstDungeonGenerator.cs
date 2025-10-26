@@ -3,21 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
-namespace DOTS
+
+namespace Gameplay
 {
-    public class CorridorFirstDungeonGenerator : AbstractDungeonSimulator
-    {
+    public class CorridorFirstDungeonGenerator : MonoBehaviour
+	{
 		[SerializeField]
-		private int corridorLength = 14, corridorCount = 5;
+		private TilemapVisualizer tilemapVisualizer;
 
-		[SerializeField]
-		[Range(0.1f, 1)]
-		public float roomPercent = 0.8f;
+		private WorldGenerationConfig worldConfig = ConfigReferences.Instance.worldConfig;
 
-		[SerializeField]
-		protected RandomWalkData randomWalkParameters;
+		private Vector2Int startPosition;
+		private int corridorLength;
+		private int corridorCount;
+		private float roomPercent;
+		private RandomWalkData randomWalkParameters;
 
-		protected override void RunProceduralGeneration()
+		public CorridorFirstDungeonGenerator()
+		{
+			startPosition = worldConfig.startPosition;
+			corridorLength = worldConfig.corridorLength;
+			corridorCount = worldConfig.corridorCount;
+			roomPercent = worldConfig.roomPercent;
+			randomWalkParameters = worldConfig.randomWalkParameters;
+		}
+
+		public void Awake()
+		{
+			GenerateDungeon();
+		}
+		public void GenerateDungeon()
+		{
+			tilemapVisualizer.ClearTiles();
+			RunProceduralGeneration();
+		}
+		protected void RunProceduralGeneration()
 		{
 			CorridorFirstGeneration();
 		}
