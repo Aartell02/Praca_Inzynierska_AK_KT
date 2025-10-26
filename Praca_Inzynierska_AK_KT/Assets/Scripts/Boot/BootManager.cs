@@ -1,8 +1,6 @@
 using Core;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core.Inspector;
@@ -13,7 +11,6 @@ namespace Boot
 	public class BootManager : MonoBehaviour
 	{
 		public static BootManager Instance { get; private set; }
-
 		[Header("Boot Configuration")]
 		[EnumArray(typeof(GameState))]
 		public string[] scenes;

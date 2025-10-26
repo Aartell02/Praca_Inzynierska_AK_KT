@@ -2,22 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 namespace DOTS
 {
-    public class CorridorFirstDungeonGenerator : RandomWalkMapGenerator
+    public class CorridorFirstDungeonGenerator : AbstractDungeonSimulator
     {
 		[SerializeField]
 		private int corridorLength = 14, corridorCount = 5;
+
 		[SerializeField]
 		[Range(0.1f, 1)]
 		public float roomPercent = 0.8f;
+
+		[SerializeField]
+		protected RandomWalkData randomWalkParameters;
 
 		protected override void RunProceduralGeneration()
 		{
 			CorridorFirstGeneration();
 		}
+		protected HashSet<Vector2Int> RunRandomWalk(RandomWalkData parameters, Vector2Int position)
+		{
+			var currentPosition = position;
+			HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
 
+			for (int i = 0; i < randomWalkParameters.iterations; i++)
+			{
+				var path = ProceduralGenerationAlgorithm.SimpleRandomWalk(currentPosition, randomWalkParameters.walkLength);
+				floorPositions.UnionWith(path);
+				if (randomWalkParameters.startRandomlyEachIteration)
+				{
+					currentPosition = floorPositions.ElementAt(Random.Range(0, floorPositions.Count));
+				}
+			}
+			return floorPositions;
+		}
 		private void CorridorFirstGeneration()
 		{
 			HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
