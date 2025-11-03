@@ -1,7 +1,8 @@
-using Unity.Entities;
-using Gameplay;
+using Codice.CM.Client.Differences.Graphic;
 using Core;
 using DOTS.Authoring;
+using Unity.Entities;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace DOTS.Systems.Enemies
 {
@@ -10,38 +11,17 @@ namespace DOTS.Systems.Enemies
 	{
 		public void OnCreate(ref SystemState state)
 		{
-
 			state.RequireForUpdate<EntityReferences>();
 		}
 
 		public void OnUpdate(ref SystemState state)
 		{
-			Entity entity = SystemAPI.GetSingletonEntity<EntityReferences>();
 
-			EntityReferences entityReferences = SystemAPI.GetComponent<EntityReferences>(entity);
+		}
 
-			DynamicBuffer<EnemyReferenceBuffer> enemyBuffer = SystemAPI.GetBuffer<EnemyReferenceBuffer>(entity);
+		public void SpawnEnemy(EnemyType enemyType, int count)
+		{
 
-			var ecb = new EntityCommandBuffer(Unity.Collections.Allocator.Temp);
-
-
-			var enemyConfig = ConfigReferences.Instance.enemyConfig;
-
-			foreach (var enemyData in enemyConfig.EnemySpawnData)
-			{
-				switch (enemyData.Type)
-				{
-					case EnemyType.Scout:
-						for (int i = 0; i < enemyData.Count; i++)
-							ecb.Instantiate(enemyBuffer[(int)enemyData.Type].Enemy);
-						break;
-				}
-			}
-
-			ecb.Playback(state.EntityManager);
-			ecb.Dispose();
-
-			state.Enabled = false;
 		}
 	}
 }

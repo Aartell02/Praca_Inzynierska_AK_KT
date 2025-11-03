@@ -1,6 +1,6 @@
 using Core;
 using Core.Services;
-using DOTS.Components.Player;
+using DOTS.Components;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;

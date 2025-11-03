@@ -1,10 +1,10 @@
-using DOTS.Components.Player;
+using DOTS.Components;
 using Unity.Entities;
 using UnityEngine;
 
 namespace DOTS.Authoring
 {
-    public class PlayerAuthoring  : MonoBehaviour
+    class PlayerAuthoring  : MonoBehaviour
     {
 		[SerializeField]
 		internal GameObject PlayerModelPrefab;

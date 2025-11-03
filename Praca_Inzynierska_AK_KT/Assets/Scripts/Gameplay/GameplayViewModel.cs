@@ -1,25 +1,25 @@
+using DOTS;
+using Mono.Cecil.Cil;
+using Unity.Scenes;
 using UnityEngine;
 
 namespace Gameplay
 {
-	public class ConfigReferences : MonoBehaviour
-	{
-		[SerializeField]
-		public EnemySpawnConfig enemyConfig;
-
-		[SerializeField]
-		public WorldGenerationConfig worldConfig;
-
-		public static ConfigReferences Instance { get; private set; }
-
-		private void Awake()
+    public static class GameplayViewModel
+    {
+		private static readonly EnemySpawnConfig enemyConfig = ConfigReferences.Instance.enemyConfig;
+		public static void GenerateMap()
 		{
-			if (Instance != null)
-			{
-				Destroy(gameObject);
-				return;
-			}
-			Instance = this;
+			var generator = DungeonGenerator.FindFirstObjectByType<DungeonGenerator>();
+			generator.GenerateDungeon();
 		}
-	}
+
+		public static void SpawnEnemies()
+		{
+			foreach (var enemyData in enemyConfig.EnemySpawnData)
+			{
+				DOTSViewModel.SpawnEnemy(enemyData.Type, enemyData.Count);
+			}
+		}
+    }
 }

@@ -1,7 +1,8 @@
 using DOTS.Authoring;
-using DOTS.Components.Player;
+using DOTS.Components;
 using Unity.Entities;
 using Unity.Mathematics;
+using static UnityEngine.EventSystems.EventTrigger;
 using static UnityEngine.GraphicsBuffer;
 
 namespace DOTS.Systems.Player
@@ -31,9 +32,13 @@ namespace DOTS.Systems.Player
 				Target = player,
 				CameraTransform = cameraSingleton.transform
 			});
-	
+
+#if UNITY_EDITOR
+			ecb.SetName(player, $"Player");
+#endif
 			ecb.Playback(state.EntityManager);
 			ecb.Dispose();
+
 
 			state.Enabled = false;
 		}

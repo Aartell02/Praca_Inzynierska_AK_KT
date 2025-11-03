@@ -1,12 +1,12 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace DOTS.Components.Player
+namespace DOTS.Components
 {
 	struct PlayerInputComponent : IComponentData
 	{
-		public Vector2 Move;
+		internal Vector2 Move;
 
-		public Vector2 MousePosition;
+		internal Vector2 MousePosition;
 	}
 }

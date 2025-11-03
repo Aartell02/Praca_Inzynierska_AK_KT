@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724a33b7b92d84548896193aa13f193b, type: 3}
   m_Name: WorldGenerationConfig
   m_EditorClassIdentifier: 
-  tilemapVisualizer: {fileID: 0}
   startPosition: {x: 0, y: 0}
   corridorLength: 14
   corridorCount: 5
-  roomPercent: 0.476
+  roomPercent: 0.1
   randomWalkParameters: {fileID: 11400000, guid: 3e972c4064ed52547ba4519ae6469d60, type: 2}
