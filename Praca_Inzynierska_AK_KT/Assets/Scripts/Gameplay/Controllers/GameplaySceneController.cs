@@ -9,6 +9,7 @@ namespace Gameplay.Controllers
 	public class GameplaySceneController : MonoBehaviour
 	{
 		public SubScene SubScene;
+
 		private void Awake()
 		{
 			StartCoroutine(WaitForSubSceneAndSpawn());
@@ -22,10 +23,6 @@ namespace Gameplay.Controllers
 				yield break;
 			}
 
-			while (!SubScene.IsLoaded)
-				yield return null;
-
-			GameplayViewModel.SpawnEnemies();
 		}
 	}
 }

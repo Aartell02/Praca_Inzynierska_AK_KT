@@ -14,12 +14,5 @@ namespace Gameplay
 			generator.GenerateDungeon();
 		}
 
-		public static void SpawnEnemies()
-		{
-			foreach (var enemyData in enemyConfig.EnemySpawnData)
-			{
-				DOTSViewModel.SpawnEnemy(enemyData.Type, enemyData.Count);
-			}
-		}
     }
 }
