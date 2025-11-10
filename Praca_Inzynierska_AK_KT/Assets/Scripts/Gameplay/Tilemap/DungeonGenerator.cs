@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Gameplay
 {
-    public class CorridorFirstDungeonGenerator : MonoBehaviour
+    public class DungeonGenerator : MonoBehaviour
 	{
 		[SerializeField]
 		private TilemapVisualizer tilemapVisualizer;
@@ -19,18 +19,13 @@ namespace Gameplay
 		private float roomPercent;
 		private RandomWalkData randomWalkParameters;
 
-		public CorridorFirstDungeonGenerator()
+		public DungeonGenerator()
 		{
 			startPosition = worldConfig.startPosition;
 			corridorLength = worldConfig.corridorLength;
 			corridorCount = worldConfig.corridorCount;
 			roomPercent = worldConfig.roomPercent;
 			randomWalkParameters = worldConfig.randomWalkParameters;
-		}
-
-		public void Awake()
-		{
-			GenerateDungeon();
 		}
 		public void GenerateDungeon()
 		{
