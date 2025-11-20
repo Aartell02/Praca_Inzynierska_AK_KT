@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemySpawnData:
   - Type: 0
-    Count: 10
+    Count: 0
   - Type: 1
-    Count: 1
+    Count: 3
   - Type: 2
-    Count: 1
+    Count: 0
