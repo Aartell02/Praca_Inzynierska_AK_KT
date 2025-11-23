@@ -5,6 +5,8 @@ namespace Gameplay.Controllers
 {
 	public class GameplaySceneController : MonoBehaviour
 	{
+		public GameObject _Player;
+		public GameObject _Enemies;
 		GameObjectReferences gameObjectReferences;
 		EnemySpawnConfig enemySpawnConfig;
 		public void Awake()
@@ -19,7 +21,7 @@ namespace Gameplay.Controllers
 		{
 			GameObject playerPrefab = gameObjectReferences.Player;
 
-			GameObject player = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity);
+			GameObject player = Instantiate(playerPrefab, Vector2.zero, Quaternion.identity, _Player.transform);
 		}
 		public void SpawnEnemies()
 		{
@@ -29,7 +31,7 @@ namespace Gameplay.Controllers
 				GameObject enemyPrefab = gameObjectReferences.Enemy[i];
 				for (int j = 0; j < enemies[i].Count; j++)
 				{
-					GameObject enemy = Instantiate(enemyPrefab, Vector2.zero + new Vector2(10,j), Quaternion.identity);
+					GameObject enemy = Instantiate(enemyPrefab, Vector2.zero + new Vector2(15,j), Quaternion.identity, _Enemies.transform);
 				}
 			}
 		}

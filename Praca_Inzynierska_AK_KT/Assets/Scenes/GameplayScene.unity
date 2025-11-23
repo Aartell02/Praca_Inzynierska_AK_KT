@@ -386,6 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe0d3ff83eecb449a82e6d4885cf0b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gameplay::Gameplay.Controllers.GameplaySceneController
+  _Player: {fileID: 172353347}
+  _Enemies: {fileID: 404032987}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
