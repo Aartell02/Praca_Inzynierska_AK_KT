@@ -1,3 +1,4 @@
+using Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.GenTest;
 using CrashKonijn.Goap.Runtime;
@@ -19,7 +20,7 @@ namespace CrashKonijn.Goap.GenTest
 
 			// This only applies sto the code demo
 			if (this.provider.AgentTypeBehaviour == null)
-				this.provider.AgentType = this.goap.GetAgentType("ScriptDemoAgent");
+				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());
 		}
 
 		private void Start()
