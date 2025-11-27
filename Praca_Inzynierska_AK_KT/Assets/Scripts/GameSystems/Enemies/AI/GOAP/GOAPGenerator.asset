@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0857b2a53377458ebec6c4b1179e3c5a, type: 3}
   m_Name: GOAPGenerator
   m_EditorClassIdentifier: CrashKonijn.Goap.Runtime::CrashKonijn.Goap.Runtime.GeneratorScriptable
-  nameSpace: CrashKonijn.Goap.GenTest
+  nameSpace: GameSystems.AI
   scripts:
     goals: []
     actions: []

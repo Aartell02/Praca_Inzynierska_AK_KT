@@ -1,25 +1,27 @@
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
-using UnityEngine;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
 	public class IdleCapabilityFactory : CapabilityFactoryBase
 	{
 		public override ICapabilityConfig Create()
 		{
-			var builder = new CapabilityBuilder("IdleCapability");
+			var builder = new CapabilityBuilder(AIEnemyState.Idle.ToString() + "Capability");
 
 			builder.AddGoal<IdleGoal>()
 				.AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1)
-				.SetBaseCost(2);
+				.AddCondition<PlayerVisible>(Comparison.SmallerThan, 1)
+				.SetBaseCost(50);
+
+			builder.AddTargetSensor<IdleTargetSensor>()
+				.SetTarget<IdleTarget>();
 
 			builder.AddAction<IdleAction>()
 				.AddEffect<IsIdle>(EffectType.Increase)
 				.SetTarget<IdleTarget>();
 
-			builder.AddTargetSensor<IdleTargetSensor>()
-				.SetTarget<IdleTarget>();
+
 
 			return builder.Build();
 		}

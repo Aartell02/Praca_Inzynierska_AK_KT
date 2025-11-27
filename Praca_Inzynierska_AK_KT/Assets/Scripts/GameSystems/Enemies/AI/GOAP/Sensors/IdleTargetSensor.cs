@@ -1,11 +1,11 @@
 using CrashKonijn.Agent.Core;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
 	// Defining a GoapId is only necessary when using the ScriptableObject configuration method.
-	[GoapId("IdleTargetSensor-c34e9575-d171-4044-9b83-a91a1c32e214")]
 	public class IdleTargetSensor : LocalTargetSensorBase
 	{
 		private static readonly Bounds Bounds = new(Vector2.zero, new Vector2(15, 15));

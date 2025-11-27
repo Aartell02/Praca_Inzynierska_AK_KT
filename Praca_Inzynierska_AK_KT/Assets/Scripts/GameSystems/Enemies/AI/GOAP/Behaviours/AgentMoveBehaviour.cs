@@ -2,7 +2,7 @@ using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
 	public class AgentMoveBehaviour : MonoBehaviour
 	{

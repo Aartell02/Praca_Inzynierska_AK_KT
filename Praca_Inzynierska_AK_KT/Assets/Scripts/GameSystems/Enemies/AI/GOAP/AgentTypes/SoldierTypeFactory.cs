@@ -2,7 +2,7 @@ using Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
 	public class SoldierTypeFactory : AgentTypeFactoryBase
 	{
@@ -11,6 +11,7 @@ namespace CrashKonijn.Goap.GenTest
 			var factory = new AgentTypeBuilder(EnemyType.Soldier.ToString());
 
 			factory.AddCapability<IdleCapabilityFactory>();
+			factory.AddCapability<CombatCapabilityFactory>();
 
 			return factory.Build();
 		}

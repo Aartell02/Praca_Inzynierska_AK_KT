@@ -2,9 +2,8 @@ using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
-    [GoapId("Idle-7b336daa-970a-4e24-a834-c50b59049038")]
     public class IdleAction : GoapActionBase<IdleAction.Data>
     {
         // This method is called when the action is created

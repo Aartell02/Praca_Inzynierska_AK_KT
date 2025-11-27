@@ -1,10 +1,9 @@
 using Core;
 using CrashKonijn.Agent.Runtime;
-using CrashKonijn.Goap.GenTest;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
 
-namespace CrashKonijn.Goap.GenTest
+namespace GameSystems.AI
 {
 	public class BrainBehaviour : MonoBehaviour
 	{
