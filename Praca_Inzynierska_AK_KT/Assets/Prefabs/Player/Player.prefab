@@ -147,10 +147,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7360478511905701439}
   - component: {fileID: -8407679306874125081}
+  - component: {fileID: 8108840324473111709}
   - component: {fileID: 8034715814961928568}
   - component: {fileID: -8387322695510552033}
   - component: {fileID: 7481955899817624992}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -186,6 +187,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 10
+--- !u!114 &8108840324473111709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016658214583311117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70ad7a3dbfedbdc4096b7c2555aa42c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.PlayerData
+  Heatlh: 100
+  MoveSpeed: 0
 --- !u!212 &8034715814961928568
 SpriteRenderer:
   m_ObjectHideFlags: 0

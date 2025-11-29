@@ -1,43 +1,47 @@
+using Core;
 using CrashKonijn.Agent.Core;
+using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
 using System;
 using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class AttackAction : GoapActionBase<AttackAction.Data>
+	public class AttackAction : GoapActionBase<AttackAction.Data>, IInjectable
 	{
-		private float attackCooldown = 1f;
-		private float lastAttackTime;
-
-		public override void Created() { }
-
-		public override void BeforePerform(IMonoAgent agent, Data data)
+		EnemyConfig enemyConfig;
+		EnemyType enemyType;
+		public class Data : IActionData
 		{
-			lastAttackTime = Time.time;
-			Debug.Log($"{agent.gameObject.name} begins attacking!");
+			public float Timer;
+			public ITarget Target { get; set; }
+		}
+		public override void Start (IMonoAgent agent, Data data)
+		{
+			Debug.Log($"{agent.gameObject.name} started attacking attacking");
+
+			var renderer = agent.GetComponent<SpriteRenderer>();
+			renderer.color = Color.red;
+
+			var enemyStats = agent.GetComponent<GameSystems.EnemyStats>();
+			enemyType = enemyStats.EnemyType;
+			data.Timer = enemyConfig.EnemyData[(int)enemyType].MeleeAttackDelay;
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
-			// Attack every cooldown seconds
-			if (Time.time - lastAttackTime >= attackCooldown)
+			data.Timer -= context.DeltaTime;
+
+			Debug.Log($"{agent.gameObject.name} attacking");
+
+			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyData[(int)enemyType].MeleeAttackRadius;
+
+			if (shouldAttack)
 			{
-				// Deal damage
-				Debug.Log($"{agent.gameObject.name} attacks player!");
 
-				// Get player and deal damage
-				var player = GameObject.FindGameObjectWithTag("Player");
-				if (player != null)
-				{
-					// Example: player.GetComponent<PlayerHealth>()?.TakeDamage(10);
-				}
-
-				lastAttackTime = Time.time;
 			}
 
-			// Continue attacking while player is in range
-			return ActionRunState.Continue;
+			return data.Timer > 0.5f ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 
 		public override void End(IMonoAgent agent, Data data)
@@ -45,10 +49,9 @@ namespace GameSystems.AI
 			Debug.Log($"{agent.gameObject.name} stopped attacking");
 		}
 
-		public class Data : IActionData
+		public void Inject(DependencyInjector injector)
 		{
-			public ITarget Target { get; set; }
+			enemyConfig = injector.EnemyConfig;
 		}
 	}
-
 }

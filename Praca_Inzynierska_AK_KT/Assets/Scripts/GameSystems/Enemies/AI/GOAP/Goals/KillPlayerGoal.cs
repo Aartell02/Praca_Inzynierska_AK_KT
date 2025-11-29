@@ -2,7 +2,5 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-	public class KillPlayerGoal : GoalBase
-	{
-	}
+	public class KillPlayerGoal : GoalBase {}
 }
