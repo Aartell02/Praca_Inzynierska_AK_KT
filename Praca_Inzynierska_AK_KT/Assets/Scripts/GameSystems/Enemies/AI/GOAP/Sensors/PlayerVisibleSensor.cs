@@ -7,22 +7,38 @@ namespace GameSystems.AI
 {
 	public class PlayerVisibleSensor : LocalWorldSensorBase
 	{
-		public float visionRange = 10f;
+		[SerializeField] private float visionRange = 10f;
+		[SerializeField] private float visionAngle = 90f;
 		public override void Created() { }
 		public override void Update() { }
 
 		public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
 		{
-			Transform agentTransform = agent.Transform;
-			GameObject player = GameObject.FindGameObjectWithTag("Player");
-			if (player == null) return false;
+			var player = GameObject.FindGameObjectWithTag("Player");
+			if (player == null)
+				return false;
 
-			// Sprawdź odległość w 2D
-			float dist = Vector2.Distance(agentTransform.position, player.transform.position);
-			if (dist > visionRange) return false;
-			// Opcjonalnie: sprawdź czy raycast nie trafia w przeszkodę
-			RaycastHit2D hit = Physics2D.Raycast(agentTransform.position, (player.transform.position - agentTransform.position).normalized, visionRange);
-			return (hit.collider != null && hit.collider.CompareTag("Player"));
+			var directionToPlayer = player.transform.position - agent.Transform.position;
+			var distance = directionToPlayer.magnitude;
+
+			// Check range
+			if (distance > visionRange)
+				return false;
+
+			// Check vision cone (for 2D use Vector2 and forward = up/right)
+			var angle = Vector3.Angle(agent.Transform.forward, directionToPlayer);
+			if (angle > visionAngle / 2f)
+				return false;
+
+			// Optional: Raycast for line of sight
+			if (Physics.Raycast(agent.Transform.position, directionToPlayer.normalized,
+				out RaycastHit hit, distance))
+			{
+				if (hit.collider.CompareTag("Player"))
+					return true;
+			}
+
+			return false;
 		}
 	}
 }

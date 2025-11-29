@@ -10,18 +10,16 @@ namespace GameSystems.AI
 			var builder = new CapabilityBuilder(AIEnemyState.Idle.ToString() + "Capability");
 
 			builder.AddGoal<IdleGoal>()
-				.AddCondition<IsIdle>(Comparison.GreaterThanOrEqual, 1)
-				.AddCondition<PlayerVisible>(Comparison.SmallerThan, 1)
-				.SetBaseCost(50);
+				.AddCondition<PlayerVisible>(Comparison.SmallerThanOrEqual, 0)
+				.SetBaseCost(1f);
 
 			builder.AddTargetSensor<IdleTargetSensor>()
 				.SetTarget<IdleTarget>();
 
 			builder.AddAction<IdleAction>()
-				.AddEffect<IsIdle>(EffectType.Increase)
-				.SetTarget<IdleTarget>();
-
-
+				.AddEffect<PlayerVisible>(EffectType.Decrease)
+				.SetTarget<IdleTarget>()
+				.SetBaseCost(1f);
 
 			return builder.Build();
 		}

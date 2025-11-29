@@ -7,30 +7,47 @@ namespace GameSystems.AI
 {
 	public class AttackAction : GoapActionBase<AttackAction.Data>
 	{
-		[Serializable]
-		public class Data : IActionData
-		{
-			public ITarget Target { get; set; }
-		}
+		private float attackCooldown = 1f;
+		private float lastAttackTime;
 
 		public override void Created() { }
-		public override bool IsValid(IActionReceiver agent, Data data) => true;
-		public override void Start(IMonoAgent agent, Data data) { }
+
+		public override void BeforePerform(IMonoAgent agent, Data data)
+		{
+			lastAttackTime = Time.time;
+			Debug.Log($"{agent.gameObject.name} begins attacking!");
+		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
-			// Atakujemy od razu, akcję kończymy natychmiast (np. zadanie obrażeń)
-			return ActionRunState.Completed;
+			// Attack every cooldown seconds
+			if (Time.time - lastAttackTime >= attackCooldown)
+			{
+				// Deal damage
+				Debug.Log($"{agent.gameObject.name} attacks player!");
+
+				// Get player and deal damage
+				var player = GameObject.FindGameObjectWithTag("Player");
+				if (player != null)
+				{
+					// Example: player.GetComponent<PlayerHealth>()?.TakeDamage(10);
+				}
+
+				lastAttackTime = Time.time;
+			}
+
+			// Continue attacking while player is in range
+			return ActionRunState.Continue;
 		}
 
-		public override void Complete(IMonoAgent agent, Data data)
+		public override void End(IMonoAgent agent, Data data)
 		{
-			// Po wykonaniu ataku niszczymy gracza (symulujemy śmierć)
-			if (data.Target is TransformTarget tx && tx.Transform != null)
-			{
-				GameObject player = tx.Transform.gameObject;
-				UnityEngine.Object.Destroy(player);
-			}
+			Debug.Log($"{agent.gameObject.name} stopped attacking");
+		}
+
+		public class Data : IActionData
+		{
+			public ITarget Target { get; set; }
 		}
 	}
 

@@ -36,8 +36,8 @@ namespace GameSystems.AI
         // This method is required
         public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
         {
-            return ActionRunState.Completed;
-        }
+			return ActionRunState.Continue;
+		}
 
         // This method is called when the action is completed
         // This method is optional and can be removed

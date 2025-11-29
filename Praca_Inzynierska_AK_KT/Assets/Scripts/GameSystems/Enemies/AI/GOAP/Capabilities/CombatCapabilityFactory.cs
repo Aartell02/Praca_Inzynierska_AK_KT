@@ -12,32 +12,33 @@ namespace GameSystems.AI
 
 			// Cel: zabić gracza (czyli PlayerAlive == 0)
 			builder.AddGoal<KillPlayerGoal>()
-				   .AddCondition<PlayerAlive>(Comparison.SmallerThanOrEqual, 0)
-				   .SetBaseCost(10);
-
-			// Akcja: gonić gracza (jeśli widoczny i poza zasięgiem)
-			builder.AddAction<ChaseAction>()
 				   .AddCondition<PlayerVisible>(Comparison.GreaterThanOrEqual, 1)
 				   .AddCondition<PlayerInRange>(Comparison.SmallerThanOrEqual, 0)
-				   .SetTarget<PlayerTarget>()
-				   .SetMoveMode(ActionMoveMode.PerformWhileMoving)
-				   .SetStoppingDistance(1.0f)
-				   .SetBaseCost(2);
-
-			// Akcja: atakować gracza (jeśli widoczny i w zasięgu)
-			builder.AddAction<AttackAction>()
-				   .AddCondition<PlayerVisible>(Comparison.GreaterThanOrEqual, 1)
-				   .AddCondition<PlayerInRange>(Comparison.GreaterThanOrEqual, 1)
-				   .AddEffect<PlayerAlive>(EffectType.Decrease)
-				   .SetTarget<PlayerTarget>()
-				   .SetMoveMode(ActionMoveMode.MoveBeforePerforming)
-				   .SetStoppingDistance(0.5f)
 				   .SetBaseCost(1);
+
+			builder.AddGoal<SurviveGoal>()
+				   .AddCondition<PlayerVisible>(Comparison.GreaterThanOrEqual, 1)
+				   .SetBaseCost(1);
+
+			// Configure Chase Action
+			builder.AddAction<ChaseAction>()
+				.SetTarget<PlayerTarget>()
+				.AddCondition<PlayerVisible>(Comparison.GreaterThanOrEqual, 1)
+				.AddEffect<PlayerInRange>(EffectType.Increase)
+				.SetBaseCost(2)
+				.SetStoppingDistance(2);
+
+			// Configure Attack Action
+			builder.AddAction<AttackAction>()
+				.SetTarget<PlayerTarget>()
+				.AddCondition<PlayerInRange>(Comparison.GreaterThanOrEqual, 1)
+				.AddEffect<PlayerInRange>(EffectType.Increase)
+				.SetBaseCost(2)
+				.SetStoppingDistance(1.5f);
 
 			// Sensory dla zdolności
 			builder.AddWorldSensor<PlayerVisibleSensor>().SetKey<PlayerVisible>();
 			builder.AddWorldSensor<PlayerInRangeSensor>().SetKey<PlayerInRange>();
-			builder.AddWorldSensor<PlayerAliveSensor>().SetKey<PlayerAlive>();
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
 
 			return builder.Build();

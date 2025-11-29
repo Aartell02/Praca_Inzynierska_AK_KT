@@ -14,6 +14,6 @@ namespace Core
 	{
 		Scout,
 		Soldier,
-		General
+		Commander
 	}
 }

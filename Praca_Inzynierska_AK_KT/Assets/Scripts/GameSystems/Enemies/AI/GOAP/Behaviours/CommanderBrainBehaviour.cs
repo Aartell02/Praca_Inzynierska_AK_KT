@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class BrainBehaviour : MonoBehaviour
+	public class CommanderBrainBehaviour : MonoBehaviour
 	{
 		private AgentBehaviour agent;
 		private GoapActionProvider provider;
@@ -25,16 +25,7 @@ namespace GameSystems.AI
 
 		private void Start()
 		{
-			this.provider.RequestGoal<
-				//AttackGoal,
-				//ChaseGoal,
-				IdleGoal
-				>(true);
-		}
 
-		private void Update()
-		{
-			
 		}
 	}
 }
