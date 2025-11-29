@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GameSystems.AI
 {
 	// Defining a GoapId is only necessary when using the ScriptableObject configuration method.
-	public class IdleTargetSensor : LocalTargetSensorBase
+	public class WanderTargetSensor : LocalTargetSensorBase
 	{
 		private static readonly Bounds Bounds = new(Vector2.zero, new Vector2(15, 15));
 

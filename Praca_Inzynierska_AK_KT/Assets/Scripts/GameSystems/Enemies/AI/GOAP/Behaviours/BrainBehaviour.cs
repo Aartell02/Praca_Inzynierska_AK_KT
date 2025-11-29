@@ -12,29 +12,39 @@ namespace GameSystems.AI
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
 
+		private PlayerSensor playerSensor;
+
 		private void Awake()
 		{
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
+			this.playerSensor = this.GetComponent<PlayerSensor>();
 
-			// This only applies sto the code demo
 			if (this.provider.AgentTypeBehaviour == null)
 				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());
 		}
 
+		private void OnEnable()
+		{
+			playerSensor.OnPlayerEnter += OnPlayerEnter;
+			playerSensor.OnPlayerExit += OnPlayerExit;
+		}
 		private void Start()
 		{
-			this.provider.RequestGoal<
-				//AttackGoal,
-				//ChaseGoal,
-				IdleGoal
-				>(true);
+			Debug.Log("Wander Requested");
+			provider.RequestGoal<WanderGoal>();
 		}
 
-		private void Update()
+		private void OnPlayerEnter(Transform Player)
 		{
-			
+			Debug.Log("KillPlayer Requested");
+			provider.RequestGoal<KillPlayerGoal>(true);
+		}
+
+		private void OnPlayerExit(Vector2 LastKnownPosition)
+		{
+			provider.RequestGoal<WanderGoal>(true);
 		}
 	}
 }

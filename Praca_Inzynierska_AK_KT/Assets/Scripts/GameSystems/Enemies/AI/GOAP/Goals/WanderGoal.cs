@@ -2,5 +2,5 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-    public class IdleTarget : TargetKeyBase {}
+    public class WanderGoal : GoalBase {}
 }
