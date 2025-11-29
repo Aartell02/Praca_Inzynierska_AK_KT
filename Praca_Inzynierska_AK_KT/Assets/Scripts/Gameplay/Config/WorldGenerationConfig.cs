@@ -12,7 +12,7 @@ namespace Gameplay
 		public int corridorLength = 14;
 
 		[SerializeField]
-		public int corridorCount = 5;
+		public int corridorCount = 0;
 
 		[SerializeField]
 		[Range(0.1f, 1)]
