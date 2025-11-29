@@ -34,6 +34,7 @@ namespace Boot
 		void Start()
 		{
 			StartCoroutine(BootSequenceCoroutine());
+			//LoadSceneAsync("MainMenu");
 		}
 
 		private IEnumerator BootSequenceCoroutine()

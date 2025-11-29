@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.Tilemaps;
 
 namespace Gameplay
 {
@@ -10,6 +11,16 @@ namespace Gameplay
 	{
 		[SerializeField]
 		private TilemapVisualizer tilemapVisualizer;
+
+		[SerializeField]
+		private Tilemap doorsTilemap;
+
+		[SerializeField]
+		private TileBase doorLeftTile;
+
+		[SerializeField]
+		private TileBase doorRightTile;
+
 
 		private WorldGenerationConfig worldConfig = ConfigReferences.Instance.worldConfig;
 
@@ -75,6 +86,8 @@ namespace Gameplay
 
 			tilemapVisualizer.PaintFloorTiles(floorPositions);
 			WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
+
+			PlaceDoors(floorPositions);
 		}
 
 		public List<Vector2Int> IncreaseCorridorSizeByOne(List<Vector2Int> corridor)
@@ -178,6 +191,75 @@ namespace Gameplay
 				floorPositions.UnionWith(corridor);
 			}
 			return corridors;
+		}
+
+		private void PlaceDoors(HashSet<Vector2Int> floorPositions)
+		{
+			// 1. Wyznacz ściany wokół podłogi
+			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
+
+			// 2. Dolne drzwi
+			var bottom = FindDoorWallSpot(floorPositions, wallPositions, findTop: false);
+			doorsTilemap.SetTile((Vector3Int)bottom[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)bottom[1], doorRightTile);
+
+			// 3. Górne drzwi
+			var top = FindDoorWallSpot(floorPositions, wallPositions, findTop: true);
+			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
+
+			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
+			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");
+		}
+
+		private Vector2Int[] FindDoorWallSpot(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> wallPositions, bool findTop)
+		{
+			var rows = wallPositions.Select(p => p.y).Distinct().ToList();
+			rows.Sort();
+			if (findTop) rows.Reverse();
+
+			foreach (var y in rows)
+			{
+				var row = wallPositions.Where(p => p.y == y).OrderBy(p => p.x).ToList();
+
+				for (int i = 0; i < row.Count - 1; i++)
+				{
+					Vector2Int a = row[i];
+					Vector2Int b = row[i + 1];
+
+					if (b.x != a.x + 1) continue;
+
+					// sprawdzamy, że **obie kratki** nie mają ścian nad/pod sobą
+					bool aClear = !wallPositions.Contains(a + Vector2Int.up) && !wallPositions.Contains(a + Vector2Int.down);
+					bool bClear = !wallPositions.Contains(b + Vector2Int.up) && !wallPositions.Contains(b + Vector2Int.down);
+
+					if (aClear && bClear)
+						return new[] { a, b };
+				}
+			}
+
+			// fallback - dwie pierwsze kratki w pierwszym/ostatnim rzędzie
+			var fallbackRow = wallPositions.Where(p => p.y == (findTop ? rows[0] : rows.Last())).OrderBy(p => p.x).ToList();
+			return new[] { fallbackRow[0], fallbackRow[Math.Min(1, fallbackRow.Count - 1)] };
+		}
+
+		private HashSet<Vector2Int> GetWallPositions(HashSet<Vector2Int> floorPositions)
+		{
+			HashSet<Vector2Int> wallPositions = new HashSet<Vector2Int>();
+			List<Vector2Int> directions = Direction2D.eightDirectionList;
+
+			foreach (var pos in floorPositions)
+			{
+				foreach (var dir in directions)
+				{
+					var neighbour = pos + dir;
+					if (!floorPositions.Contains(neighbour))
+					{
+						wallPositions.Add(neighbour);
+					}
+				}
+			}
+			return wallPositions;
 		}
 	}
 }
