@@ -208,6 +208,8 @@ namespace Gameplay
 			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
 			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
 
+			GameplayViewModel.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 1f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
+
 			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
 			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");
 		}

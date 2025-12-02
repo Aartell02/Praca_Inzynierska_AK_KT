@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 4136563915716922324}
   - component: {fileID: -4731313736331349039}
   - component: {fileID: 5795109963601708049}
+  - component: {fileID: 8368666112636939347}
   - component: {fileID: 8182922482920238544}
   - component: {fileID: 6253953780665835240}
   - component: {fileID: 8319334320914275932}
-  - component: {fileID: 8368666112636939347}
   - component: {fileID: 7141251232436068216}
   m_Layer: 6
   m_Name: Soldier
@@ -114,6 +114,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9964a8cba50ef0442ab89f4335686608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::CrashKonijn.Goap.GenTest.BrainBehaviour
+--- !u!114 &8368666112636939347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127f11f2f6c998e458c33bd7cfbf6c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.AI.PlayerSensor
+  Collider: {fileID: 0}
 --- !u!212 &8182922482920238544
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -158,11 +171,11 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 218099941
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -245,19 +258,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8368666112636939347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127f11f2f6c998e458c33bd7cfbf6c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.AI.PlayerSensor
-  Collider: {fileID: 0}
 --- !u!58 &7141251232436068216
 CircleCollider2D:
   m_ObjectHideFlags: 0

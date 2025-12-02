@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Npc
   - Player
-  - 
+  - NPC
+  - Environment
   - 
   - 
   - 
@@ -40,6 +40,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1894320223
+    locked: 0
+  - name: Wall
+    uniqueID: 4265801731
+    locked: 0
+  - name: Doors
+    uniqueID: 2375699651
+    locked: 0
+  - name: Characters
+    uniqueID: 218099941
+    locked: 0
+  - name: UI
+    uniqueID: 922877763
     locked: 0
   m_RenderingLayers:
   - Default
