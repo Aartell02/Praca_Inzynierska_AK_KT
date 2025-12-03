@@ -1,6 +1,7 @@
+using GameSystems.Data;
 using UnityEngine;
 
-namespace Core
+namespace GameSystems.Config
 {
     [CreateAssetMenu(fileName = "WorldGenerationConfig", menuName = "Config/Gameplay/WorldGenerationConfig")]
     public class WorldGenerationConfig : ScriptableObject

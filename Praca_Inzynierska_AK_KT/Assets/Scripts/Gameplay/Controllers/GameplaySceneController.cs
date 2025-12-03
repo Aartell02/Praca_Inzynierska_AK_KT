@@ -1,4 +1,6 @@
 using Core;
+using GameSystems;
+using GameSystems.Config;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;

@@ -5,6 +5,8 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
 using Core;
+using GameSystems.Config;
+using GameSystems.Data;
 
 namespace GameSystems.MapGeneration
 {
