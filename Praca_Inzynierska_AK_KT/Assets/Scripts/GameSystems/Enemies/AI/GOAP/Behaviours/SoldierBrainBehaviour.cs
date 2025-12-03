@@ -2,13 +2,13 @@ using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class CommanderBrainBehaviour : MonoBehaviour
+	public class SoldierBrainBehaviour : MonoBehaviour
 	{
+		private EnemyStats enemyStats;
 		private PlayerSensor playerSensor;
 
 		private AgentBehaviour agent;
@@ -33,6 +33,7 @@ namespace GameSystems.AI
 			playerSensor.OnPlayerEnter += OnPlayerEnter;
 			playerSensor.OnPlayerExit += OnPlayerExit;
 		}
+
 		private void Start()
 		{
 			Debug.Log("Wander Requested");

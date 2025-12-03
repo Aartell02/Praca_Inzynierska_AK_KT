@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 172353347}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.702335, y: -8.120902, z: -0.04219458}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -175,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 404032987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.70234, y: -8.1209, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,7 +229,7 @@ MonoBehaviour:
   Enemy:
   - {fileID: 6529996829581106454, guid: f994173a6caa6104ebc475eaf56fb260, type: 3}
   - {fileID: 6529996829581106454, guid: 7aee877ff15ff5447ac0ef900822cf8e, type: 3}
-  - {fileID: 6529996829581106454, guid: a5200d560cf58294686b14523706980a, type: 3}
+  - {fileID: 6529996829581106454, guid: a136399fe05e40d4cbfba1dcd2c19d7b, type: 3}
 --- !u!1 &696174768
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,23 +2,26 @@ using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class BrainBehaviour : MonoBehaviour
+	public class ScoutBrainBehaviour : MonoBehaviour
 	{
+		private PlayerSensor playerSensor;
+
 		private AgentBehaviour agent;
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
 
-		private PlayerSensor playerSensor;
 
 		private void Awake()
 		{
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
+
 			this.playerSensor = this.GetComponent<PlayerSensor>();
 
 			if (this.provider.AgentTypeBehaviour == null)

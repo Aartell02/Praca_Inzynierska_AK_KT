@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay
+namespace GameSystems.MapGeneration
 {
     public static class ProceduralGenerationAlgorithm
     {

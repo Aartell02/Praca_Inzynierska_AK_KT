@@ -1,3 +1,4 @@
+using Boot;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ namespace UI
 		private void OnButtonPlay()
 		{
 			Debug.Log("Play clicked");
+			BootViewModel.StartGame();
 		}
 
 		private void OnButtonQuit()

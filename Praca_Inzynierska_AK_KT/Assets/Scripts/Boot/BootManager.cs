@@ -1,9 +1,9 @@
-using Core;
 using System;
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Core.Inspector;
+using UnityEngine.UIElements;
 
 namespace Boot
 {
@@ -33,11 +33,12 @@ namespace Boot
 
 		void Start()
 		{
-			StartCoroutine(BootSequenceCoroutine());
-			//LoadSceneAsync("MainMenu");
+			StartCoroutine(BootMainMenu());
 		}
 
-		private IEnumerator BootSequenceCoroutine()
+		internal void StartGame() => StartCoroutine(StartGameSequenceCoroutine());
+
+		private IEnumerator StartGameSequenceCoroutine()
 		{
 			OnBootLog?.Invoke("BootManager: Starting bootstrap sequence.");
 
@@ -49,10 +50,16 @@ namespace Boot
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'WorldScene'...");
 			yield return StartCoroutine(LoadSceneAsync("WorldScene"));
 
+			SceneManager.UnloadSceneAsync("MainMenuScene");
+
+			yield return null;
+
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'GameplayScene'...");
 			yield return StartCoroutine(LoadSceneAsync("GameplayScene"));
 
-			SceneManager.UnloadSceneAsync("BootScene");
+
+
+			yield return null;
 
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameplayScene"));
 
@@ -60,7 +67,18 @@ namespace Boot
 			OnBootCompleted?.Invoke();
 		}
 
-		private IEnumerator LoadSceneAsync(string scene)
+		private IEnumerator BootMainMenu()
+		{
+			OnBootLog?.Invoke($"BootManager: Loading initial scene 'MainMenu'");
+			yield return StartCoroutine(LoadSceneAsync("MainMenuScene"));
+
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenuScene"));
+
+			OnBootLog?.Invoke("BootManager: Boot sequence completed successfully.");
+			OnBootCompleted?.Invoke();
+		}
+
+		internal IEnumerator LoadSceneAsync(string scene)
 		{
 			var aso = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 			if (aso == null)

@@ -1,18 +1,24 @@
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GameSystems.AI
 {
 	public class AgentMoveBehaviour : MonoBehaviour
 	{
+		private NavMeshAgent navigationAgent;
 		private AgentBehaviour agent;
 		private ITarget currentTarget;
 		private bool shouldMove;
-
+		private Vector3 lastTargetPosition;
+		private float updateThreshold = 0.5f;
 		private void Awake()
 		{
 			this.agent = this.GetComponent<AgentBehaviour>();
+			this.navigationAgent = this.GetComponent<NavMeshAgent>();
+			navigationAgent.updateRotation = false;
+			navigationAgent.updateUpAxis = false;
 		}
 
 		private void OnEnable()
@@ -45,6 +51,11 @@ namespace GameSystems.AI
 		private void OnTargetChanged(ITarget target, bool inRange)
 		{
 			this.currentTarget = target;
+			if (currentTarget != null)
+			{
+				navigationAgent.SetDestination(currentTarget.Position);
+			}
+
 			this.shouldMove = !inRange;
 		}
 
@@ -55,16 +66,24 @@ namespace GameSystems.AI
 
 		public void Update()
 		{
+			Debug.Log($"{agent.name} update");
 			if (this.agent.IsPaused)
 				return;
 
-			if (!this.shouldMove)
+			if (!shouldMove)
 				return;
 
-			if (this.currentTarget == null)
+			if (currentTarget == null)
+			{
+				navigationAgent.ResetPath();
 				return;
+			}
 
-			this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.currentTarget.Position.x, this.currentTarget.Position.y), Time.deltaTime);
+			if (Vector3.Distance(currentTarget.Position, lastTargetPosition) > updateThreshold)
+			{
+				navigationAgent.SetDestination(currentTarget.Position);
+				lastTargetPosition = currentTarget.Position;
+			}
 		}
 
 		private void OnDrawGizmos()

@@ -4,8 +4,11 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Tilemaps;
+using Core;
+using GameSystems.Config;
+using GameSystems.Data;
 
-namespace Gameplay
+namespace GameSystems.MapGeneration
 {
     public class DungeonGenerator : MonoBehaviour
 	{
@@ -20,7 +23,6 @@ namespace Gameplay
 
 		[SerializeField]
 		private TileBase doorRightTile;
-
 
 		private WorldGenerationConfig worldConfig = ConfigReferences.Instance.worldConfig;
 
@@ -207,6 +209,8 @@ namespace Gameplay
 			var top = FindDoorWallSpot(floorPositions, wallPositions, findTop: true);
 			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
 			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
+
+			CoreData.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 2f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
 
 			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
 			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");

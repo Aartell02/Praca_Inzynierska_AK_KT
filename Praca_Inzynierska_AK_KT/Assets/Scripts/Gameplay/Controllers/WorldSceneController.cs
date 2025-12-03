@@ -1,4 +1,9 @@
+using Core;
+using GameSystems;
+using GameSystems.MapGeneration;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Gameplay.Controllers
 {
@@ -6,7 +11,19 @@ namespace Gameplay.Controllers
 	{
 		private void Awake()
 		{
-			GameplayViewModel.GenerateMap();
+			GenerateMap();
+
+		}
+
+		private void Start()
+		{
+			GameSystemsViewModel.BakeNavMesh();
+		}
+
+		public static void GenerateMap()
+		{
+			var generator = DungeonGenerator.FindFirstObjectByType<DungeonGenerator>();
+			generator.GenerateDungeon();
 		}
 	}
 }
