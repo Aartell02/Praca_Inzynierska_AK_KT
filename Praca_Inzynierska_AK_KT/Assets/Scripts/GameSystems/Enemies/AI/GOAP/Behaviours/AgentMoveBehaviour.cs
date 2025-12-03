@@ -11,7 +11,8 @@ namespace GameSystems.AI
 		private AgentBehaviour agent;
 		private ITarget currentTarget;
 		private bool shouldMove;
-
+		private Vector3 lastTargetPosition;
+		private float updateThreshold = 0.5f;
 		private void Awake()
 		{
 			this.agent = this.GetComponent<AgentBehaviour>();
@@ -65,10 +66,11 @@ namespace GameSystems.AI
 
 		public void Update()
 		{
+			Debug.Log($"{agent.name} update");
 			if (this.agent.IsPaused)
 				return;
 
-			if (agent == null || !shouldMove)
+			if (!shouldMove)
 				return;
 
 			if (currentTarget == null)
@@ -77,8 +79,11 @@ namespace GameSystems.AI
 				return;
 			}
 
-			// Jeśli cel się porusza → aktualizujemy pozycję co klatkę
-			navigationAgent.SetDestination(currentTarget.Position);
+			if (Vector3.Distance(currentTarget.Position, lastTargetPosition) > updateThreshold)
+			{
+				navigationAgent.SetDestination(currentTarget.Position);
+				lastTargetPosition = currentTarget.Position;
+			}
 		}
 
 		private void OnDrawGizmos()
