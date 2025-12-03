@@ -3,7 +3,7 @@ using Core.Inspector;
 using System;
 using UnityEngine;
 
-namespace Gameplay
+namespace Core
 {
     [CreateAssetMenu(fileName = "EnemySpawnConfig", menuName = "Config/Gameplay/EnemySpawnConfig")]
 	public class EnemySpawnConfig : ScriptableObject

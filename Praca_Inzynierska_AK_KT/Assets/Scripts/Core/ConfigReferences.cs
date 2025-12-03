@@ -1,6 +1,7 @@
+using Core;
 using UnityEngine;
 
-namespace Gameplay
+namespace Core
 {
 	public class ConfigReferences : MonoBehaviour
 	{

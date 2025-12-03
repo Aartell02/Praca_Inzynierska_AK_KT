@@ -1,11 +1,13 @@
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GameSystems.AI
 {
 	public class AgentMoveBehaviour : MonoBehaviour
 	{
+		private NavMeshAgent navigationAgent;
 		private AgentBehaviour agent;
 		private ITarget currentTarget;
 		private bool shouldMove;
@@ -13,6 +15,9 @@ namespace GameSystems.AI
 		private void Awake()
 		{
 			this.agent = this.GetComponent<AgentBehaviour>();
+			this.navigationAgent = this.GetComponent<NavMeshAgent>();
+			navigationAgent.updateRotation = false;
+			navigationAgent.updateUpAxis = false;
 		}
 
 		private void OnEnable()
@@ -45,6 +50,11 @@ namespace GameSystems.AI
 		private void OnTargetChanged(ITarget target, bool inRange)
 		{
 			this.currentTarget = target;
+			if (currentTarget != null)
+			{
+				navigationAgent.SetDestination(currentTarget.Position);
+			}
+
 			this.shouldMove = !inRange;
 		}
 
@@ -58,13 +68,17 @@ namespace GameSystems.AI
 			if (this.agent.IsPaused)
 				return;
 
-			if (!this.shouldMove)
+			if (agent == null || !shouldMove)
 				return;
 
-			if (this.currentTarget == null)
+			if (currentTarget == null)
+			{
+				navigationAgent.ResetPath();
 				return;
+			}
 
-			this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.currentTarget.Position.x, this.currentTarget.Position.y), Time.deltaTime);
+			// Jeśli cel się porusza → aktualizujemy pozycję co klatkę
+			navigationAgent.SetDestination(currentTarget.Position);
 		}
 
 		private void OnDrawGizmos()

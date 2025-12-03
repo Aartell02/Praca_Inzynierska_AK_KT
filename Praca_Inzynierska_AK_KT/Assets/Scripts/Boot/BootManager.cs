@@ -50,10 +50,16 @@ namespace Boot
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'WorldScene'...");
 			yield return StartCoroutine(LoadSceneAsync("WorldScene"));
 
+			SceneManager.UnloadSceneAsync("MainMenuScene");
+
+			yield return null;
+
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'GameplayScene'...");
 			yield return StartCoroutine(LoadSceneAsync("GameplayScene"));
 
-			SceneManager.UnloadSceneAsync("MainMenuScene");
+
+
+			yield return null;
 
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameplayScene"));
 

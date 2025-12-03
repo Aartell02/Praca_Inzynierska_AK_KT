@@ -1,11 +1,10 @@
-using Core;
-using Unity.Plastic.Antlr3.Runtime;
 
-namespace DOTS
+
+namespace GameSystems
 {
-    public static class DOTSViewModel
+    public static class GameSystemsViewModel
     {
-
+		public static void BakeNavMesh() => NavigationService.BakeNavMesh();
 	}
 }
 

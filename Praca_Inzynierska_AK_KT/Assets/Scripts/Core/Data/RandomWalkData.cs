@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay
+namespace Core
 {
 	[CreateAssetMenu(fileName = "RandomWalkParameters_", menuName = "PCG/RandomWalkData")]
 
