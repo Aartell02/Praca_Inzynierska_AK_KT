@@ -1,8 +1,6 @@
 using Core;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Runtime;
-using System;
 using UnityEngine;
 
 namespace GameSystems.AI
@@ -19,9 +17,6 @@ namespace GameSystems.AI
 		public override void Start (IMonoAgent agent, Data data)
 		{
 			Debug.Log($"{agent.gameObject.name} started attacking attacking");
-
-			var renderer = agent.GetComponent<SpriteRenderer>();
-			renderer.color = Color.red;
 
 			var enemyStats = agent.GetComponent<GameSystems.EnemyStats>();
 			enemyType = enemyStats.EnemyType;

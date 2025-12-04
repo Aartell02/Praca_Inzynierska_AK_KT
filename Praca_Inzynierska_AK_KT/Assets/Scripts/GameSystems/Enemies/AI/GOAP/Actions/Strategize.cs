@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class WanderAction : GoapActionBase<WanderAction.Data>
+	public class Strategize : GoapActionBase<Strategize.Data>
 	{
 		// This method is called when the action is started
 		// This method is optional and can be removed

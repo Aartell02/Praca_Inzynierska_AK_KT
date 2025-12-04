@@ -1,0 +1,18 @@
+using Core;
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
+
+namespace GameSystems.AI
+{
+	public class CommanderTypeFactory : AgentTypeFactoryBase
+	{
+		public override IAgentTypeConfig Create()
+		{
+			var factory = new AgentTypeBuilder(EnemyType.Commander.ToString());
+
+			factory.AddCapability<SoldierCapabilityFactory>();
+
+			return factory.Build();
+		}
+	}
+}
