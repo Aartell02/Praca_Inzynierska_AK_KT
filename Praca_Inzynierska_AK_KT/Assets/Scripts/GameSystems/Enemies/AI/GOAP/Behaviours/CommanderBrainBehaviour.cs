@@ -42,14 +42,16 @@ namespace GameSystems.AI
 		private void OnPlayerEnter(Transform Player)
 		{
 			Debug.Log("KillPlayer Requested");
-			previousGoal = provider.CurrentPlan.Goal;
+			if(provider.CurrentPlan != null) 
+				previousGoal = provider.CurrentPlan.Goal;
 			provider.RequestGoal<KillPlayerGoal>(true);
 
 		}
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			previousGoal = provider.CurrentPlan.Goal;
+			if (provider.CurrentPlan != null)
+				previousGoal = provider.CurrentPlan.Goal;
 			provider.RequestGoal<WanderGoal>(true);
 		}
 	}
