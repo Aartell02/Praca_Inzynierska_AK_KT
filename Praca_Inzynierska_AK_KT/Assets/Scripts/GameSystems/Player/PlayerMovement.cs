@@ -11,10 +11,14 @@ namespace DOTS
 		private float currentMoveSpeed;
 		private const float maxSpeed = 10;
 		private Rigidbody2D rb;
+		private Animator animator;
+		private SpriteRenderer spriteRenderer;
 
 		void Awake()
         {
 			rb = GetComponent<Rigidbody2D>();
+			animator = GetComponentInChildren<Animator>();
+			spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		}
 
         void Update()
@@ -32,10 +36,15 @@ namespace DOTS
 			}
 			else if (isMoving)
 			{
-				// Decelerate
 				currentMoveSpeed -= (MovementSpeed);
 				currentMoveSpeed = math.max(currentMoveSpeed, 0f);
 			}
+
+
+			if (mousePosition.x < rb.position.x)
+				spriteRenderer.flipX = true;
+			else
+				spriteRenderer.flipX = false;
 
 			float2 lastDir = rb.linearVelocity;
 			if (math.lengthsq(lastDir) < 0.0001f) lastDir = new float2(0, 1);
@@ -44,6 +53,8 @@ namespace DOTS
 
 			var moveVector = moveDirection * currentMoveSpeed;
 			rb.linearVelocity = new float2(moveVector.x, moveVector.y);
+
+			animator.SetFloat("Move", rb.linearVelocity.magnitude);
 		}
     }
 }
