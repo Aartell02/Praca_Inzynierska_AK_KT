@@ -16,7 +16,7 @@ namespace GameSystems.AI
 
 		public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
 		{
-			var enemyStats = references.GetCachedComponentInParent<EnemyStats>();
+			var enemyStats = references.GetCachedComponentInParent<EnemyData>();
 
 			int hitCount = Physics2D.OverlapCircle(
 				agent.Transform.position,

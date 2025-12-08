@@ -18,7 +18,7 @@ namespace GameSystems.AI
 		{
 			Debug.Log($"{agent.gameObject.name} started attacking attacking");
 
-			var enemyStats = agent.GetComponent<GameSystems.EnemyStats>();
+			var enemyStats = agent.GetComponent<GameSystems.EnemyData>();
 			enemyType = enemyStats.EnemyType;
 			data.Timer = enemyConfig.EnemyData[(int)enemyType].MeleeAttackDelay;
 		}
