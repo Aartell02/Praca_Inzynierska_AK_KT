@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 58463343}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: _Structures
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,6 +436,10 @@ PrefabInstance:
     - target: {fileID: 2219023147149041920, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
       propertyPath: m_Name
       value: Altar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219023147149041920, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7911624237511202718, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
       propertyPath: m_LocalPosition.x

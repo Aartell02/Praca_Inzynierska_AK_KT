@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wdupus Pierdukus
+  m_text: Game Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c3fa9c61011df554dbb02dd3f17265b7, type: 2}
   m_sharedMaterial: {fileID: -4733954528071877697, guid: c3fa9c61011df554dbb02dd3f17265b7, type: 2}
@@ -1240,8 +1240,8 @@ Camera:
   m_GameObject: {fileID: 1307910203}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.2830189, g: 0.13750447, b: 0.16235802, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wdupus Pierdukus
+  m_text: Game Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ae4a58b8ba95dc4ca77328380c33493, type: 2}
   m_sharedMaterial: {fileID: 3382490863857719557, guid: 9ae4a58b8ba95dc4ca77328380c33493, type: 2}
