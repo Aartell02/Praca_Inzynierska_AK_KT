@@ -8,7 +8,7 @@ namespace GameSystems.AI
 {
 	public class SoldierBrainBehaviour : MonoBehaviour
 	{
-		private EnemyStats enemyStats;
+		private EnemyData enemyStats;
 		private PlayerSensor playerSensor;
 
 		private AgentBehaviour agent;

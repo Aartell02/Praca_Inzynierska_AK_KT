@@ -15,11 +15,7 @@ namespace UI
 			Quit.onClick.AddListener(OnButtonQuit);
 		}
 
-		private void OnButtonPlay()
-		{
-			Debug.Log("Play clicked");
-			BootViewModel.StartGame();
-		}
+		private void OnButtonPlay() => BootViewModel.StartGame();
 
 		private void OnButtonQuit()
 		{

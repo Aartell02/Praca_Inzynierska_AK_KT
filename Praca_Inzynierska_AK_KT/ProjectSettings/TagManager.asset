@@ -44,14 +44,8 @@ TagManager:
   - name: Background
     uniqueID: 1894320223
     locked: 0
-  - name: Wall
+  - name: Foreground
     uniqueID: 4265801731
-    locked: 0
-  - name: Doors
-    uniqueID: 2375699651
-    locked: 0
-  - name: Characters
-    uniqueID: 218099941
     locked: 0
   - name: UI
     uniqueID: 922877763

@@ -1,6 +1,7 @@
 using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace GameSystems.AI
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
 
+		private IGoal previousGoal;
 
 		private void Awake()
 		{
@@ -35,18 +37,21 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
-			Debug.Log("Wander Requested");
-			provider.RequestGoal<WanderGoal>();
 		}
 
 		private void OnPlayerEnter(Transform Player)
 		{
 			Debug.Log("KillPlayer Requested");
+			if(provider.CurrentPlan != null) 
+				previousGoal = provider.CurrentPlan.Goal;
 			provider.RequestGoal<KillPlayerGoal>(true);
+
 		}
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
+			if (provider.CurrentPlan != null)
+				previousGoal = provider.CurrentPlan.Goal;
 			provider.RequestGoal<WanderGoal>(true);
 		}
 	}

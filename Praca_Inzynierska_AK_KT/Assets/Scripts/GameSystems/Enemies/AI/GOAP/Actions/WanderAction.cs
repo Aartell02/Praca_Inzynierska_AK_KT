@@ -10,9 +10,6 @@ namespace GameSystems.AI
 		// This method is optional and can be removed
 		public override void Start(IMonoAgent agent, Data data)
 		{
-			var renderer = agent.GetComponent<SpriteRenderer>();
-			renderer.color = Color.gray;
-
 			data.Timer = Random.Range(0.5f, 1.5f);
 		}
 

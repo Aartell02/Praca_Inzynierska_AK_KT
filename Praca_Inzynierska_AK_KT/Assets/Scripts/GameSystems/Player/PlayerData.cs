@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	class PlayerStats : MonoBehaviour
+	class PlayerData : MonoBehaviour
 	{
 		[SerializeField]
 		internal int Heatlh;

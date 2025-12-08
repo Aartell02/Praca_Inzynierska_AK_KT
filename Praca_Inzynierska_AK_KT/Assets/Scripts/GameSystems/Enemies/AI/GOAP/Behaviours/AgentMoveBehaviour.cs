@@ -1,3 +1,4 @@
+using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using UnityEngine;
@@ -9,14 +10,20 @@ namespace GameSystems.AI
 	{
 		private NavMeshAgent navigationAgent;
 		private AgentBehaviour agent;
+
 		private ITarget currentTarget;
 		private bool shouldMove;
 		private Vector3 lastTargetPosition;
 		private float updateThreshold = 0.5f;
+		private EnemyData enemyData;
+		private float currentMoveSpeed;
+
 		private void Awake()
 		{
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.navigationAgent = this.GetComponent<NavMeshAgent>();
+			this.enemyData = this.GetComponent<EnemyData>();
+
 			navigationAgent.updateRotation = false;
 			navigationAgent.updateUpAxis = false;
 		}
@@ -70,8 +77,21 @@ namespace GameSystems.AI
 			if (this.agent.IsPaused)
 				return;
 
+			Vector3 vel = navigationAgent.velocity;
+
+			if (vel.x > 0.01f)
+				enemyData.SpriteRenderer.flipX = false;
+			else if (vel.x < -0.01f)
+				enemyData.SpriteRenderer.flipX = true;
+
 			if (!shouldMove)
+			{
+				if (enemyData.EnemyType != EnemyType.Scout)
+				{
+					enemyData.Animator.SetFloat("Move", 0);
+				}
 				return;
+			}
 
 			if (currentTarget == null)
 			{
@@ -83,6 +103,11 @@ namespace GameSystems.AI
 			{
 				navigationAgent.SetDestination(currentTarget.Position);
 				lastTargetPosition = currentTarget.Position;
+			}
+
+			if (enemyData.EnemyType != EnemyType.Scout)
+			{
+				enemyData.Animator.SetFloat("Move", 1);
 			}
 		}
 
