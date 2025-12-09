@@ -7,10 +7,7 @@ namespace GameSystems.AI
 	// Defining a GoapId is only necessary when using the ScriptableObject configuration method.
 	public class WanderTargetSensor : LocalTargetSensorBase
 	{
-		private static readonly Bounds Bounds = new(Vector2.zero, new Vector2(15, 15));
-
-		// Is called when this script is initialzed
-		public override void Created() { }
+		public override void Created() {}
 
 		// Is called every frame that an agent of an `AgentType` that uses this sensor needs it.
 		// This can be used to 'cache' data that is used in the `Sense` method.
@@ -32,6 +29,7 @@ namespace GameSystems.AI
 
 		private Vector3 GetRandomPosition(IActionReceiver agent)
 		{
+			Bounds Bounds = new(agent.Transform.position, new Vector2(5, 5));
 			var random = Random.insideUnitCircle * 3f;
 			var position = agent.Transform.position + new Vector3(random.x, random.y, 0);
 
