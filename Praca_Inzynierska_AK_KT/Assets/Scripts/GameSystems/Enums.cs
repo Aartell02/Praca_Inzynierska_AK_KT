@@ -5,7 +5,7 @@ namespace GameSystems
 	public enum AIEnemyState
 	{
 		Idle,
-		Wait,
+		Hold,
 		Roam,
 		Scout,
 		Guard,

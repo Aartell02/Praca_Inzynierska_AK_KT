@@ -10,7 +10,7 @@ namespace GameSystems.AI
 		{
 			var factory = new AgentTypeBuilder(EnemyType.Scout.ToString());
 
-			factory.AddCapability<SoldierCapabilityFactory>();
+			factory.AddCapability<ScoutCapabilityFactory>();
 
 			return factory.Build();
 		}

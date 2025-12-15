@@ -15,7 +15,6 @@ namespace GameSystems.AI
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
 
-
 		private void Awake()
 		{
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
@@ -25,7 +24,7 @@ namespace GameSystems.AI
 			this.playerSensor = this.GetComponent<PlayerSensor>();
 
 			if (this.provider.AgentTypeBehaviour == null)
-				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());
+				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Scout.ToString());
 		}
 
 		private void OnEnable()
@@ -35,8 +34,7 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
-			Debug.Log("Wander Requested");
-			provider.RequestGoal<WanderGoal>();
+			provider.RequestGoal<GetCommandGoal>();
 		}
 
 		private void OnPlayerEnter(Transform Player)

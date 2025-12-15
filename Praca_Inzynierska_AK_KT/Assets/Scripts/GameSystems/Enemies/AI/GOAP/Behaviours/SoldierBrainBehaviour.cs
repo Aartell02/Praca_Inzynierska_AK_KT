@@ -22,7 +22,7 @@ namespace GameSystems.AI
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
 
-			this.playerSensor = this.GetComponent<PlayerSensor>();
+			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
 
 			if (this.provider.AgentTypeBehaviour == null)
 				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7647315693414708134}
   - component: {fileID: -6081333837206876522}
-  - component: {fileID: 2912825593848819812}
+  - component: {fileID: 5262552974823322374}
   - component: {fileID: 7924121463656413394}
   - component: {fileID: -2812428290987717792}
   - component: {fileID: 8639463693804215495}
@@ -38,7 +38,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2912825593848819812
+--- !u!114 &5262552974823322374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6529996829581106454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d186744e21a7359428b6d70a8b6ec301, type: 3}
+  m_Script: {fileID: 11500000, guid: 510f22558c8798f4c88811941e5eadd4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
+  m_EditorClassIdentifier: GameSystems::GameSystems.ScoutData
   EnemyType: 0
   Heatlh: 0
   MoveSpeed: 0
@@ -245,8 +245,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 70
+  m_LinearDamping: 7
   m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}

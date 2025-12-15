@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace GameSystems
 {
-    class EnemyData : MonoBehaviour
+    abstract class EnemyData : MonoBehaviour
     {
 		[SerializeField]
 		internal EnemyType EnemyType;
@@ -17,6 +17,7 @@ namespace GameSystems
 		internal Animator Animator;
 		internal Rigidbody2D Rigidbody;
 		internal SpriteRenderer SpriteRenderer;
+
 		private void Awake()
 		{
 			this.Animator = this.GetComponent<Animator>();

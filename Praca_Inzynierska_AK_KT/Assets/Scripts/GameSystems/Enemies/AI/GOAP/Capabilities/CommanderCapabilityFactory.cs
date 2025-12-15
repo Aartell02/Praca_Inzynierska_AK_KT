@@ -28,9 +28,11 @@ namespace GameSystems.AI
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddAction<Strategize>()
+			builder.AddAction<StrategizeAction>()
+				.AddCondition<PlayerHealth>(Comparison.SmallerThanOrEqual, 0)
 				.AddEffect<IsPlanning>(EffectType.Increase)
-				.SetBaseCost(5);
+				.SetBaseCost(5)
+				.SetRequiresTarget(false);
 
 			builder.AddAction<AttackAction>()
 				.SetTarget<PlayerTarget>()

@@ -27,7 +27,7 @@ namespace GameSystems.AI
 			this.playerSensor = this.GetComponent<PlayerSensor>();
 
 			if (this.provider.AgentTypeBehaviour == null)
-				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());
+				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Commander.ToString());
 		}
 
 		private void OnEnable()
@@ -37,12 +37,13 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
+			provider.RequestGoal<StrategizeGoal>(true);
 		}
 
 		private void OnPlayerEnter(Transform Player)
 		{
 			Debug.Log("KillPlayer Requested");
-			if(provider.CurrentPlan != null) 
+			if(!provider.CurrentPlan.IsNull())
 				previousGoal = provider.CurrentPlan.Goal;
 			provider.RequestGoal<KillPlayerGoal>(true);
 
@@ -50,9 +51,12 @@ namespace GameSystems.AI
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			if (provider.CurrentPlan != null)
+			if (!provider.CurrentPlan.IsNull())
+			{
+				provider.RequestGoal(previousGoal,true);
 				previousGoal = provider.CurrentPlan.Goal;
-			provider.RequestGoal<WanderGoal>(true);
+
+			}
 		}
 	}
 }

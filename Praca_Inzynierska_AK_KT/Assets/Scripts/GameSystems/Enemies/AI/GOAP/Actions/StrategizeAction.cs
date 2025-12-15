@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class Strategize : GoapActionBase<Strategize.Data>
+	public class StrategizeAction : GoapActionBase<StrategizeAction.Data>
 	{
 		// This method is called when the action is started
 		// This method is optional and can be removed

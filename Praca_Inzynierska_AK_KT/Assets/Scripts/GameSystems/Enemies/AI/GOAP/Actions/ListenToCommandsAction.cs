@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class ListenToCommands : GoapActionBase<ListenToCommands.Data>
+	public class ListenToCommandsAction : GoapActionBase<ListenToCommandsAction.Data>
 	{
 		public class Data : IActionData
 		{

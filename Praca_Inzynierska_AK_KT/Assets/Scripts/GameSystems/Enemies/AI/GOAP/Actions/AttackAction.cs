@@ -8,9 +8,10 @@ namespace GameSystems.AI
 	public class AttackAction : GoapActionBase<AttackAction.Data>, IInjectable
 	{
 		EnemyConfig enemyConfig;
-		EnemyType enemyType;
 		public class Data : IActionData
 		{
+			public EnemyType enemyType;
+
 			public float Timer;
 			public ITarget Target { get; set; }
 		}
@@ -18,9 +19,9 @@ namespace GameSystems.AI
 		{
 			Debug.Log($"{agent.gameObject.name} started attacking attacking");
 
-			var enemyStats = agent.GetComponent<GameSystems.EnemyData>();
-			enemyType = enemyStats.EnemyType;
-			data.Timer = enemyConfig.EnemyData[(int)enemyType].MeleeAttackDelay;
+			var enemyStats = agent.GetComponent<EnemyData>();
+			data.enemyType = enemyStats.EnemyType;
+			data.Timer = enemyConfig.EnemyData[(int)data.enemyType].MeleeAttackDelay;
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
@@ -29,7 +30,7 @@ namespace GameSystems.AI
 
 			Debug.Log($"{agent.gameObject.name} attacking");
 
-			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyData[(int)enemyType].MeleeAttackRadius;
+			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyData[(int)data.enemyType].MeleeAttackRadius;
 
 			if (shouldAttack)
 			{
