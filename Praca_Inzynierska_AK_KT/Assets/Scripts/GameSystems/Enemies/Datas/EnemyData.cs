@@ -13,10 +13,15 @@ namespace GameSystems
 		internal int Heatlh;
 		[SerializeField]
 		internal float MoveSpeed;
+		[SerializeField]
+		internal AIEnemyState Goal;
+		[SerializeField]
+		internal bool TargetInRange;
 
 		internal Animator Animator;
 		internal Rigidbody2D Rigidbody;
 		internal SpriteRenderer SpriteRenderer;
+
 
 		private void Awake()
 		{

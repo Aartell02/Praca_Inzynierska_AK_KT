@@ -8,7 +8,7 @@ namespace GameSystems.AI
 	{
 		public override IAgentTypeConfig Create()
 		{
-			var factory = new AgentTypeBuilder(EnemyType.Scout.ToString());
+			var factory = this.CreateBuilder(EnemyType.Scout.ToString());
 
 			factory.AddCapability<ScoutCapabilityFactory>();
 

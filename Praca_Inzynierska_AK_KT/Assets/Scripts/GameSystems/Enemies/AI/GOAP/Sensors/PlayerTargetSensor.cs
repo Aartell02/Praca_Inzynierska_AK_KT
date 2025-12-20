@@ -20,7 +20,7 @@ namespace GameSystems.AI
 
 			int hitCount = Physics2D.OverlapCircle(
 				agent.Transform.position,
-				enemyConfig.EnemyData[(int)enemyStats.EnemyType].SensorRadius,
+				enemyConfig.EnemyCommunicationData.SensorRadius,
 				ContactFilter2D.noFilter,
 				Results
 			);
@@ -29,7 +29,7 @@ namespace GameSystems.AI
 			{
 				if (Results[i].CompareTag("Player"))
 				{
-					return new TransformTarget(Results[i].transform);
+					return new PositionTarget(Results[i].transform.position);
 				}
 			}
 

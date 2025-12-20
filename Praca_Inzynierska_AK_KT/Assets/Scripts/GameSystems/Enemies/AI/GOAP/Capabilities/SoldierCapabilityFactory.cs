@@ -20,22 +20,18 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
-			builder.AddGoal<WanderGoal>()
-				.AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
-
 			builder.AddGoal<KillPlayerGoal>()
 				.AddCondition<PlayerHealth>(Comparison.SmallerThanOrEqual, 0);
-
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddAction<WanderAction>()
+			builder.AddAction<WanderToTargetAction>()
 				.SetTarget<WanderTarget>()
 				.AddEffect<IsWandering>(EffectType.Increase)
 				.SetBaseCost(5);
 
-			builder.AddAction<AttackAction>()
+			builder.AddAction<MeleeAttackAction>()
 				.SetTarget<PlayerTarget>()
 				.AddEffect<PlayerHealth>(EffectType.Decrease)
 				.SetBaseCost(1);

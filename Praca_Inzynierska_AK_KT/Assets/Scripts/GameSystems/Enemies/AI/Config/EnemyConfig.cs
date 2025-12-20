@@ -10,18 +10,21 @@ namespace GameSystems.AI
 	{
 		[Header("Enemy stats configuration")]
 		[SerializeField]
-		[EnumArray(typeof(EnemyType))]
-		public EnemyAttackData[] EnemyData;
+		public EnemyCommunicationData EnemyCommunicationData;
+		public EnemyAttackData EnemyAttackData;
+	}
+
+	[Serializable]
+	public class EnemyCommunicationData
+	{
+		public float CommunicationRadius = 5f;
+		public float SensorRadius = 10f;
 	}
 
 	[Serializable]
 	public class EnemyAttackData
 	{
-		public EnemyType Type;
-		public float SensorRadius = 10f;
-		public float MeleeAttackRadius = 1f;
-		public int MeleeAttackCost = 1;
+		public float MeleeAttackRadius = 1.5f;
 		public float MeleeAttackDelay = 1;
-		public LayerMask AttackableLayerMask;
 	}
 }

@@ -12,11 +12,11 @@ namespace GameSystems.AI
 		private AgentBehaviour agent;
 
 		private ITarget currentTarget;
+		[SerializeField]
 		private bool shouldMove;
 		private Vector3 lastTargetPosition;
 		private float updateThreshold = 0.5f;
 		private EnemyData enemyData;
-		private float currentMoveSpeed;
 
 		private void Awake()
 		{
@@ -46,17 +46,20 @@ namespace GameSystems.AI
 
 		private void TargetLost()
 		{
+			Debug.Log($"{gameObject.name} TargetLost");
 			this.currentTarget = null;
 			this.shouldMove = false;
 		}
 
 		private void OnTargetInRange(ITarget target)
 		{
+			Debug.Log($"{gameObject.name} TargetInRange MoveBehaviour");
 			this.shouldMove = false;
 		}
 
 		private void OnTargetChanged(ITarget target, bool inRange)
 		{
+			Debug.Log($"{gameObject.name} TargetChanged");
 			this.currentTarget = target;
 			if (currentTarget != null)
 			{
@@ -68,14 +71,19 @@ namespace GameSystems.AI
 
 		private void TargetNotInRange(ITarget target)
 		{
+			Debug.Log($"{gameObject.name} TargetNotInRange");
 			this.shouldMove = true;
 		}
 
 		public void Update()
 		{
-			Debug.Log($"{agent.name} update");
 			if (this.agent.IsPaused)
+			{
+				navigationAgent.ResetPath();
 				return;
+			}
+
+
 
 			Vector3 vel = navigationAgent.velocity;
 
@@ -86,6 +94,7 @@ namespace GameSystems.AI
 
 			if (!shouldMove)
 			{
+				navigationAgent.ResetPath();
 				if (enemyData.EnemyType != EnemyType.Scout)
 				{
 					enemyData.Animator.SetFloat("Move", 0);

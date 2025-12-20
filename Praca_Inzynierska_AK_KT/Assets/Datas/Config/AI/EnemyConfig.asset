@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameSystems::GameSystems.Ai.EnemyConfig
   EnemyData:
   - Type: 0
-    SensorRadius: 0
-    MeleeAttackRadius: 0
-    MeleeAttackCost: 0
-    MeleeAttackDelay: 0
+    CommunicationRadius: 10
+    SensorRadius: 10
+    MeleeAttackRadius: 1
+    MeleeAttackCost: 1
+    MeleeAttackDelay: 1
     AttackableLayerMask:
       serializedVersion: 2
       m_Bits: 0
   - Type: 1
+    CommunicationRadius: 10
     SensorRadius: 10
     MeleeAttackRadius: 1
     MeleeAttackCost: 1
@@ -29,11 +31,12 @@ MonoBehaviour:
     AttackableLayerMask:
       serializedVersion: 2
       m_Bits: 128
-  - Type: 0
-    SensorRadius: 0
-    MeleeAttackRadius: 0
-    MeleeAttackCost: 0
-    MeleeAttackDelay: 0
+  - Type: 2
+    CommunicationRadius: 10
+    SensorRadius: 10
+    MeleeAttackRadius: 1
+    MeleeAttackCost: 1
+    MeleeAttackDelay: 1
     AttackableLayerMask:
       serializedVersion: 2
       m_Bits: 0

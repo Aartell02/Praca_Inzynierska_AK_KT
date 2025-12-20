@@ -34,18 +34,21 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
-			provider.RequestGoal<GetCommandGoal>();
+			provider.RequestGoal<GetCommandGoal>(true);
 		}
-
+		private void Update()
+		{
+			if(!provider.CurrentPlan.IsNull())
+				Debug.Log($"{gameObject.name} Goal: {provider.CurrentPlan.Goal} Action {provider.CurrentPlan.Action}");
+		}
 		private void OnPlayerEnter(Transform Player)
 		{
-			Debug.Log("KillPlayer Requested");
-			provider.RequestGoal<KillPlayerGoal>(true);
+			//provider.RequestGoal<KillPlayerGoal>(true);
 		}
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			provider.RequestGoal<WanderGoal>(true);
+			//provider.RequestGoal<WanderGoal>(true);
 		}
 	}
 }

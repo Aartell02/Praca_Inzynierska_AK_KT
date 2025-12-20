@@ -36,19 +36,16 @@ namespace GameSystems.AI
 
 		private void Start()
 		{
-			Debug.Log("Wander Requested");
-			provider.RequestGoal<WanderGoal>();
+
 		}
 
 		private void OnPlayerEnter(Transform Player)
 		{
-			Debug.Log("KillPlayer Requested");
-			provider.RequestGoal<KillPlayerGoal>(true);
+			//provider.RequestGoal<KillPlayerGoal>(true);
 		}
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			provider.RequestGoal<WanderGoal>(true);
 		}
 	}
 }

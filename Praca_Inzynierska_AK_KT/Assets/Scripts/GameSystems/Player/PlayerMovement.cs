@@ -51,7 +51,7 @@ namespace GameSystems
 			var moveVector = moveDirection * currentMoveSpeed;
 			rb.linearVelocity = new float2(moveVector.x, moveVector.y);
 
-			Debug.Log(rb.linearVelocity.magnitude);
+			//Debug.Log(rb.linearVelocity.magnitude);
 			animator.SetFloat("Move", rb.linearVelocity.magnitude);
 		}
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class AttackAction : GoapActionBase<AttackAction.Data>, IInjectable
+	public class SearchForTargetAction : GoapActionBase<SearchForTargetAction.Data>, IInjectable
 	{
 		EnemyConfig enemyConfig;
 		public class Data : IActionData
@@ -15,13 +15,13 @@ namespace GameSystems.AI
 			public float Timer;
 			public ITarget Target { get; set; }
 		}
-		public override void Start (IMonoAgent agent, Data data)
+		public override void Start(IMonoAgent agent, Data data)
 		{
 			Debug.Log($"{agent.gameObject.name} started attacking attacking");
 
 			var enemyStats = agent.GetComponent<EnemyData>();
 			data.enemyType = enemyStats.EnemyType;
-			data.Timer = enemyConfig.EnemyData[(int)data.enemyType].MeleeAttackDelay;
+			data.Timer = enemyConfig.EnemyAttackData.MeleeAttackDelay;
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
@@ -30,7 +30,7 @@ namespace GameSystems.AI
 
 			Debug.Log($"{agent.gameObject.name} attacking");
 
-			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyData[(int)data.enemyType].MeleeAttackRadius;
+			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyAttackData.MeleeAttackRadius;
 
 			if (shouldAttack)
 			{

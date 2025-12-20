@@ -10,8 +10,6 @@ namespace GameSystems.AI
 	{
 		private EnemyConfig enemyConfig;
 
-		private List<Collider2D> Results = new();
-
 		public override void Created() { }
 		public override void Update() { }
 
@@ -28,7 +26,7 @@ namespace GameSystems.AI
 				if (distSqr < closestDistanceSqr)
 				{
 					closestDistanceSqr = distSqr;
-					return new PositionTarget(commander.position);
+					return new TransformTarget(commander);
 				}
 			}
 

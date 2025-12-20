@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3967813769022340406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9004333275474530789}
+  - component: {fileID: 7074541852279809812}
+  m_Layer: 6
+  m_Name: Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9004333275474530789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967813769022340406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7647315693414708134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7074541852279809812
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967813769022340406}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1
 --- !u!1 &6529996829581106454
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,10 +83,8 @@ GameObject:
   - component: {fileID: -2812428290987717792}
   - component: {fileID: 8639463693804215495}
   - component: {fileID: 8948397044941626456}
-  - component: {fileID: -6803049000538915544}
   - component: {fileID: 7906345303602188948}
   - component: {fileID: 2942883967606223469}
-  - component: {fileID: 8811284549640053757}
   - component: {fileID: 2448141277114008580}
   - component: {fileID: 4183539919820536011}
   m_Layer: 6
@@ -40,7 +106,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 9004333275474530789}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &-6081333837206876522
@@ -116,6 +183,8 @@ MonoBehaviour:
   EnemyType: 0
   Heatlh: 0
   MoveSpeed: 0
+  Goal: 0
+  TargetInRange: 0
 --- !u!114 &7924121463656413394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: CrashKonijn.Agent.Runtime::CrashKonijn.Agent.Runtime.AgentBehaviour
   <ActionProviderBase>k__BackingField: {fileID: -2812428290987717792}
+  <RunInUnityUpdate>k__BackingField: 1
   isPaused: 0
   <LoggerConfig>k__BackingField:
     <DebugMode>k__BackingField: 1
@@ -162,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa4c8d5c8638c342b2095deb7199cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.AI.AgentMoveBehaviour
+  shouldMove: 0
 --- !u!114 &8948397044941626456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,19 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3973f8fd128bed419af01386d28b056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.AI.ScoutBrainBehaviour
---- !u!114 &-6803049000538915544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127f11f2f6c998e458c33bd7cfbf6c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.AI.PlayerSensor
-  Collider: {fileID: 0}
 --- !u!61 &7906345303602188948
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -260,42 +318,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &8811284549640053757
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 3
 --- !u!195 &2448141277114008580
 NavMeshAgent:
   m_ObjectHideFlags: 0
