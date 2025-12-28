@@ -1,25 +1,35 @@
+using Core;
 using GameSystems.AI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace GameSystems
 {
-	class CommanderData : EnemyData
+	public class CommanderData : MonoBehaviour
 	{
-		public int SoldiersCount { get; private set; }
-		public int ScoutsCount { get; private set; }
+		[SerializeField]
+		internal List<GameObject>[] TroopsToCommand;
 
-		public List<Vector2> Altars { get; private set; }
+		internal int SoldiersCount { get; private set; }
+
+		internal int ScoutsCount { get; private set; }
 
 		internal void AddSoldier() => SoldiersCount++;
-
-		internal void AddAltarPosition(Vector2 altarPosition) => Altars.Add(altarPosition);
 
 		private void Start()
 		{
 			var result = EnemySharedData.Commanders[0] = transform;
+			TroopsToCommand = new List<GameObject>[Enum.GetValues(typeof(EnemyType)).Length];
+			for(int i = 0; i < TroopsToCommand.Length; i++)
+				TroopsToCommand[i] = new();
 			Debug.Log(result);
+		}
+
+		private void Update()
+		{
+			
 		}
 	}
 }

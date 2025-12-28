@@ -26,12 +26,8 @@ namespace GameSystems.AI
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddAction<WanderToTargetAction>()
-				.SetTarget<WanderTarget>()
-				.AddEffect<IsWandering>(EffectType.Increase)
-				.SetBaseCost(5);
-
 			builder.AddAction<MeleeAttackAction>()
+				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
 				.SetTarget<PlayerTarget>()
 				.AddEffect<PlayerHealth>(EffectType.Decrease)
 				.SetBaseCost(1);
@@ -39,7 +35,7 @@ namespace GameSystems.AI
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
-			builder.AddTargetSensor<WanderTargetSensor>().SetTarget<WanderTarget>();
+			builder.AddTargetSensor<SearchTargetSensor>().SetTarget<WanderTarget>();
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
 		}
 	}

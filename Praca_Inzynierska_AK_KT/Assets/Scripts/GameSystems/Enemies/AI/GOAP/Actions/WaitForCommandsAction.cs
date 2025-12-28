@@ -13,28 +13,33 @@ namespace GameSystems.AI
 
 		public class Data : IActionData
 		{
-			internal EnemyData enemyData;
 			public ITarget Target { get; set; }
+			public float Timer { get; set; }
 		}
 
 		public override void Start (IMonoAgent agent, Data data)
 		{
-			data.enemyData = agent.GetComponent<EnemyData>();
+			data.Timer = enemyConfig.EnemyCommunicationData.Delay;
 		}
 
 		public override IActionRunState Perform (IMonoAgent agent, Data data, IActionContext context)
 		{
+			data.Timer -= context.DeltaTime;
 
-			Debug.Log($"{agent.gameObject.name} in range");
+			if (context.IsInRange)
+			{
+				//data.enemyData.CommanderInRange = true;
 
-			return ActionRunState.ContinueOrResolve;
+			}
+
+
+			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 
-		public override void End(IMonoAgent agent, Data data)
+		public override void Complete(IMonoAgent agent, Data data)
 		{
-			Debug.Log($"{agent.gameObject.name} stopped listening");
+			//data.enemyData.CommanderInRange = false;
 		}
-
 		public void Inject(DependencyInjector injector)
 		{
 			enemyConfig = injector.EnemyConfig;

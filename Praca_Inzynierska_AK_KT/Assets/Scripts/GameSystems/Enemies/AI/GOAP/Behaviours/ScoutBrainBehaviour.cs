@@ -1,6 +1,7 @@
 using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
+using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace GameSystems.AI
 {
 	public class ScoutBrainBehaviour : MonoBehaviour
 	{
+		[SerializeField]
+		private IGoal currentGoal => provider.CurrentPlan.Goal;
+
+		private EnemyBrainData brainData;
 		private PlayerSensor playerSensor;
 
 		private AgentBehaviour agent;
@@ -21,7 +26,8 @@ namespace GameSystems.AI
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
 
-			this.playerSensor = this.GetComponent<PlayerSensor>();
+			this.brainData = this.GetComponent<EnemyBrainData>();
+			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
 
 			if (this.provider.AgentTypeBehaviour == null)
 				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Scout.ToString());
@@ -49,6 +55,17 @@ namespace GameSystems.AI
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
 			//provider.RequestGoal<WanderGoal>(true);
+		}
+
+		public void SetOrder(AIEnemyOrder order)
+		{
+			switch (order)
+			{
+				case AIEnemyOrder.Scout:
+					brainData.GiveOrder(order);
+					provider.RequestGoal<DeliverPillarLocationsGoal>(true);
+					break;
+			}
 		}
 	}
 }

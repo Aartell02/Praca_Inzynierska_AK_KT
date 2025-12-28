@@ -10,17 +10,14 @@ namespace GameSystems.AI
 		EnemyConfig enemyConfig;
 		public class Data : IActionData
 		{
-			public EnemyType enemyType;
+			public EnemyBrainData brainData {  get; set; }
 
 			public float Timer;
 			public ITarget Target { get; set; }
 		}
 		public override void Start(IMonoAgent agent, Data data)
 		{
-			Debug.Log($"{agent.gameObject.name} started attacking attacking");
-
-			var enemyStats = agent.GetComponent<EnemyData>();
-			data.enemyType = enemyStats.EnemyType;
+			data.brainData = agent.GetComponent<EnemyBrainData>();
 			data.Timer = enemyConfig.EnemyAttackData.MeleeAttackDelay;
 		}
 
@@ -28,16 +25,21 @@ namespace GameSystems.AI
 		{
 			data.Timer -= context.DeltaTime;
 
-			Debug.Log($"{agent.gameObject.name} attacking");
+			float range = enemyConfig.EnemyCommunicationData.SensorRadius;
 
-			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyAttackData.MeleeAttackRadius;
+			Vector3 position = agent.transform.position;
 
-			if (shouldAttack)
+			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
+			foreach (Collider2D hit in hits)
 			{
+				AltarData altarData = hit.GetComponent<AltarData>();
 
+				if (altarData != null) 
+					if(data.brainData.AddAltarPosition(altarData.transform.position))
+						return ActionRunState.Completed;
 			}
 
-			return data.Timer > 0.5f ? ActionRunState.Continue : ActionRunState.Stop;
+			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 
 		public override void End(IMonoAgent agent, Data data)

@@ -19,6 +19,7 @@ namespace GameSystems.AI
 	{
 		public float CommunicationRadius = 5f;
 		public float SensorRadius = 10f;
+		public float Delay = 5;
 	}
 
 	[Serializable]

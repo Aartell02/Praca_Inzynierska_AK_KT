@@ -2,14 +2,17 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	public enum AIEnemyState
+	public enum AttackType
 	{
-		Idle,
-		Hold,
-		Roam,
+		QuickAttack,
+		NormalAttack,
+		HeavyAttack,
+	}
+	public enum AIEnemyOrder
+	{
+		None,
 		Scout,
 		Guard,
-		Defend,
 		Attack
 	}
 }

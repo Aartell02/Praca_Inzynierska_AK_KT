@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	class SoldierData : EnemyData
+	class SoldierData : MonoBehaviour
 	{
 		public int SoldiersCount { get; private set; }
 		public int ScoutsCount { get; private set; }

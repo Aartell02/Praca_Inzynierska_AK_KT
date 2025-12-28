@@ -11,6 +11,7 @@ namespace GameSystems.AI
 			var factory = this.CreateBuilder(EnemyType.Scout.ToString());
 
 			factory.AddCapability<ScoutCapabilityFactory>();
+			factory.AddCapability<UnitCapabilityFactory>();
 
 			return factory.Build();
 		}

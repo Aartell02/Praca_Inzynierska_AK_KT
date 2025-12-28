@@ -91,7 +91,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7647315693414708134}
+  - component: {fileID: -3528979683095814292}
   - component: {fileID: 7417107234573264511}
+  - component: {fileID: 208049029338473037}
   - component: {fileID: 5795109963601708049}
   - component: {fileID: 8182922482920238544}
   - component: {fileID: 6253953780665835240}
@@ -124,6 +126,21 @@ Transform:
   - {fileID: 8140975617152811300}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3528979683095814292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73904ed371b510f41be7f62f81a38419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
+  EnemyType: 1
+  Heatlh: 0
+  MoveSpeed: 0
 --- !u!114 &7417107234573264511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,12 +150,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6529996829581106454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b002092004c50d642bbbafcd85c1f98f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f878bb7486721145b6f34079b47eaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.SoldierData
-  EnemyType: 1
-  Heatlh: 0
-  MoveSpeed: 0
+--- !u!114 &208049029338473037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
 --- !u!114 &5795109963601708049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: CrashKonijn.Agent.Runtime::CrashKonijn.Agent.Runtime.AgentBehaviour
   <ActionProviderBase>k__BackingField: {fileID: 4136563915716922324}
+  <RunInUnityUpdate>k__BackingField: 1
   isPaused: 0
   <LoggerConfig>k__BackingField:
     <DebugMode>k__BackingField: 1
@@ -372,3 +399,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa4c8d5c8638c342b2095deb7199cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::CrashKonijn.Goap.GenTest.AgentMoveBehaviour
+  shouldMove: 0

@@ -8,7 +8,7 @@ namespace GameSystems.AI
 {
 	public class SoldierBrainBehaviour : MonoBehaviour
 	{
-		private EnemyData enemyStats;
+		private EnemyBrainData brainData;
 		private PlayerSensor playerSensor;
 
 		private AgentBehaviour agent;
@@ -21,6 +21,7 @@ namespace GameSystems.AI
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
+			this.brainData = this.GetComponent<EnemyBrainData>();
 
 			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
 
@@ -36,7 +37,7 @@ namespace GameSystems.AI
 
 		private void Start()
 		{
-
+			provider.RequestGoal<GetCommandGoal>(true);
 		}
 
 		private void OnPlayerEnter(Transform Player)

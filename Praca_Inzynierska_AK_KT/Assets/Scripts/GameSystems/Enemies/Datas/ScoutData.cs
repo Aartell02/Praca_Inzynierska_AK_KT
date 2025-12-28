@@ -1,18 +1,12 @@
+using Core;
 using GameSystems.AI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameSystems
 {
-	class ScoutData : EnemyData
+	public class ScoutData : MonoBehaviour
 	{
-		public int ScoutsCount { get; private set; }
-
-		public List<Vector2> Altars { get; private set; }
-
-
-		internal void AddAltarPosition(Vector2 altarPosition) => Altars.Add(altarPosition);
-
-
 	}
 }

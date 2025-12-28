@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace GameSystems
 {
-    abstract class EnemyData : MonoBehaviour
+    public class EnemyData : MonoBehaviour
     {
 		[SerializeField]
 		internal EnemyType EnemyType;
@@ -13,10 +13,6 @@ namespace GameSystems
 		internal int Heatlh;
 		[SerializeField]
 		internal float MoveSpeed;
-		[SerializeField]
-		internal AIEnemyState Goal;
-		[SerializeField]
-		internal bool TargetInRange;
 
 		internal Animator Animator;
 		internal Rigidbody2D Rigidbody;

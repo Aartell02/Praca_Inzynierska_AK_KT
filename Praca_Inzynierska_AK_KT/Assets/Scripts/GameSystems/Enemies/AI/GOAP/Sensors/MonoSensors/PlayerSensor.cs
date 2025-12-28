@@ -20,7 +20,7 @@ namespace GameSystems.AI
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			if (other.TryGetComponent(out PlayerData player))
+			if (other.TryGetComponent(out PlayerStats player))
 			{
 				OnPlayerEnter?.Invoke(player.transform);
 			}
@@ -28,7 +28,7 @@ namespace GameSystems.AI
 
 		private void OnTriggerExit2D(Collider2D other)
 		{
-			if (other.TryGetComponent(out PlayerData player))
+			if (other.TryGetComponent(out PlayerStats player))
 			{
 				OnPlayerExit?.Invoke(other.transform.position);
 			}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9004333275474530789}
   - component: {fileID: 7074541852279809812}
+  - component: {fileID: 6600286841460237371}
   m_Layer: 6
   m_Name: Sensor
   m_TagString: Untagged
@@ -68,6 +69,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1
+--- !u!114 &6600286841460237371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967813769022340406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127f11f2f6c998e458c33bd7cfbf6c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.AI.PlayerSensor
+  Collider: {fileID: 7074541852279809812}
 --- !u!1 &6529996829581106454
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +92,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7647315693414708134}
   - component: {fileID: -6081333837206876522}
+  - component: {fileID: 5032451668135911845}
   - component: {fileID: 5262552974823322374}
+  - component: {fileID: 8316317932044305456}
   - component: {fileID: 7924121463656413394}
   - component: {fileID: -2812428290987717792}
   - component: {fileID: 8639463693804215495}
@@ -168,6 +184,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5032451668135911845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73904ed371b510f41be7f62f81a38419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
+  EnemyType: 0
+  Heatlh: 0
+  MoveSpeed: 0
 --- !u!114 &5262552974823322374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,14 +208,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6529996829581106454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510f22558c8798f4c88811941e5eadd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 71ccc9e09b3eb034090c6966ccbf988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.ScoutData
-  EnemyType: 0
-  Heatlh: 0
-  MoveSpeed: 0
-  Goal: 0
-  TargetInRange: 0
+--- !u!114 &8316317932044305456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
 --- !u!114 &7924121463656413394
 MonoBehaviour:
   m_ObjectHideFlags: 0

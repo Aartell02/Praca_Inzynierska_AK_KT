@@ -1,13 +1,16 @@
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GameSystems.AI
 {
 	// Defining a GoapId is only necessary when using the ScriptableObject configuration method.
-	public class WanderTargetSensor : LocalTargetSensorBase
+	public class SearchTargetSensor : LocalTargetSensorBase
 	{
-		public override void Created() {}
+		public override void Created()
+		{
+		}
 
 		// Is called every frame that an agent of an `AgentType` that uses this sensor needs it.
 		// This can be used to 'cache' data that is used in the `Sense` method.
@@ -16,15 +19,21 @@ namespace GameSystems.AI
 
 		public override ITarget Sense(IActionReceiver agent, IComponentReference references, ITarget existingTarget)
 		{
+
 			var random = this.GetRandomPosition(agent);
 
-			// If the existing target is a `PositionTarget`, we can reuse it and just update the position.
-			if (existingTarget is PositionTarget positionTarget)
+			if (NavMesh.SamplePosition(random, out NavMeshHit hit, 0.2f, NavMesh.AllAreas))
 			{
-				return positionTarget.SetPosition(random);
+				Vector2 validPoint = hit.position;
+				// If the existing target is a `PositionTarget`, we can reuse it and just update the position.
+				if (existingTarget is PositionTarget positionTarget)
+				{
+					return positionTarget.SetPosition(random);
+				}
+
 			}
 
-			return new PositionTarget(random);
+			return new PositionTarget(agent.Transform.position);
 		}
 
 		private Vector3 GetRandomPosition(IActionReceiver agent)

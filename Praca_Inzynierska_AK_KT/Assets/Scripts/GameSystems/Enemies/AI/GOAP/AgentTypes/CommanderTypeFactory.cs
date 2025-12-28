@@ -10,7 +10,7 @@ namespace GameSystems.AI
 		{
 			var factory = this.CreateBuilder(EnemyType.Commander.ToString());
 
-			factory.AddCapability<CommanderCapabilityFactory>();
+			factory.AddCapability<CommandCapabilityFactory>();
 
 			return factory.Build();
 		}

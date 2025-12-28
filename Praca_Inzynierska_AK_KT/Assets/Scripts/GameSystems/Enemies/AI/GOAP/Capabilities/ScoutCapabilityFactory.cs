@@ -20,32 +20,32 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
-			builder.AddGoal<GetCommandGoal>()
-				.AddCondition<HasGoal>(Comparison.GreaterThanOrEqual, 1);
+			builder.AddGoal<DeliverPillarLocationsGoal>()
+				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddAction<WaitForCommandsAction>()
-				.AddCondition<CommanderInRange>(Comparison.GreaterThanOrEqual, 1)
-				.SetRequiresTarget(false)
-				.AddEffect<HasGoal>(EffectType.Increase)
-				.SetBaseCost(1);
+			builder.AddAction<SearchForTargetAction>()
+				.SetTarget<SearchTarget>()
+				.AddEffect<KnownAltars>(EffectType.Increase)
+				.SetBaseCost(1)
+				.SetStoppingDistance(1f);
 
-			builder.AddAction<WanderToTargetAction>()
+			builder.AddAction<ReportInformationAction>()
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
 				.SetTarget<CommanderTarget>()
-				.AddEffect<CommanderInRange>(true)
+				.AddEffect<HasGoal>(EffectType.Decrease)
+				.SetBaseCost(1)
 				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
-				.SetBaseCost(5)
-				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius);
+				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius - 1);
 		}
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
-			builder.AddTargetSensor<CommanderTargetSensor>().SetTarget<CommanderTarget>();
-			// musze obsluzyc zmienna. effect mowi tylko dla planera na co wyplywa akcja a ja musze faktycznie zwiekszyc wartosc
-			builder.AddWorldSensor<HasGoalSensor>().SetKey<HasGoal>();
-			builder.AddWorldSensor<TargetInRangeSensor>().SetKey<CommanderInRange>();
+			builder.AddTargetSensor<SearchTargetSensor>().SetTarget<SearchTarget>();
+			builder.AddWorldSensor<KnownAltarsSensor>().SetKey<KnownAltars>();
 
 		}
 
