@@ -16,15 +16,15 @@ namespace GameSystems
 
 		internal int ScoutsCount { get; private set; }
 
+		private EnemyBrainData brainData;
 		internal void AddSoldier() => SoldiersCount++;
 
 		private void Start()
 		{
-			var result = EnemySharedData.Commanders[0] = transform;
+			EnemySharedData.Commanders.Add(transform);
 			TroopsToCommand = new List<GameObject>[Enum.GetValues(typeof(EnemyType)).Length];
 			for(int i = 0; i < TroopsToCommand.Length; i++)
 				TroopsToCommand[i] = new();
-			Debug.Log(result);
 		}
 
 		private void Update()

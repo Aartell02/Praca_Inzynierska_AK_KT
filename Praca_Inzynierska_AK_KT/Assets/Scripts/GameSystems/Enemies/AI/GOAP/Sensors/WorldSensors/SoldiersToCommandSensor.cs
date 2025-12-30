@@ -5,7 +5,7 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-	public class TroopsToCommandSensor : LocalWorldSensorBase
+	public class SoldiersToCommandSensor : LocalWorldSensorBase
 	{
 		public override void Created() { }
 
@@ -13,13 +13,7 @@ namespace GameSystems.AI
 
 		public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
 		{
-			int sum = 0;
-			var commanderData = references.GetCachedComponent<CommanderData>().TroopsToCommand;
-			foreach (var troops in commanderData)
-			{
-				sum += troops.Count;
-			}
-			return new SenseValue(sum);
+			return new SenseValue(references.GetCachedComponent<CommanderData>().TroopsToCommand[(int)EnemyType.Soldier].Count);
 		}
 	}
 }

@@ -21,8 +21,9 @@ namespace GameSystems.AI
 		void BuildGoals(CapabilityBuilder builder)
 		{
 			builder.AddGoal<DeliverPillarLocationsGoal>()
-				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0)
-				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1);
+				.AddCondition<HasGoal>(Comparison.SmallerThan, 1)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
+				.SetBaseCost(5);
 		}
 
 		void BuildActions(CapabilityBuilder builder)

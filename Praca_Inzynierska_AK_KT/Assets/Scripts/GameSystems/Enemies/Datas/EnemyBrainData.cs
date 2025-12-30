@@ -8,7 +8,7 @@ namespace GameSystems.AI
 		[SerializeField]
 		public AIEnemyOrder Order {  get; private set; }
 		[SerializeField]
-		public List<Vector2> Altars { get; private set; }
+		public List<Transform> Altars { get; private set; }
 		[SerializeField]
 		public Vector2 PlayerPosition { get; private set; }
 
@@ -18,14 +18,15 @@ namespace GameSystems.AI
 				Order = order;
 		}
 
-		public bool AddAltarPosition(Vector2 altarPosition)
+		public bool AddAltarPosition(Transform altarTransform)
 		{
-			if (Altars.Contains(altarPosition))
+			if (Altars.Contains(altarTransform))
 				return false;
 
-			Altars.Add(altarPosition);
+			Altars.Add(altarTransform);
 			return true;
 		}
+
 		public void AddPlayerPosition(Vector2 playerPosition) => PlayerPosition = playerPosition;
 
 		private void Start()

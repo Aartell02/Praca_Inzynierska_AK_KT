@@ -20,8 +20,9 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
-			builder.AddGoal<GetCommandGoal>()
-				.AddCondition<HasGoal>(Comparison.GreaterThanOrEqual, 1);
+			builder.AddGoal<GetOrderGoal>()
+				.AddCondition<HasGoal>(Comparison.GreaterThanOrEqual, 1)
+				.SetBaseCost(1);
 		}
 
 		void BuildActions(CapabilityBuilder builder)

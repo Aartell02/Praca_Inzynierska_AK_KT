@@ -11,7 +11,7 @@ namespace GameSystems.AI
 	public class ScoutBrainBehaviour : MonoBehaviour
 	{
 		[SerializeField]
-		private IGoal currentGoal => provider.CurrentPlan.Goal;
+		private AIEnemyOrder lastOrder;
 
 		private EnemyBrainData brainData;
 		private PlayerSensor playerSensor;
@@ -40,12 +40,18 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
-			provider.RequestGoal<GetCommandGoal>(true);
+			provider.RequestGoal<GetOrderGoal>(true);
+			lastOrder = AIEnemyOrder.None;
 		}
 		private void Update()
 		{
 			if(!provider.CurrentPlan.IsNull())
 				Debug.Log($"{gameObject.name} Goal: {provider.CurrentPlan.Goal} Action {provider.CurrentPlan.Action}");
+			if (brainData.Order is AIEnemyOrder.None && lastOrder is not AIEnemyOrder.None)
+			{
+				provider.RequestGoal<GetOrderGoal>(false);
+				lastOrder = AIEnemyOrder.None;
+			}
 		}
 		private void OnPlayerEnter(Transform Player)
 		{
@@ -54,7 +60,7 @@ namespace GameSystems.AI
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			//provider.RequestGoal<WanderGoal>(true);
+
 		}
 
 		public void SetOrder(AIEnemyOrder order)
@@ -64,6 +70,7 @@ namespace GameSystems.AI
 				case AIEnemyOrder.Scout:
 					brainData.GiveOrder(order);
 					provider.RequestGoal<DeliverPillarLocationsGoal>(true);
+					lastOrder = order;
 					break;
 			}
 		}

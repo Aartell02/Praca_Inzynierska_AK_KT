@@ -26,30 +26,29 @@ namespace GameSystems.AI
 			data.Timer -= context.DeltaTime;
 			if (context.IsInRange)
 			{
-				//data.commandedData.CommanderInRange = true;
+				float range = enemyConfig.EnemyCommunicationData.SensorRadius;
+
+				Vector3 position = agent.transform.position;
+
+				Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
+				foreach (Collider2D hit in hits)
+				{
+					CommanderData commanderData = hit.GetComponent<CommanderData>();
+
+					if (commanderData != null)
+					{
+						EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
+						brainData.AddAltarPosition(brainData.transform);
+						data.brainData.GiveOrder(AIEnemyOrder.None);
+						return ActionRunState.Completed;
+					}
+
+				}
 			}
 
 			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 
-		public override void Complete(IMonoAgent agent, Data data)
-		{
-			float range = enemyConfig.EnemyCommunicationData.CommunicationRadius;
-
-			Vector3 position = agent.transform.position;
-
-			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
-			foreach (Collider2D hit in hits)
-			{
-				EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
-
-				if (brainData != null)
-				{
-					foreach (var altar in data.brainData.Altars)
-						brainData.AddAltarPosition(altar);
-				}
-			}
-		}
 		public void Inject(DependencyInjector injector)
 		{
 			enemyConfig = injector.EnemyConfig;

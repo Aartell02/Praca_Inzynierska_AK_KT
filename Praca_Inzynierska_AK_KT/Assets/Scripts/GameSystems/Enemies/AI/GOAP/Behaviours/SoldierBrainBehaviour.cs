@@ -37,7 +37,7 @@ namespace GameSystems.AI
 
 		private void Start()
 		{
-			provider.RequestGoal<GetCommandGoal>(true);
+			provider.RequestGoal<GetOrderGoal>(true);
 		}
 
 		private void OnPlayerEnter(Transform Player)

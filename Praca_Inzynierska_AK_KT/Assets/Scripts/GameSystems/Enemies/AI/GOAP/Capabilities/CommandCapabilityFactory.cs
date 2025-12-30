@@ -19,27 +19,41 @@ namespace GameSystems.AI
 		void BuildGoals(CapabilityBuilder builder)
 		{
 			builder.AddGoal<StrategizeGoal>()
-				.AddCondition<IsPlanning>(Comparison.GreaterThanOrEqual, 1);
+				.AddCondition<IsPlanning>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
 			builder.AddAction<StrategizeAction>()
-				.AddCondition<TroopsToCommand>(Comparison.SmallerThan, 2)
+				.AddCondition<ScoutsToCommand>(Comparison.SmallerThan, 2)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.SetBaseCost(1)
 				.SetRequiresTarget(false);
 
-			builder.AddAction<SendScoutsAction>()
-				.AddCondition<TroopsToCommand>(Comparison.GreaterThanOrEqual,2)
+			builder.AddAction<SendTroopsAction>()
+				.AddCondition<SoldiersToCommand>(Comparison.GreaterThan, 2)
+				.AddCondition<ScoutsToCommand>(Comparison.GreaterThan, 1)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
 				.AddEffect<IsPlanning>(EffectType.Increase)
+				.AddEffect<SoldiersToCommand>(EffectType.Decrease)
+				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
+				.SetBaseCost(5)
+				.SetRequiresTarget(false);
+
+			builder.AddAction<SendScoutsAction>()
+				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual,2)
+				.AddEffect<IsPlanning>(EffectType.Increase)
+				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
 				.SetBaseCost(5)
 				.SetRequiresTarget(false);
 		}
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
-			builder.AddWorldSensor<TroopsToCommandSensor>().SetKey<TroopsToCommand>();
+			builder.AddWorldSensor<SoldiersToCommandSensor>().SetKey<SoldiersToCommand>();
+			builder.AddWorldSensor<ScoutsToCommandSensor>().SetKey<ScoutsToCommand>();
+			builder.AddWorldSensor<KnownAltarsSensor>().SetKey<KnownAltars>();
 		}
 	}
 }

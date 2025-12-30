@@ -1,11 +1,11 @@
+using Core;
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-	/*
-	public class CommanderInRangeSensor : LocalWorldSensorBase
+	public class ScoutsToCommandSensor : LocalWorldSensorBase
 	{
 		public override void Created() { }
 
@@ -13,8 +13,7 @@ namespace GameSystems.AI
 
 		public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
 		{
-			return new SenseValue(references.GetCachedComponent<CommandedData>().CommanderInRange);
+			return new SenseValue(references.GetCachedComponent<CommanderData>().TroopsToCommand[(int)EnemyType.Scout].Count);
 		}
 	}
-	*/
 }

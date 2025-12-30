@@ -35,7 +35,7 @@ namespace GameSystems.AI
 				AltarData altarData = hit.GetComponent<AltarData>();
 
 				if (altarData != null) 
-					if(data.brainData.AddAltarPosition(altarData.transform.position))
+					if(data.brainData.AddAltarPosition(altarData.transform))
 						return ActionRunState.Completed;
 			}
 
