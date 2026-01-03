@@ -12,7 +12,7 @@ namespace GameSystems.AI
 		EnemyConfig enemyConfig;
 		public class Data : IActionData
 		{
-			public CommanderData commanderData { get; set; }
+			public CommanderBrainBehaviour commanderData { get; set; }
 			public List<Collider2D> group {  get; set; }
 			public float Timer { get; set; }
 			public ITarget Target { get; set; }
@@ -21,7 +21,7 @@ namespace GameSystems.AI
 		}
 		public override void Start(IMonoAgent agent, Data data)
 		{
-			data.commanderData = agent.GetComponent<CommanderData>();
+			data.commanderData = agent.GetComponent<CommanderBrainBehaviour>();
 			data.Timer = enemyConfig.EnemyCommunicationData.Delay;
 			data.RemainingSoldiers = enemyConfig.EnemyGroupData.SoldiersCount;
 			data.RemainingScouts = enemyConfig.EnemyGroupData.ScoutsCount;
@@ -52,7 +52,7 @@ namespace GameSystems.AI
 					if (soldierBrainData != null)
 					{
 						brainData.SetDeufaultPosition(altar.transform.position);
-						soldierBrainData.SetOrder(AIEnemyOrder.Guard);
+						soldierBrainData.GiveOrder(AIEnemyGoal.Guard);
 						data.RemainingSoldiers--;
 					}
 					ScoutBrainBehaviour scoutBrainData = hit.GetComponent<ScoutBrainBehaviour>();
@@ -60,7 +60,7 @@ namespace GameSystems.AI
 					if (scoutBrainData != null)
 					{
 						brainData.SetDeufaultPosition(altar.transform.position);
-						scoutBrainData.SetOrder(AIEnemyOrder.Guard);
+						scoutBrainData.GiveOrder(AIEnemyGoal.Guard);
 						data.RemainingScouts--;
 					}
 				}

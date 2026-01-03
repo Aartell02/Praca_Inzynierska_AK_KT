@@ -3,6 +3,8 @@ using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using System;
+using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
@@ -10,6 +12,9 @@ namespace GameSystems.AI
 {
 	public class CommanderBrainBehaviour : MonoBehaviour, IInjectable
 	{
+		[SerializeField]
+		internal List<GameObject>[] TroopsToCommand;
+
 		private EnemyConfig enemyConfig;
 		private PlayerSensor playerSensor;
 		private TroopsSensor troopsSensor;
@@ -17,7 +22,6 @@ namespace GameSystems.AI
 		private AgentBehaviour agent;
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
-		private CommanderData commanderData;
 		private EnemyBrainData brainData;
 
 		private IGoal previousGoal;
@@ -27,14 +31,19 @@ namespace GameSystems.AI
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
-			this.commanderData = this.GetComponent<CommanderData>();
-			this.brainData = this.GetComponent<EnemyBrainData>();
+			if (this.provider.AgentTypeBehaviour == null)
+				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Commander.ToString());
 
 			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
 			this.troopsSensor = this.GetComponentInChildren<TroopsSensor>();
 
-			if (this.provider.AgentTypeBehaviour == null)
-				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Commander.ToString());
+			this.brainData = this.GetComponent<EnemyBrainData>();
+
+			EnemySharedData.Commanders.Add(gameObject);
+
+			TroopsToCommand = new List<GameObject>[Enum.GetValues(typeof(EnemyType)).Length];
+			for (int i = 0; i < TroopsToCommand.Length; i++)
+				TroopsToCommand[i] = new();
 		}
 
 		private void OnEnable()
@@ -44,8 +53,10 @@ namespace GameSystems.AI
 			troopsSensor.OnUnitEnter += OnUnitEnter;
 			troopsSensor.OnUnitExit += OnUnitExit;
 		}
+
 		private void Start()
 		{
+
 			provider.RequestGoal<StrategizeGoal>(true);
 		}
 
@@ -53,14 +64,14 @@ namespace GameSystems.AI
 		{
 			Debug.Log($"{unit} IN");
 			var unitData = unit.GetComponent<EnemyData>();
-			commanderData.TroopsToCommand[(int)unitData.EnemyType].Add(unit);
+			TroopsToCommand[(int)unitData.EnemyType].Add(unit);
 		}
 
 		private void OnUnitExit(GameObject unit)
 		{
 			Debug.Log($"{unit} OUT");
 			var unitData = unit.GetComponent<EnemyData>();
-			commanderData.TroopsToCommand[(int)unitData.EnemyType].Remove(unit);
+			TroopsToCommand[(int)unitData.EnemyType].Remove(unit);
 		}
 
 		private void OnPlayerEnter(Transform Player)

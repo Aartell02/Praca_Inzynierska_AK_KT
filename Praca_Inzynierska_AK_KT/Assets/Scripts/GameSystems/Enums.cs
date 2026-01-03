@@ -8,9 +8,10 @@ namespace GameSystems
 		NormalAttack,
 		HeavyAttack,
 	}
-	public enum AIEnemyOrder
+	public enum AIEnemyGoal
 	{
-		None,
+		Default = int.MinValue,
+		None = 0,
 		Scout,
 		Guard,
 		Attack

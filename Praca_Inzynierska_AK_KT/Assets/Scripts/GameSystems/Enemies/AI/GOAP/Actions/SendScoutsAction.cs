@@ -40,7 +40,7 @@ namespace GameSystems.AI
 
 				if (scoutData != null)
 				{
-					scoutData.SetOrder(AIEnemyOrder.Scout);
+					scoutData.GiveOrder(AIEnemyGoal.Scout);
 				}
 			}
 		}

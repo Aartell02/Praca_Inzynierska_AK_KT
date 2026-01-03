@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7647315693414708134}
   - component: {fileID: 7757246998774899818}
-  - component: {fileID: 4432628368108393839}
-  - component: {fileID: 2154344028946853878}
   - component: {fileID: -6081333837206876522}
   - component: {fileID: 7924121463656413394}
   - component: {fileID: -2812428290987717792}
@@ -21,6 +19,7 @@ GameObject:
   - component: {fileID: 2942883967606223469}
   - component: {fileID: 1127428523364912095}
   - component: {fileID: 259569268657776653}
+  - component: {fileID: 6985367393293057077}
   m_Layer: 6
   m_Name: Commander
   m_TagString: Untagged
@@ -59,31 +58,6 @@ MonoBehaviour:
   EnemyType: 2
   Heatlh: 0
   MoveSpeed: 0
-  Goal: 0
---- !u!114 &4432628368108393839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831eef2bc3f183a4184b9cea15eda720, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.CommanderData
---- !u!114 &2154344028946853878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.SoldierData
 --- !u!212 &-6081333837206876522
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -319,6 +293,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6985367393293057077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
 --- !u!1 &8133992257996945627
 GameObject:
   m_ObjectHideFlags: 0

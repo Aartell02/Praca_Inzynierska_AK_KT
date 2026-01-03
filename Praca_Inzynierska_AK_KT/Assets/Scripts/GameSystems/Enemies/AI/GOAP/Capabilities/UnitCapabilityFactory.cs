@@ -46,7 +46,7 @@ namespace GameSystems.AI
 		{
 			builder.AddTargetSensor<CommanderTargetSensor>().SetTarget<CommanderTarget>();
 			builder.AddTargetSensor<UnitPositionTargetSensor>().SetTarget<UnitPositionTarget>();
-			builder.AddWorldSensor<HasGoalSensor>().SetKey<HasGoal>();
+			builder.AddWorldSensor<HasOrderSensor>().SetKey<HasGoal>();
 		}
 
 		public void Inject(DependencyInjector injector)

@@ -1,23 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSystems.AI
+namespace GameSystems
 {
 	public class EnemyBrainData : MonoBehaviour
 	{
-		[SerializeField]
-		public AIEnemyOrder Order {  get; private set; }
-		[SerializeField]
-		public List<GameObject> Altars { get; set; }
-		[SerializeField]
-		public Vector2 PlayerPosition { get; private set; }
-		[SerializeField]
+		public bool dirty = false;
+		public AIEnemyGoal Goal { get; private set; }
+		public AIEnemyGoal Order { get; private set; }
+		public List<GameObject> Altars { get; private set; }
+		public Vector2 PlayerPosition { get; private set;}
 		public Vector2 DefaultPosition { get; private set; }
 
-		public void GiveOrder(AIEnemyOrder order)
+		public void SetGoal(AIEnemyGoal goal, bool isOrder = false)
 		{
-			if(Order != order)
-				Order = order;
+			if (isOrder)
+				Order = goal;
+			if (Goal != goal)
+			{
+				Goal = goal;
+				dirty = true;
+			}
 		}
 
 		public bool AddAltarPosition(GameObject altarTransform)
@@ -36,8 +39,6 @@ namespace GameSystems.AI
 		private void Start()
 		{
 			Altars = new();
-			Order = AIEnemyOrder.None;
 		}
-
 	}
 }

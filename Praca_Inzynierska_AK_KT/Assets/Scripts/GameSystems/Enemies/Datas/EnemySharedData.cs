@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSystems.AI
+namespace GameSystems
 {
 	public static class EnemySharedData
 	{
-		public static List<Transform> Commanders = new();
+		public static List<GameObject> Commanders = new();
 		public static Vector2 SpawnPoint;
 		public static int NumberOfAltars = 3;
 	}

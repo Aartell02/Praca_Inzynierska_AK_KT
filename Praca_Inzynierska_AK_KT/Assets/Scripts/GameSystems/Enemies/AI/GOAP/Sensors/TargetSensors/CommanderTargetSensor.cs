@@ -21,12 +21,12 @@ namespace GameSystems.AI
 			{
 				if (commander == null) continue;
 
-				float distSqr = (commander.position - agent.Transform.position).sqrMagnitude;
+				float distSqr = (commander.transform.position - agent.Transform.position).sqrMagnitude;
 
 				if (distSqr < closestDistanceSqr)
 				{
 					closestDistanceSqr = distSqr;
-					return new TransformTarget(commander);
+					return new TransformTarget(commander.transform);
 				}
 			}
 

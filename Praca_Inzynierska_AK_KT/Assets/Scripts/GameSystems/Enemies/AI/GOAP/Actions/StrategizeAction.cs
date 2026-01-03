@@ -8,7 +8,7 @@ namespace GameSystems.AI
 	{
 		public override void Start(IMonoAgent agent, Data data)
 		{
-			data.commanderData = agent.GetComponent<CommanderData>();
+			data.commanderData = agent.GetComponent<CommanderBrainBehaviour>();
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
@@ -19,7 +19,7 @@ namespace GameSystems.AI
 
 		public class Data : IActionData
 		{
-			public CommanderData commanderData { get; set; }
+			public CommanderBrainBehaviour commanderData { get; set; }
 			public ITarget Target { get; set; }
 		}
 	}

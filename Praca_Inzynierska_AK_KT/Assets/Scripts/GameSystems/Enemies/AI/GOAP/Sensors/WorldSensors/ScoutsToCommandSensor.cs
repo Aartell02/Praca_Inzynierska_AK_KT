@@ -14,7 +14,7 @@ namespace GameSystems.AI
 		public override SenseValue Sense(IActionReceiver agent, IComponentReference references)
 		{
 
-			return new SenseValue(references.GetCachedComponent<CommanderData>().TroopsToCommand[(int)EnemyType.Scout].Count);
+			return new SenseValue(references.GetCachedComponent<CommanderBrainBehaviour>().TroopsToCommand[(int)EnemyType.Scout].Count);
 		}
 	}
 }

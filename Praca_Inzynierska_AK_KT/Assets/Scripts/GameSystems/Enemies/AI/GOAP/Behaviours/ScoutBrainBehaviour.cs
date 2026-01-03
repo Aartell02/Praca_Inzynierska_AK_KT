@@ -3,6 +3,7 @@ using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using System;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
@@ -10,27 +11,25 @@ namespace GameSystems.AI
 {
 	public class ScoutBrainBehaviour : MonoBehaviour
 	{
-		[SerializeField]
-		private AIEnemyOrder lastOrder;
-
-		private EnemyBrainData brainData;
-		private PlayerSensor playerSensor;
-
 		private AgentBehaviour agent;
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
+
+		private PlayerSensor playerSensor;
+
+		private EnemyBrainData brainData;
 
 		private void Awake()
 		{
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
-
-			this.brainData = this.GetComponent<EnemyBrainData>();
-			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
-
 			if (this.provider.AgentTypeBehaviour == null)
 				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Scout.ToString());
+
+			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
+
+			this.brainData = this.GetComponent<EnemyBrainData>();
 		}
 
 		private void OnEnable()
@@ -40,46 +39,40 @@ namespace GameSystems.AI
 		}
 		private void Start()
 		{
+			brainData.SetGoal(AIEnemyGoal.None);
 			provider.RequestGoal<GetOrderGoal>(true);
-			lastOrder = AIEnemyOrder.None;
 		}
 		private void Update()
 		{
-			if(!provider.CurrentPlan.IsNull())
+			if(this.brainData.dirty)
+				SetGoal(brainData.Goal);
+			if (!provider.CurrentPlan.IsNull())
 				Debug.Log($"{gameObject.name} Goal: {provider.CurrentPlan.Goal} Action {provider.CurrentPlan.Action}");
-			if (brainData.Order is AIEnemyOrder.None && lastOrder is not AIEnemyOrder.None)
+		}
+
+		private void OnPlayerEnter(Transform Player) => brainData.SetGoal(AIEnemyGoal.Attack);
+
+		private void OnPlayerExit(Vector2 LastKnownPosition) => brainData.SetGoal(brainData.Order);
+
+		public void GiveOrder(AIEnemyGoal goal) => brainData.SetGoal(goal, true);
+
+		void SetGoal(AIEnemyGoal goal)
+		{
+			switch (goal)
 			{
-				provider.RequestGoal<GetOrderGoal>(false);
-				lastOrder = AIEnemyOrder.None;
-			}
-		}
-		private void OnPlayerEnter(Transform Player)
-		{
-			//provider.RequestGoal<KillPlayerGoal>(true);
-		}
-
-		private void OnPlayerExit(Vector2 LastKnownPosition)
-		{
-
-		}
-
-		public void SetOrder(AIEnemyOrder order)
-		{
-			if(lastOrder == order) return;
-			switch (order)
-			{
-				case AIEnemyOrder.Scout:
-					brainData.GiveOrder(order);
+				case AIEnemyGoal.None:
+					provider.RequestGoal<GetOrderGoal>(true);
+					break;
+				case AIEnemyGoal.Scout:
 					provider.RequestGoal<DeliverPillarLocationsGoal>(true);
-					lastOrder = order;
 					break;
 
-				case AIEnemyOrder.Guard:
-					brainData.GiveOrder(order);
+				case AIEnemyGoal.Guard:
 					//provider.RequestGoal<GuardAltarGoal>(true);
-					lastOrder = order;
 					break;
 			}
+
+			brainData.dirty = false;
 		}
 	}
 }

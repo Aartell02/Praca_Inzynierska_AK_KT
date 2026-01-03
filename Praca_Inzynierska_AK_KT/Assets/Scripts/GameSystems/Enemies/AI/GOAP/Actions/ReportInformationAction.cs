@@ -33,7 +33,7 @@ namespace GameSystems.AI
 				Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 				foreach (Collider2D hit in hits)
 				{
-					CommanderData commanderData = hit.GetComponent<CommanderData>();
+					CommanderBrainBehaviour commanderData = hit.GetComponent<CommanderBrainBehaviour>();
 
 					if (commanderData != null)
 					{
@@ -45,7 +45,7 @@ namespace GameSystems.AI
 								success = true;
 						}
 
-						data.brainData.GiveOrder(AIEnemyOrder.None);
+						data.brainData.SetGoal(AIEnemyGoal.None, true);
 						if(!success)
 							data.brainData.Altars.Clear();
 						return ActionRunState.Completed;

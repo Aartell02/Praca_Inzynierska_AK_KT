@@ -4,7 +4,7 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-	public class HasGoalSensor : LocalWorldSensorBase
+	public class HasOrderSensor : LocalWorldSensorBase
 	{
 		public override void Created() { }
 

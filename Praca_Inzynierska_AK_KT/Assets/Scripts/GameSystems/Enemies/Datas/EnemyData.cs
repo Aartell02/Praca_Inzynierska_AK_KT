@@ -1,7 +1,5 @@
 using Core;
-using CrashKonijn.Agent.Runtime;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace GameSystems
 {
