@@ -23,18 +23,18 @@ namespace GameSystems
 			}
 		}
 
-		public bool AddAltarPosition(GameObject altarTransform)
+		public bool AddAltarPosition(GameObject altar)
 		{
-			if (Altars.Contains(altarTransform))
+			if (Altars.Contains(altar))
 				return false;
 
-			Altars.Add(altarTransform);
+			Altars.Add(altar);
 			return true;
 		}
 
 		public void AddPlayerPosition(Vector2 playerPosition) => PlayerPosition = playerPosition;
 
-		public void SetDeufaultPosition(Vector2 deufaultPosition) => PlayerPosition = deufaultPosition;
+		public void SetDeufaultPosition(Vector2 deufaultPosition) => DefaultPosition = deufaultPosition;
 
 		private void Start()
 		{
