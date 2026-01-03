@@ -4,4 +4,6 @@ namespace GameSystems.AI
 {
 
 	public class DeliverPillarLocationsGoal : GoalBase { }
+
+	public class GuardAltarGoal : GoalBase { }
 }

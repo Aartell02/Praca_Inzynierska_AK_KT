@@ -33,11 +33,19 @@ namespace GameSystems.AI
 				.SetBaseCost(1)
 				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
 				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius - 1);
+
+			builder.AddAction<GoToPositionAction>()
+				.SetTarget<UnitPositionTarget>()
+				.AddEffect<HasGoal>(EffectType.Decrease)
+				.SetBaseCost(2)
+				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
+				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius - 1);
 		}
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
 			builder.AddTargetSensor<CommanderTargetSensor>().SetTarget<CommanderTarget>();
+			builder.AddTargetSensor<UnitPositionTargetSensor>().SetTarget<UnitPositionTarget>();
 			builder.AddWorldSensor<HasGoalSensor>().SetKey<HasGoal>();
 		}
 

@@ -37,9 +37,17 @@ namespace GameSystems.AI
 
 					if (commanderData != null)
 					{
+						bool success = false;
 						EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
-						brainData.AddAltarPosition(brainData.transform);
+						foreach(var altar in data.brainData.Altars)
+						{
+							if(brainData.AddAltarPosition(altar))
+								success = true;
+						}
+
 						data.brainData.GiveOrder(AIEnemyOrder.None);
+						if(!success)
+							data.brainData.Altars.Clear();
 						return ActionRunState.Completed;
 					}
 

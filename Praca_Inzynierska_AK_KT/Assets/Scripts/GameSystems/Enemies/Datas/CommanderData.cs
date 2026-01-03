@@ -12,13 +12,6 @@ namespace GameSystems
 		[SerializeField]
 		internal List<GameObject>[] TroopsToCommand;
 
-		internal int SoldiersCount { get; private set; }
-
-		internal int ScoutsCount { get; private set; }
-
-		private EnemyBrainData brainData;
-		internal void AddSoldier() => SoldiersCount++;
-
 		private void Start()
 		{
 			EnemySharedData.Commanders.Add(transform);

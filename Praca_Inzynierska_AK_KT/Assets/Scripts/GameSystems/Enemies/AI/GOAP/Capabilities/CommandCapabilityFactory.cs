@@ -32,8 +32,8 @@ namespace GameSystems.AI
 				.SetRequiresTarget(false);
 
 			builder.AddAction<SendTroopsAction>()
-				.AddCondition<SoldiersToCommand>(Comparison.GreaterThan, 2)
-				.AddCondition<ScoutsToCommand>(Comparison.GreaterThan, 1)
+				.AddCondition<SoldiersToCommand>(Comparison.GreaterThanOrEqual, 2)
+				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual, 1)
 				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.AddEffect<SoldiersToCommand>(EffectType.Decrease)

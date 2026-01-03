@@ -65,11 +65,18 @@ namespace GameSystems.AI
 
 		public void SetOrder(AIEnemyOrder order)
 		{
+			if(lastOrder == order) return;
 			switch (order)
 			{
 				case AIEnemyOrder.Scout:
 					brainData.GiveOrder(order);
 					provider.RequestGoal<DeliverPillarLocationsGoal>(true);
+					lastOrder = order;
+					break;
+
+				case AIEnemyOrder.Guard:
+					brainData.GiveOrder(order);
+					//provider.RequestGoal<GuardAltarGoal>(true);
 					lastOrder = order;
 					break;
 			}

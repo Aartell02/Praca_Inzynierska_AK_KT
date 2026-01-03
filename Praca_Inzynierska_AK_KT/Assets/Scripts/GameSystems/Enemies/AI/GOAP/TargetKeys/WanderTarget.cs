@@ -1,6 +1,0 @@
-using CrashKonijn.Goap.Runtime;
-
-namespace GameSystems.AI
-{
-    public class WanderTarget : TargetKeyBase {}
-}

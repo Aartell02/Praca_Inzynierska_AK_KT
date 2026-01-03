@@ -8,6 +8,8 @@ namespace GameSystems.AI
 {
 	public class SoldierBrainBehaviour : MonoBehaviour
 	{
+		[SerializeField]
+		private AIEnemyOrder lastOrder;
 		private EnemyBrainData brainData;
 		private PlayerSensor playerSensor;
 
@@ -47,6 +49,18 @@ namespace GameSystems.AI
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
+		}
+		public void SetOrder(AIEnemyOrder order)
+		{
+			if (lastOrder == order) return;
+			switch (order)
+			{
+				case AIEnemyOrder.Guard:
+					brainData.GiveOrder(order);
+					provider.RequestGoal<GuardAltarGoal>(true);
+					lastOrder = order;
+					break;
+			}
 		}
 	}
 }

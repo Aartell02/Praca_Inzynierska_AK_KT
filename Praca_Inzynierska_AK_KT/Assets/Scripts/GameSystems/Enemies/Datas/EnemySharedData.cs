@@ -7,5 +7,6 @@ namespace GameSystems.AI
 	{
 		public static List<Transform> Commanders = new();
 		public static Vector2 SpawnPoint;
+		public static int NumberOfAltars = 3;
 	}
 }

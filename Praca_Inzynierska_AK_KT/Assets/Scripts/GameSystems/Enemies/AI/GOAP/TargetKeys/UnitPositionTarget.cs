@@ -2,5 +2,5 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-    public class SurviveGoal : GoalBase {}
+	public class UnitPositionTarget : TargetKeyBase { }
 }

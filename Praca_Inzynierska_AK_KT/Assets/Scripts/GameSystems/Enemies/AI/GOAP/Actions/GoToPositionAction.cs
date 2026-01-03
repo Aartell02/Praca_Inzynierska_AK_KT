@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class WaitForCommandsAction : GoapActionBase<WaitForCommandsAction.Data>, IInjectable
+	public class GoToPositionAction : GoapActionBase<GoToPositionAction.Data>, IInjectable
 	{
 		EnemyConfig enemyConfig;
 
@@ -17,12 +17,12 @@ namespace GameSystems.AI
 			public float Timer { get; set; }
 		}
 
-		public override void Start (IMonoAgent agent, Data data)
+		public override void Start(IMonoAgent agent, Data data)
 		{
 			data.Timer = enemyConfig.EnemyCommunicationData.Delay;
 		}
 
-		public override IActionRunState Perform (IMonoAgent agent, Data data, IActionContext context)
+		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
 			data.Timer -= context.DeltaTime;
 

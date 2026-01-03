@@ -20,6 +20,9 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
+			builder.AddGoal<GuardAltarGoal>()
+				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
+
 			builder.AddGoal<KillPlayerGoal>()
 				.AddCondition<PlayerHealth>(Comparison.SmallerThanOrEqual, 0);
 		}
@@ -35,7 +38,6 @@ namespace GameSystems.AI
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
-			builder.AddTargetSensor<SearchTargetSensor>().SetTarget<WanderTarget>();
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
 		}
 	}

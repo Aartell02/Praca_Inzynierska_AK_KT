@@ -8,9 +8,11 @@ namespace GameSystems.AI
 		[SerializeField]
 		public AIEnemyOrder Order {  get; private set; }
 		[SerializeField]
-		public List<Transform> Altars { get; private set; }
+		public List<GameObject> Altars { get; set; }
 		[SerializeField]
 		public Vector2 PlayerPosition { get; private set; }
+		[SerializeField]
+		public Vector2 DefaultPosition { get; private set; }
 
 		public void GiveOrder(AIEnemyOrder order)
 		{
@@ -18,7 +20,7 @@ namespace GameSystems.AI
 				Order = order;
 		}
 
-		public bool AddAltarPosition(Transform altarTransform)
+		public bool AddAltarPosition(GameObject altarTransform)
 		{
 			if (Altars.Contains(altarTransform))
 				return false;
@@ -28,6 +30,8 @@ namespace GameSystems.AI
 		}
 
 		public void AddPlayerPosition(Vector2 playerPosition) => PlayerPosition = playerPosition;
+
+		public void SetDeufaultPosition(Vector2 deufaultPosition) => PlayerPosition = deufaultPosition;
 
 		private void Start()
 		{

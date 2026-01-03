@@ -25,7 +25,6 @@ namespace GameSystems.AI
 			if (NavMesh.SamplePosition(random, out NavMeshHit hit, 0.2f, NavMesh.AllAreas))
 			{
 				Vector2 validPoint = hit.position;
-				// If the existing target is a `PositionTarget`, we can reuse it and just update the position.
 				if (existingTarget is PositionTarget positionTarget)
 				{
 					return positionTarget.SetPosition(random);
@@ -42,7 +41,6 @@ namespace GameSystems.AI
 			var random = Random.insideUnitCircle * 3f;
 			var position = agent.Transform.position + new Vector3(random.x, random.y, 0);
 
-			// Check if the position is within the bounds of the world.
 			if (Bounds.Contains(position))
 				return position;
 

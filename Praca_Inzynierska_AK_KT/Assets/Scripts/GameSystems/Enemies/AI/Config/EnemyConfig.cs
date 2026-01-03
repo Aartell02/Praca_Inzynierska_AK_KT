@@ -11,7 +11,11 @@ namespace GameSystems.AI
 		[Header("Enemy stats configuration")]
 		[SerializeField]
 		public EnemyCommunicationData EnemyCommunicationData;
+		[SerializeField]
 		public EnemyAttackData EnemyAttackData;
+		[SerializeField]
+		public EnemyGroupData EnemyGroupData;
+
 	}
 
 	[Serializable]
@@ -27,5 +31,12 @@ namespace GameSystems.AI
 	{
 		public float MeleeAttackRadius = 1.5f;
 		public float MeleeAttackDelay = 1;
+	}
+
+	[Serializable]
+	public class EnemyGroupData
+	{
+		public int SoldiersCount = 2;
+		public int ScoutsCount = 1;
 	}
 }
