@@ -19,7 +19,6 @@ namespace UI
 
 		private void OnButtonQuit()
 		{
-			Debug.Log("Quit clicked");
 			Application.Quit();
 
 			UnityEditor.EditorApplication.isPlaying = false;

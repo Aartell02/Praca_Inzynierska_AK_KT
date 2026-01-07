@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.crashkonijn.goap": {
-      "version": "https://github.com/crashkonijn/GOAP.git?path=/Package#3.0.34",
+      "version": "https://github.com/crashkonijn/GOAP.git?path=/Package#3.1.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.collections": "1.2.4"
       },
-      "hash": "601802d6e10403ac4794fd1d7f9dd9ded7ee62df"
+      "hash": "af191721f9f34fbf837a2802bd88e07b02cdbc19"
     },
     "com.h8man.2d.navmeshplus": {
       "version": "https://github.com/h8man/NavMeshPlus.git",

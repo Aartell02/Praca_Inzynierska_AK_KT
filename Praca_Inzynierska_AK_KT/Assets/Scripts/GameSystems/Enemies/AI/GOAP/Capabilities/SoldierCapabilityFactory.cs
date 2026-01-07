@@ -20,22 +20,17 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
-			builder.AddGoal<WanderGoal>()
-				.AddCondition<IsWandering>(Comparison.GreaterThanOrEqual, 1);
+			builder.AddGoal<GuardAltarGoal>()
+				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
 
 			builder.AddGoal<KillPlayerGoal>()
 				.AddCondition<PlayerHealth>(Comparison.SmallerThanOrEqual, 0);
-
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddAction<WanderAction>()
-				.SetTarget<WanderTarget>()
-				.AddEffect<IsWandering>(EffectType.Increase)
-				.SetBaseCost(5);
-
-			builder.AddAction<AttackAction>()
+			builder.AddAction<MeleeAttackAction>()
+				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
 				.SetTarget<PlayerTarget>()
 				.AddEffect<PlayerHealth>(EffectType.Decrease)
 				.SetBaseCost(1);
@@ -43,7 +38,6 @@ namespace GameSystems.AI
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
-			builder.AddTargetSensor<WanderTargetSensor>().SetTarget<WanderTarget>();
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
 		}
 	}

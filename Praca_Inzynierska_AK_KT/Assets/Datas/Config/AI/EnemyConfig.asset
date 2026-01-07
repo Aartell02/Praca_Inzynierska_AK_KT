@@ -12,28 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67398efe48c49648b9228b752dbf689, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: GameSystems::GameSystems.Ai.EnemyConfig
-  EnemyData:
-  - Type: 0
-    SensorRadius: 0
-    MeleeAttackRadius: 0
-    MeleeAttackCost: 0
-    MeleeAttackDelay: 0
-    AttackableLayerMask:
-      serializedVersion: 2
-      m_Bits: 0
-  - Type: 1
-    SensorRadius: 10
-    MeleeAttackRadius: 1
-    MeleeAttackCost: 1
+  EnemyCommunicationData:
+    CommunicationRadius: 5
+    SensorRadius: 5
+    Delay: 2
+  EnemyAttackData:
+    MeleeAttackRadius: 1.5
     MeleeAttackDelay: 1
-    AttackableLayerMask:
-      serializedVersion: 2
-      m_Bits: 128
-  - Type: 0
-    SensorRadius: 0
-    MeleeAttackRadius: 0
-    MeleeAttackCost: 0
-    MeleeAttackDelay: 0
-    AttackableLayerMask:
-      serializedVersion: 2
-      m_Bits: 0

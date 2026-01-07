@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 namespace Core.Services
 {
-	internal static class PlayerInputService
+	public static class PlayerInputService
 	{
 		static PlayerInputActions _inputActions;
 		static PlayerInputService()
@@ -16,6 +16,8 @@ namespace Core.Services
 
 		public static Vector2 MousePosition => Mouse.current.position.ReadValue();
 		public static Vector2 Move => _inputActions.Player.Move.ReadValue<Vector2>();
+
+		public static float LeftMouseButton => _inputActions.Player.Attack.ReadValue<float>();
 
 		public static void TogglePlayerInputActions(bool option)
 		{

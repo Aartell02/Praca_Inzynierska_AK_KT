@@ -2,14 +2,18 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	public enum AIEnemyState
+	public enum AttackType
 	{
-		Idle,
-		Wait,
-		Roam,
+		QuickAttack,
+		NormalAttack,
+		HeavyAttack,
+	}
+	public enum AIEnemyGoal
+	{
+		Default = int.MinValue,
+		None = 0,
 		Scout,
 		Guard,
-		Defend,
 		Attack
 	}
 }

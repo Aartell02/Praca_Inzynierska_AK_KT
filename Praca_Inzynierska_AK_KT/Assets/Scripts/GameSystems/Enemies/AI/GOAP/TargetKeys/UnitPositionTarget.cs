@@ -1,0 +1,6 @@
+using CrashKonijn.Goap.Runtime;
+
+namespace GameSystems.AI
+{
+	public class UnitPositionTarget : TargetKeyBase { }
+}
