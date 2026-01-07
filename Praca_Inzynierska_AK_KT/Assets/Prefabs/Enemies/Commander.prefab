@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7647315693414708134}
+  - component: {fileID: 3007220099293485964}
   - component: {fileID: 7757246998774899818}
   - component: {fileID: -6081333837206876522}
   - component: {fileID: 7924121463656413394}
@@ -43,6 +44,19 @@ Transform:
   - {fileID: 4737024051930814628}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3007220099293485964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97f47dd97ca837479bb59fda2b6929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.LifeStateData
+  Health: 150
 --- !u!114 &7757246998774899818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,8 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
   EnemyType: 2
-  Health: 100
   MoveSpeed: 0
+  AttackHitboxPrefab: {fileID: 4179232485040693637, guid: cb20609e60cd90041bbe4848eee77c44, type: 3}
 --- !u!212 &-6081333837206876522
 SpriteRenderer:
   m_ObjectHideFlags: 0

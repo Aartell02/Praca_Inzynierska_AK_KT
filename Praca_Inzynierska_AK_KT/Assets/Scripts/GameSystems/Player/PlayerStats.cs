@@ -9,9 +9,6 @@ namespace GameSystems
 		internal float Experience;
 
 		[SerializeField]
-		internal int Heatlh;
-
-		[SerializeField]
 		internal float MovementSpeed;
 
 
