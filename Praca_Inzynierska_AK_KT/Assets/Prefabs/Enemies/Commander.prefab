@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1127428523364912095}
   - component: {fileID: 259569268657776653}
   - component: {fileID: 6985367393293057077}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Commander
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
   EnemyType: 2
-  Heatlh: 0
+  Health: 100
   MoveSpeed: 0
 --- !u!212 &-6081333837206876522
 SpriteRenderer:
@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
+  dirty: 0
 --- !u!1 &8133992257996945627
 GameObject:
   m_ObjectHideFlags: 0

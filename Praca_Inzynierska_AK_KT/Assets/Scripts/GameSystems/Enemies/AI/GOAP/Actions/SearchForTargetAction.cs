@@ -44,7 +44,6 @@ namespace GameSystems.AI
 
 		public override void End(IMonoAgent agent, Data data)
 		{
-			Debug.Log($"{agent.gameObject.name} stopped attacking");
 		}
 
 		public void Inject(DependencyInjector injector)

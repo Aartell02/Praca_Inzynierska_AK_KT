@@ -46,20 +46,17 @@ namespace GameSystems.AI
 
 		private void TargetLost()
 		{
-			Debug.Log($"{gameObject.name} TargetLost");
 			this.currentTarget = null;
 			this.shouldMove = false;
 		}
 
 		private void OnTargetInRange(ITarget target)
 		{
-			Debug.Log($"{gameObject.name} TargetInRange MoveBehaviour");
 			this.shouldMove = false;
 		}
 
 		private void OnTargetChanged(ITarget target, bool inRange)
 		{
-			Debug.Log($"{gameObject.name} TargetChanged");
 			this.currentTarget = target;
 			if (currentTarget != null)
 			{
@@ -71,7 +68,6 @@ namespace GameSystems.AI
 
 		private void TargetNotInRange(ITarget target)
 		{
-			Debug.Log($"{gameObject.name} TargetNotInRange");
 			this.shouldMove = true;
 		}
 

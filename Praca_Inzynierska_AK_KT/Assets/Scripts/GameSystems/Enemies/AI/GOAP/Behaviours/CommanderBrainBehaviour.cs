@@ -62,14 +62,12 @@ namespace GameSystems.AI
 
 		private void OnUnitEnter(GameObject unit)
 		{
-			Debug.Log($"{unit} IN");
 			var unitData = unit.GetComponent<EnemyData>();
 			TroopsToCommand[(int)unitData.EnemyType].Add(unit);
 		}
 
 		private void OnUnitExit(GameObject unit)
 		{
-			Debug.Log($"{unit} OUT");
 			var unitData = unit.GetComponent<EnemyData>();
 			TroopsToCommand[(int)unitData.EnemyType].Remove(unit);
 		}

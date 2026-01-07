@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 7481955899817624992}
   - component: {fileID: 3784052936220698549}
   - component: {fileID: 4007156645480652206}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -188,7 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b518eab3d4610ce43adf657a91a28598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.PlayerData
+  Experience: 0
   Heatlh: 100
+  MovementSpeed: 0
 --- !u!114 &-8407679306874125081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,11 +216,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39fa0169b0abb44a87e384310e803f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.PlayerAttack
-  AttackDamage: 10
-  DamageScaling:
-  - 0.8
-  - 1
-  - 1.5
+  hitboxPrefab: {fileID: 4179232485040693637, guid: 8c4f0a6ea70cc8c459ff406608775d25, type: 3}
+  attackOffset: 1
+  attackDuration: 0.2
+  attackCooldown: 0.5
+  damageAmount: 20
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!70 &1933412047901898681
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

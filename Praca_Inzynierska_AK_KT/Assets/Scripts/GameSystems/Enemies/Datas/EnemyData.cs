@@ -1,4 +1,5 @@
 using Core;
+using GameSystems.AI;
 using UnityEngine;
 
 namespace GameSystems
@@ -8,7 +9,7 @@ namespace GameSystems
 		[SerializeField]
 		internal EnemyType EnemyType;
 		[SerializeField]
-		internal int Heatlh;
+		internal int Health;
 		[SerializeField]
 		internal float MoveSpeed;
 
@@ -22,6 +23,14 @@ namespace GameSystems
 			this.Animator = this.GetComponent<Animator>();
 			this.Rigidbody = this.GetComponent<Rigidbody2D>();
 			this.SpriteRenderer = this.GetComponent<SpriteRenderer>();
+		}
+
+		public void TakeDamage(int damage)
+		{
+			this.Health -= damage;
+			Animator.SetTrigger("GotHit");
+			if (this.Health < 0 )
+				Object.Destroy(this.gameObject);
 		}
 	}
 }

@@ -9294,9 +9294,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Altar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7529589785779058498, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529589785779058498, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529589785779058498, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -29165565
+      objectReference: {fileID: 0}
     - target: {fileID: 7911624237511202718, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.69
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 7911624237511202718, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
       propertyPath: m_LocalPosition.y

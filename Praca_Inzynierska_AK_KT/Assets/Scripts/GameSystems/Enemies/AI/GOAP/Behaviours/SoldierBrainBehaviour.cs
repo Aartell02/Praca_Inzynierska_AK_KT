@@ -46,8 +46,6 @@ namespace GameSystems.AI
 		{
 			if (this.brainData.dirty)
 				SetGoal(brainData.Goal);
-			if (!provider.CurrentPlan.IsNull())
-				Debug.Log($"{gameObject.name} Goal: {provider.CurrentPlan.Goal} Action {provider.CurrentPlan.Action}");
 		}
 
 		private void OnPlayerEnter(Transform Player) => brainData.SetGoal(AIEnemyGoal.Attack);

@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4136563915716922324}
   - component: {fileID: -4731313736331349039}
   - component: {fileID: 8063930991397909242}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
   EnemyType: 1
-  Heatlh: 0
+  Health: 60
   MoveSpeed: 0
 --- !u!114 &5795109963601708049
 MonoBehaviour:
@@ -387,3 +387,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
+  dirty: 0

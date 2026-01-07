@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2448141277114008580}
   - component: {fileID: 4183539919820536011}
   - component: {fileID: 8053933253531648778}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Scout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
   EnemyType: 0
-  Heatlh: 0
+  Health: 40
   MoveSpeed: 0
 --- !u!114 &7924121463656413394
 MonoBehaviour:
@@ -387,3 +387,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
+  dirty: 0

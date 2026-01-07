@@ -17,7 +17,6 @@ namespace GameSystems.AI
 		}
 		public override void Start (IMonoAgent agent, Data data)
 		{
-			Debug.Log($"{agent.gameObject.name} started attacking attacking");
 
 			var enemyStats = agent.GetComponent<EnemyData>();
 			data.enemyType = enemyStats.EnemyType;
@@ -27,8 +26,6 @@ namespace GameSystems.AI
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
 			data.Timer -= context.DeltaTime;
-
-			Debug.Log($"{agent.gameObject.name} attacking");
 
 			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyAttackData.MeleeAttackRadius;
 
@@ -42,7 +39,6 @@ namespace GameSystems.AI
 
 		public override void End(IMonoAgent agent, Data data)
 		{
-			Debug.Log($"{agent.gameObject.name} stopped attacking");
 		}
 
 		public void Inject(DependencyInjector injector)
