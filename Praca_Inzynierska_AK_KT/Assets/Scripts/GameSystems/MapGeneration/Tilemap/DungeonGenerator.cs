@@ -24,7 +24,15 @@ namespace GameSystems.MapGeneration
 		[SerializeField]
 		private TileBase doorRightTile;
 
+		[SerializeField]
+		private Tilemap itemsTilemap;
+
+		[SerializeField]
+		private TileBase bones, box1, box2, box3, box4, rocks, table1, table2, torch1, torch2;
+
 		private WorldGenerationConfig worldConfig = ConfigReferences.Instance.worldConfig;
+
+		private HashSet<Vector2Int> doorPositions = new HashSet<Vector2Int>();
 
 		private Vector2Int startPosition;
 		private int corridorLength;
@@ -80,7 +88,7 @@ namespace GameSystems.MapGeneration
 
 			floorPositions.UnionWith(roomPositions);
 
-			for (int i=0; i<corridors.Count; i++)
+			for (int i = 0; i < corridors.Count; i++)
 			{
 				corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
 				floorPositions.UnionWith(corridors[i]);
@@ -90,6 +98,21 @@ namespace GameSystems.MapGeneration
 			WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
 
 			PlaceDoors(floorPositions);
+
+			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
+
+			ItemPlacer.PlaceItems(
+				floorPositions,
+				wallPositions,
+				doorPositions,
+				itemsTilemap,
+				new List<TileBase> { bones, box1, box2, box3, box4, rocks, table1, table2, torch1, torch2 },
+				minDistanceBetweenItems: 3,
+				wallClearance: 1,
+				doorClearance: 2,
+				spawnChance: 0.2f
+			);
+
 		}
 
 		public List<Vector2Int> IncreaseCorridorSizeByOne(List<Vector2Int> corridor)
@@ -212,6 +235,13 @@ namespace GameSystems.MapGeneration
 
 			GameSystemsViewModel.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 2f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
 
+			doorPositions.Clear();
+
+			doorPositions.Add(bottom[0]);
+			doorPositions.Add(bottom[1]);
+			doorPositions.Add(top[0]);
+			doorPositions.Add(top[1]);
+
 			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
 			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");
 		}
@@ -233,7 +263,6 @@ namespace GameSystems.MapGeneration
 
 					if (b.x != a.x + 1) continue;
 
-					// sprawdzamy, że **obie kratki** nie mają ścian nad/pod sobą
 					bool aClear = !wallPositions.Contains(a + Vector2Int.up) && !wallPositions.Contains(a + Vector2Int.down);
 					bool bClear = !wallPositions.Contains(b + Vector2Int.up) && !wallPositions.Contains(b + Vector2Int.down);
 
@@ -242,7 +271,6 @@ namespace GameSystems.MapGeneration
 				}
 			}
 
-			// fallback - dwie pierwsze kratki w pierwszym/ostatnim rzędzie
 			var fallbackRow = wallPositions.Where(p => p.y == (findTop ? rows[0] : rows.Last())).OrderBy(p => p.x).ToList();
 			return new[] { fallbackRow[0], fallbackRow[Math.Min(1, fallbackRow.Count - 1)] };
 		}
