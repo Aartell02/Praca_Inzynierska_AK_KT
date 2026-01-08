@@ -81,7 +81,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 6
 --- !u!1 &6529996829581106454
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +92,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7647315693414708134}
   - component: {fileID: -3528979683095814292}
+  - component: {fileID: 3040259400467865346}
+  - component: {fileID: 8063930991397909242}
   - component: {fileID: 5795109963601708049}
   - component: {fileID: 8182922482920238544}
   - component: {fileID: 6253953780665835240}
@@ -101,7 +103,6 @@ GameObject:
   - component: {fileID: 3528661939754631734}
   - component: {fileID: 4136563915716922324}
   - component: {fileID: -4731313736331349039}
-  - component: {fileID: 8063930991397909242}
   m_Layer: 7
   m_Name: Soldier
   m_TagString: Untagged
@@ -140,6 +141,33 @@ MonoBehaviour:
   EnemyType: 1
   Health: 60
   MoveSpeed: 0
+  AttackHitboxPrefab: {fileID: 4179232485040693637, guid: cb20609e60cd90041bbe4848eee77c44, type: 3}
+  AttackDelay: 1
+--- !u!114 &3040259400467865346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97f47dd97ca837479bb59fda2b6929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.LifeStateData
+--- !u!114 &8063930991397909242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
+  dirty: 0
 --- !u!114 &5795109963601708049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,16 +403,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::CrashKonijn.Goap.GenTest.AgentMoveBehaviour
   shouldMove: 0
---- !u!114 &8063930991397909242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529996829581106454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4232d4f9762276b498e975c698e972a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameSystems::GameSystems.EnemyBrainData
-  dirty: 0

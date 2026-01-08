@@ -14,31 +14,60 @@ namespace GameSystems.AI
 
 			public float Timer;
 			public ITarget Target { get; set; }
+
+			public EnemyData EnemyStats;
 		}
 		public override void Start (IMonoAgent agent, Data data)
 		{
-
 			var enemyStats = agent.GetComponent<EnemyData>();
+			data.EnemyStats = enemyStats;
 			data.enemyType = enemyStats.EnemyType;
-			data.Timer = enemyConfig.EnemyAttackData.MeleeAttackDelay;
+			data.Timer = 0.2f;
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
 			data.Timer -= context.DeltaTime;
 
-			bool shouldAttack = data.Target != null && Vector2.Distance(data.Target.Position, agent.Transform.position) <= enemyConfig.EnemyAttackData.MeleeAttackRadius;
+			float range = enemyConfig.EnemyAttackData.MeleeAttackRadius; ;
 
-			if (shouldAttack)
-			{
+			Vector3 position = agent.transform.position;
 
-			}
+			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
+			foreach (Collider2D hit in hits)
+				if(hit.GetComponent<PlayerStats>())
+					return ActionRunState.Completed;
 
-			return data.Timer > 0.5f ? ActionRunState.Continue : ActionRunState.Stop;
+
+			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 
-		public override void End(IMonoAgent agent, Data data)
+		public override void Complete(IMonoAgent agent, Data data)
 		{
+			if (data.Target == null) return;
+			if (data.EnemyStats.AttackHitboxPrefab == null) return;
+
+			Vector3 agentPos = agent.Transform.position;
+			Vector3 targetPos = data.Target.Position;
+
+			Vector2 direction = (targetPos - agentPos).normalized;
+
+			float offset = 1.0f;
+			Vector2 spawnPos = (Vector2)agentPos + (direction * offset);
+
+			float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+			Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+			GameObject hitbox = Object.Instantiate(data.EnemyStats.AttackHitboxPrefab, spawnPos, rotation);
+
+			if (hitbox.TryGetComponent(out MeleeHitbox hitboxScript))
+			{
+				LayerMask playerLayer = LayerMask.GetMask("Player");
+				int damage = 10;
+
+				hitboxScript.Initialize(damage, playerLayer, 0.2f);
+				data.EnemyStats.ReadyToAttack--;
+			}
 		}
 
 		public void Inject(DependencyInjector injector)

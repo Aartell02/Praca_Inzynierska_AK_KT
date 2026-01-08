@@ -68,7 +68,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1
+  m_Radius: 8
 --- !u!114 &6600286841460237371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7647315693414708134}
   - component: {fileID: -6081333837206876522}
+  - component: {fileID: 9025405893900079943}
   - component: {fileID: 5032451668135911845}
   - component: {fileID: 7924121463656413394}
   - component: {fileID: -2812428290987717792}
@@ -183,6 +184,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9025405893900079943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529996829581106454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97f47dd97ca837479bb59fda2b6929c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.LifeStateData
 --- !u!114 &5032451668135911845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +211,8 @@ MonoBehaviour:
   EnemyType: 0
   Health: 40
   MoveSpeed: 0
+  AttackHitboxPrefab: {fileID: 4179232485040693637, guid: cb20609e60cd90041bbe4848eee77c44, type: 3}
+  AttackDelay: 1
 --- !u!114 &7924121463656413394
 MonoBehaviour:
   m_ObjectHideFlags: 0

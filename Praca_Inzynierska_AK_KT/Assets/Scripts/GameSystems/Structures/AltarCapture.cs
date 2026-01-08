@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameSystems.Gameplay
 {
@@ -15,6 +16,10 @@ namespace GameSystems.Gameplay
 		[SerializeField] private float minAlpha = 0.1f;
 		[SerializeField] private Color capturedColor = Color.green;
 		[SerializeField] private Color capturingColor = Color.white;
+
+		[Header("Events")]
+		public UnityEvent OnCaptured;
+		public UnityEvent<float> OnProgress;
 
 		private float currentProgress = 0f;
 		private bool isPlayerInside = false;

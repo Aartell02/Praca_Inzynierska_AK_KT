@@ -7,4 +7,6 @@ namespace GameSystems.AI
 	public class KnownAltars : WorldKeyBase { }
 
 	public class InformationReported : WorldKeyBase { }
+
+	public class ReadyToAttack : WorldKeyBase { }
 }

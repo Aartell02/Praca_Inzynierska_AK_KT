@@ -27,6 +27,9 @@ namespace GameSystems.AI
 
 		void BuildActions(CapabilityBuilder builder)
 		{
+			builder.AddGoal<GuardAltarGoal>()
+				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
+
 			builder.AddAction<WaitForCommandsAction>()
 				.SetTarget<CommanderTarget>()
 				.AddEffect<HasGoal>(EffectType.Increase)

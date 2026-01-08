@@ -6,10 +6,10 @@ namespace GameSystems
 	class PlayerStats : MonoBehaviour
 	{
 		[SerializeField]
-		internal float Experience;
+		internal int Health;
 
 		[SerializeField]
-		internal int Heatlh;
+		internal float Experience;
 
 		[SerializeField]
 		internal float MovementSpeed;

@@ -5,8 +5,9 @@ using CrashKonijn.Goap.Runtime;
 
 namespace GameSystems.AI
 {
-	public class SoldierCapabilityFactory : CapabilityFactoryBase
+	public class SoldierCapabilityFactory : CapabilityFactoryBase, IInjectable
 	{
+		EnemyConfig enemyConfig;
 		public override ICapabilityConfig Create()
 		{
 			var builder = new CapabilityBuilder("SoldierCapability");
@@ -20,9 +21,6 @@ namespace GameSystems.AI
 
 		void BuildGoals(CapabilityBuilder builder)
 		{
-			builder.AddGoal<GuardAltarGoal>()
-				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
-
 			builder.AddGoal<KillPlayerGoal>()
 				.AddCondition<PlayerHealth>(Comparison.SmallerThanOrEqual, 0);
 		}
@@ -30,15 +28,22 @@ namespace GameSystems.AI
 		void BuildActions(CapabilityBuilder builder)
 		{
 			builder.AddAction<MeleeAttackAction>()
-				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
+				.AddCondition<ReadyToAttack>(Comparison.GreaterThanOrEqual,1)
 				.SetTarget<PlayerTarget>()
 				.AddEffect<PlayerHealth>(EffectType.Decrease)
-				.SetBaseCost(1);
+				.SetBaseCost(5)
+				.SetStoppingDistance(enemyConfig.EnemyAttackData.MeleeAttackRadius);
 		}
 
 		void BuildSensors(CapabilityBuilder builder)
 		{
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
+			builder.AddWorldSensor<ReadyToAttackSensor>().SetKey<ReadyToAttack>();
+		}
+
+		public void Inject(DependencyInjector injector)
+		{
+			this.enemyConfig = injector.EnemyConfig;
 		}
 	}
 }

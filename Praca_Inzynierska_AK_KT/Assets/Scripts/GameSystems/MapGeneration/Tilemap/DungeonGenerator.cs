@@ -233,7 +233,7 @@ namespace GameSystems.MapGeneration
 			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
 			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
 
-			CoreData.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 2f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
+			GameSystemsViewModel.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 2f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
 
 			doorPositions.Clear();
 

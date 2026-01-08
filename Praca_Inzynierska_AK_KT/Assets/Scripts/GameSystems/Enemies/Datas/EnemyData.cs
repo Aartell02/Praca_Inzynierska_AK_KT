@@ -1,5 +1,6 @@
 using Core;
 using GameSystems.AI;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameSystems
@@ -8,10 +9,20 @@ namespace GameSystems
     {
 		[SerializeField]
 		internal EnemyType EnemyType;
+
 		[SerializeField]
 		internal int Health;
+
 		[SerializeField]
 		internal float MoveSpeed;
+
+		[Header("Combat")]
+		[SerializeField]
+		internal GameObject AttackHitboxPrefab;
+
+		[SerializeField]
+		internal float AttackDelay = 1f;
+		internal float ReadyToAttack;
 
 		internal Animator Animator;
 		internal Rigidbody2D Rigidbody;
@@ -25,12 +36,10 @@ namespace GameSystems
 			this.SpriteRenderer = this.GetComponent<SpriteRenderer>();
 		}
 
-		public void TakeDamage(int damage)
+		private void Update()
 		{
-			this.Health -= damage;
-			Animator.SetTrigger("GotHit");
-			if (this.Health < 0 )
-				Object.Destroy(this.gameObject);
+			ReadyToAttack += Time.deltaTime;
+			ReadyToAttack = math.min(ReadyToAttack, AttackDelay);
 		}
 	}
 }
