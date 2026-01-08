@@ -10,7 +10,7 @@ using GameSystems.Data;
 
 namespace GameSystems.MapGeneration
 {
-    public class DungeonGenerator : MonoBehaviour
+	public class DungeonGenerator : MonoBehaviour
 	{
 		[SerializeField]
 		private TilemapVisualizer tilemapVisualizer;
@@ -79,11 +79,9 @@ namespace GameSystems.MapGeneration
 			HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
 
 			List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
-
 			HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
 
 			List<Vector2Int> deadEnds = FindAllDeadEnds(floorPositions);
-
 			CreateRoomsAtDeadEnd(deadEnds, roomPositions);
 
 			floorPositions.UnionWith(roomPositions);
@@ -94,41 +92,94 @@ namespace GameSystems.MapGeneration
 				floorPositions.UnionWith(corridors[i]);
 			}
 
+			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
+
+			Vector2Int[] bottomEntrance = FindDoorWallSpot(floorPositions, wallPositions, false);
+			Vector2Int[] topEntrance = FindDoorWallSpot(floorPositions, wallPositions, true);
+
+			Vector2Int bottomRoomCenter = bottomEntrance[0] + Vector2Int.down * 9;
+			Vector2Int topRoomCenter = topEntrance[0] + Vector2Int.up * 9;
+
+			GameSystemsViewModel.GetRoomCenters(new Vector2(bottomRoomCenter.x - 1f, bottomRoomCenter.y), new Vector2(topRoomCenter.x - 1f, topRoomCenter.y));
+
+			var bottomRoom = CreateCircleRoom(bottomRoomCenter, 4, Vector2Int.up);
+			ForceWallWidth(bottomRoom, topRoomCenter, 4, 4);
+
+			var topRoom = CreateCircleRoom(topRoomCenter, 4, Vector2Int.down);
+			ForceWallWidth(topRoom, bottomRoomCenter, 4, 4);
+
+			floorPositions.UnionWith(bottomRoom);
+			floorPositions.UnionWith(topRoom);
+
+			Vector2Int[] bottomDoor =
+			{
+				bottomRoomCenter + new Vector2Int(-1, -4),
+				bottomRoomCenter + new Vector2Int(0, -4)
+			};
+
+			Vector2Int[] topDoor =
+			{
+				topRoomCenter + new Vector2Int(-1, 5),
+				topRoomCenter + new Vector2Int(0, 5)
+			};
+
+			floorPositions.UnionWith(
+				CreateVerticalCorridor(bottomDoor[0] + Vector2Int.up, Vector2Int.up, 15)
+			);
+
+			floorPositions.UnionWith(
+				CreateVerticalCorridor(topDoor[0] + Vector2Int.down, Vector2Int.down, 15)
+			);
+
 			tilemapVisualizer.PaintFloorTiles(floorPositions);
 			WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
 
-			PlaceDoors(floorPositions);
+			doorsTilemap.SetTile((Vector3Int)bottomDoor[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)bottomDoor[1], doorRightTile);
+			doorsTilemap.SetTile((Vector3Int)topDoor[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)topDoor[1], doorRightTile);
 
-			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
+			doorPositions.Clear();
+			doorPositions.Add(bottomDoor[0]);
+			doorPositions.Add(bottomDoor[1]);
+			doorPositions.Add(topDoor[0]);
+			doorPositions.Add(topDoor[1]);
+
+			GameSystemsViewModel.SetSpawnPoints(new Vector2(bottomDoor[0].x + 1f, bottomDoor[0].y + 2f), new Vector2(topDoor[0].x + 1f, topDoor[0].y - 1f));
+
+			HashSet<Vector2Int> finalWallPositions = GetWallPositions(floorPositions);
 
 			ItemPlacer.PlaceItems(
 				floorPositions,
-				wallPositions,
+				finalWallPositions,
 				doorPositions,
 				itemsTilemap,
-				new List<TileBase> { bones, box1, box2, box3, box4, rocks, table1, table2, torch1, torch2 },
-				minDistanceBetweenItems: 3,
-				wallClearance: 1,
-				doorClearance: 2,
-				spawnChance: 0.2f
+				new List<TileBase>
+				{
+					bones, box1, box2, box3, box4,
+					rocks, table1, table2, torch1, torch2
+				},
+				3,
+				1,
+				2,
+				0.2f
 			);
-
 		}
 
 		public List<Vector2Int> IncreaseCorridorSizeByOne(List<Vector2Int> corridor)
 		{
 			List<Vector2Int> newCorridor = new List<Vector2Int>();
 			Vector2Int previewDirection = Vector2Int.zero;
-			for (int i=1; i<corridor.Count; i++)
+			for (int i = 1; i < corridor.Count; i++)
 			{
 				Vector2Int directionFromCell = corridor[i] - corridor[i - 1];
-				if(previewDirection != Vector2Int.zero && directionFromCell != previewDirection)
+				if (previewDirection != Vector2Int.zero && directionFromCell != previewDirection)
 				{
-					for (int x=-1;x<2;x++)
+					for (int x = -1; x < 2; x++)
 					{
-						for(int y = -1; y < 2; y++)
+						for (int y = -1; y < 2; y++)
 						{
-							newCorridor.Add(corridor[i-1]+new Vector2Int(x,y));
+							newCorridor.Add(corridor[i - 1] + new Vector2Int(x, y));
 						}
 						previewDirection = directionFromCell;
 					}
@@ -137,7 +188,7 @@ namespace GameSystems.MapGeneration
 				{
 					Vector2Int newCorridorTileOffset = GetDirection90From(directionFromCell);
 					newCorridor.Add(corridor[i - 1]);
-					newCorridor.Add(corridor[i-1] + newCorridorTileOffset);
+					newCorridor.Add(corridor[i - 1] + newCorridorTileOffset);
 				}
 			}
 			return newCorridor;
@@ -156,7 +207,7 @@ namespace GameSystems.MapGeneration
 		{
 			foreach (var position in deadEnds)
 			{
-				if(roomFloors.Contains(position) == false)
+				if (roomFloors.Contains(position) == false)
 				{
 					var roomFloor = RunRandomWalk(randomWalkParameters, position);
 					roomFloors.UnionWith(roomFloor);
@@ -189,7 +240,7 @@ namespace GameSystems.MapGeneration
 		private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
 		{
 			HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
-			int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count*roomPercent);
+			int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
 
 			List<Vector2Int> roomToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList();
 
@@ -216,34 +267,6 @@ namespace GameSystems.MapGeneration
 				floorPositions.UnionWith(corridor);
 			}
 			return corridors;
-		}
-
-		private void PlaceDoors(HashSet<Vector2Int> floorPositions)
-		{
-			// 1. Wyznacz ściany wokół podłogi
-			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
-
-			// 2. Dolne drzwi
-			var bottom = FindDoorWallSpot(floorPositions, wallPositions, findTop: false);
-			doorsTilemap.SetTile((Vector3Int)bottom[0], doorLeftTile);
-			doorsTilemap.SetTile((Vector3Int)bottom[1], doorRightTile);
-
-			// 3. Górne drzwi
-			var top = FindDoorWallSpot(floorPositions, wallPositions, findTop: true);
-			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
-			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
-
-			GameSystemsViewModel.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 2f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
-
-			doorPositions.Clear();
-
-			doorPositions.Add(bottom[0]);
-			doorPositions.Add(bottom[1]);
-			doorPositions.Add(top[0]);
-			doorPositions.Add(top[1]);
-
-			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
-			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");
 		}
 
 		private Vector2Int[] FindDoorWallSpot(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> wallPositions, bool findTop)
@@ -292,6 +315,73 @@ namespace GameSystems.MapGeneration
 				}
 			}
 			return wallPositions;
+		}
+
+		private HashSet<Vector2Int> CreateCircleRoom(Vector2Int center, int _ignored, Vector2Int _ignoredDir)
+		{
+			HashSet<Vector2Int> room = new HashSet<Vector2Int>();
+
+			Vector2Int[] mask =
+			{
+				new Vector2Int(-3,  4), new Vector2Int(-2,  4), new Vector2Int(-1,  4), new Vector2Int(0,  4), new Vector2Int(1,  4), new Vector2Int(2,  4),
+				new Vector2Int(-4,  3), new Vector2Int(-3,  3), new Vector2Int(-2,  3), new Vector2Int(-1,  3), new Vector2Int(0,  3), new Vector2Int(1,  3), new Vector2Int(2,  3), new Vector2Int(3,  3),
+				new Vector2Int(-4,  2), new Vector2Int(-3,  2), new Vector2Int(-2,  2), new Vector2Int(-1,  2), new Vector2Int(0,  2), new Vector2Int(1,  2), new Vector2Int(2,  2), new Vector2Int(3,  2),
+				new Vector2Int(-4,  1), new Vector2Int(-3,  1), new Vector2Int(-2,  1), new Vector2Int(-1,  1), new Vector2Int(0,  1), new Vector2Int(1,  1), new Vector2Int(2,  1), new Vector2Int(3,  1),
+				new Vector2Int(-4,  0), new Vector2Int(-3,  0), new Vector2Int(-2,  0), new Vector2Int(-1,  0), new Vector2Int(0,  0), new Vector2Int(1,  0), new Vector2Int(2,  0), new Vector2Int(3,  0),
+				new Vector2Int(-4, -1), new Vector2Int(-3, -1), new Vector2Int(-2, -1), new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1), new Vector2Int(2, -1), new Vector2Int(3, -1),
+				new Vector2Int(-4, -2), new Vector2Int(-3, -2), new Vector2Int(-2, -2), new Vector2Int(-1, -2), new Vector2Int(0, -2), new Vector2Int(1, -2), new Vector2Int(2, -2), new Vector2Int(3, -2),
+				new Vector2Int(-3, -3), new Vector2Int(-2, -3), new Vector2Int(-1, -3), new Vector2Int(0, -3), new Vector2Int(1, -3), new Vector2Int(2, -3)
+			};
+
+
+			foreach (var offset in mask)
+			{
+				room.Add(center + offset);
+			}
+
+			return room;
+		}
+
+		private HashSet<Vector2Int> CreateVerticalCorridor(Vector2Int start, Vector2Int direction, int length)
+		{
+			HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
+
+			for (int i = 0; i < length; i++)
+			{
+				Vector2Int p = start + direction * i;
+				corridor.Add(p);
+				corridor.Add(p + Vector2Int.right);
+			}
+			return corridor;
+		}
+
+		private void ForceWallWidth(HashSet<Vector2Int> room, Vector2Int center, int halfSize, int wallWidth)
+		{
+			int halfWall = wallWidth / 2;
+
+			for (int x = -halfSize; x <= halfSize; x++)
+			{
+				if (Mathf.Abs(x) >= halfWall)
+					room.Remove(center + new Vector2Int(x, halfSize));
+			}
+
+			for (int x = -halfSize; x <= halfSize; x++)
+			{
+				if (Mathf.Abs(x) >= halfWall)
+					room.Remove(center + new Vector2Int(x, -halfSize));
+			}
+
+			for (int y = -halfSize; y <= halfSize; y++)
+			{
+				if (Mathf.Abs(y) >= halfWall)
+					room.Remove(center + new Vector2Int(halfSize, y));
+			}
+
+			for (int y = -halfSize; y <= halfSize; y++)
+			{
+				if (Mathf.Abs(y) >= halfWall)
+					room.Remove(center + new Vector2Int(-halfSize, y));
+			}
 		}
 	}
 }
