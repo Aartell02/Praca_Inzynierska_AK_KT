@@ -3,18 +3,26 @@ using CrashKonijn.Agent.Core;
 using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
+using System;
+using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class CommanderBrainBehaviour : MonoBehaviour
+	public class CommanderBrainBehaviour : MonoBehaviour, IInjectable
 	{
+		[SerializeField]
+		internal List<GameObject>[] TroopsToCommand;
+
+		private EnemyConfig enemyConfig;
 		private PlayerSensor playerSensor;
+		private TroopsSensor troopsSensor;
 
 		private AgentBehaviour agent;
 		private GoapActionProvider provider;
 		private GoapBehaviour goap;
+		private EnemyBrainData brainData;
 
 		private IGoal previousGoal;
 
@@ -23,36 +31,58 @@ namespace GameSystems.AI
 			this.goap = FindAnyObjectByType<GoapBehaviour>();
 			this.agent = this.GetComponent<AgentBehaviour>();
 			this.provider = this.GetComponent<GoapActionProvider>();
-
-			this.playerSensor = this.GetComponent<PlayerSensor>();
-
 			if (this.provider.AgentTypeBehaviour == null)
-				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Soldier.ToString());
+				this.provider.AgentType = this.goap.GetAgentType(EnemyType.Commander.ToString());
+
+			this.playerSensor = this.GetComponentInChildren<PlayerSensor>();
+			this.troopsSensor = this.GetComponentInChildren<TroopsSensor>();
+
+			this.brainData = this.GetComponent<EnemyBrainData>();
+
+			EnemySharedData.Commanders.Add(gameObject);
+
+			TroopsToCommand = new List<GameObject>[Enum.GetValues(typeof(EnemyType)).Length];
+			for (int i = 0; i < TroopsToCommand.Length; i++)
+				TroopsToCommand[i] = new();
 		}
 
 		private void OnEnable()
 		{
 			playerSensor.OnPlayerEnter += OnPlayerEnter;
 			playerSensor.OnPlayerExit += OnPlayerExit;
+			troopsSensor.OnUnitEnter += OnUnitEnter;
+			troopsSensor.OnUnitExit += OnUnitExit;
 		}
+
 		private void Start()
 		{
+
+			provider.RequestGoal<StrategizeGoal>(true);
+		}
+
+		private void OnUnitEnter(GameObject unit)
+		{
+			var unitData = unit.GetComponent<EnemyData>();
+			TroopsToCommand[(int)unitData.EnemyType].Add(unit);
+		}
+
+		private void OnUnitExit(GameObject unit)
+		{
+			var unitData = unit.GetComponent<EnemyData>();
+			TroopsToCommand[(int)unitData.EnemyType].Remove(unit);
 		}
 
 		private void OnPlayerEnter(Transform Player)
 		{
-			Debug.Log("KillPlayer Requested");
-			if(provider.CurrentPlan != null) 
-				previousGoal = provider.CurrentPlan.Goal;
-			provider.RequestGoal<KillPlayerGoal>(true);
-
 		}
 
 		private void OnPlayerExit(Vector2 LastKnownPosition)
 		{
-			if (provider.CurrentPlan != null)
-				previousGoal = provider.CurrentPlan.Goal;
-			provider.RequestGoal<WanderGoal>(true);
+		}
+
+		public void Inject(DependencyInjector injector)
+		{
+			enemyConfig = injector.EnemyConfig;
 		}
 	}
 }

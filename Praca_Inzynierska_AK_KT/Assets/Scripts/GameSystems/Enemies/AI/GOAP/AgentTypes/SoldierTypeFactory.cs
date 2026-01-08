@@ -8,9 +8,10 @@ namespace GameSystems.AI
 	{
 		public override IAgentTypeConfig Create()
 		{
-			var factory = new AgentTypeBuilder(EnemyType.Soldier.ToString());
+			var factory = this.CreateBuilder(EnemyType.Soldier.ToString());
 
 			factory.AddCapability<SoldierCapabilityFactory>();
+			factory.AddCapability<UnitCapabilityFactory>();
 
 			return factory.Build();
 		}

@@ -1,0 +1,59 @@
+using CrashKonijn.Goap.Core;
+using CrashKonijn.Goap.Runtime;
+
+namespace GameSystems.AI
+{
+	public class CommandCapabilityFactory : CapabilityFactoryBase
+	{
+		public override ICapabilityConfig Create()
+		{
+			var builder = new CapabilityBuilder("CommandCapability");
+
+			BuildGoals(builder);
+			BuildActions(builder);
+			BuildSensors(builder);
+
+			return builder.Build();
+		}
+
+		void BuildGoals(CapabilityBuilder builder)
+		{
+			builder.AddGoal<StrategizeGoal>()
+				.AddCondition<IsPlanning>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1);
+		}
+
+		void BuildActions(CapabilityBuilder builder)
+		{
+			builder.AddAction<StrategizeAction>()
+				.AddCondition<ScoutsToCommand>(Comparison.SmallerThan, 2)
+				.AddEffect<IsPlanning>(EffectType.Increase)
+				.SetBaseCost(1)
+				.SetRequiresTarget(false);
+
+			builder.AddAction<SendTroopsAction>()
+				.AddCondition<SoldiersToCommand>(Comparison.GreaterThanOrEqual, 2)
+				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
+				.AddEffect<IsPlanning>(EffectType.Increase)
+				.AddEffect<SoldiersToCommand>(EffectType.Decrease)
+				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
+				.SetBaseCost(5)
+				.SetRequiresTarget(false);
+
+			builder.AddAction<SendScoutsAction>()
+				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual,2)
+				.AddEffect<IsPlanning>(EffectType.Increase)
+				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
+				.SetBaseCost(5)
+				.SetRequiresTarget(false);
+		}
+
+		void BuildSensors(CapabilityBuilder builder)
+		{
+			builder.AddWorldSensor<SoldiersToCommandSensor>().SetKey<SoldiersToCommand>();
+			builder.AddWorldSensor<ScoutsToCommandSensor>().SetKey<ScoutsToCommand>();
+			builder.AddWorldSensor<KnownAltarsSensor>().SetKey<KnownAltars>();
+		}
+	}
+}

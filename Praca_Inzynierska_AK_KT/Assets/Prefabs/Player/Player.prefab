@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2473600598859759576}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: -7}
+  m_LocalPosition: {x: -0, y: 0.7, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -148,11 +148,12 @@ GameObject:
   - component: {fileID: 7360478511905701439}
   - component: {fileID: 8108840324473111709}
   - component: {fileID: -8407679306874125081}
+  - component: {fileID: 9061605308804634811}
   - component: {fileID: 1933412047901898681}
   - component: {fileID: 7481955899817624992}
   - component: {fileID: 3784052936220698549}
   - component: {fileID: 4007156645480652206}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -169,7 +170,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5593648490619456896}
@@ -187,7 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b518eab3d4610ce43adf657a91a28598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.PlayerData
-  Heatlh: 0
+  Experience: 0
+  Heatlh: 100
+  MovementSpeed: 0
 --- !u!114 &-8407679306874125081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +204,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 5
+--- !u!114 &9061605308804634811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016658214583311117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39fa0169b0abb44a87e384310e803f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameSystems::GameSystems.PlayerAttack
+  hitboxPrefab: {fileID: 4179232485040693637, guid: 8c4f0a6ea70cc8c459ff406608775d25, type: 3}
+  attackOffset: 1
+  attackDuration: 0.2
+  attackCooldown: 0.5
+  damageAmount: 20
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!70 &1933412047901898681
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

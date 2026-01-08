@@ -1,9 +1,6 @@
-using Core;
 using CrashKonijn.Agent.Core;
-using CrashKonijn.Agent.Runtime;
 using CrashKonijn.Goap.Core;
 using CrashKonijn.Goap.Runtime;
-using UnityEngine;
 
 namespace GameSystems.AI
 {
@@ -34,6 +31,22 @@ namespace GameSystems.AI
 		public void Inject(ISensor sensor)
 		{
 			if (sensor is IInjectable injectable)
+			{
+				injectable.Inject(this);
+			}
+		}
+
+		public void Inject(IAgentTypeFactory factory)
+		{
+			if (factory is IInjectable injectable)
+			{
+				injectable.Inject(this);
+			}
+		}
+
+		public void Inject(ICapabilityFactory factory)
+		{
+			if (factory is IInjectable injectable)
 			{
 				injectable.Inject(this);
 			}
