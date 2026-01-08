@@ -1,19 +1,20 @@
-using Core;
 using GameSystems;
 using GameSystems.Config;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Tilemaps;
 
 namespace Gameplay.Controllers
 {
 	public class GameplaySceneController : MonoBehaviour
 	{
-		public GameObject _Player;
-		public GameObject _Enemies;
+		[SerializeField] GameObject _Player;
+		[SerializeField] GameObject _Enemies;
 		GameObjectReferences gameObjectReferences;
 		EnemySpawnConfig enemySpawnConfig;
+
+		(int, int) AltarsCaptured;
+
 		public IEnumerator Start()
 		{
 			yield return null;
@@ -25,6 +26,7 @@ namespace Gameplay.Controllers
 
 			SpawnPlayer();
 			SpawnEnemies();
+			SpawnAltars();
 		}
 
 		public void SpawnPlayer()
@@ -32,7 +34,7 @@ namespace Gameplay.Controllers
 
 			GameObject playerPrefab = gameObjectReferences.Player;
 
-			GameObject player = Instantiate(playerPrefab, CoreData.GetPlayerSpawnPoint(), Quaternion.identity, _Player.transform);
+			GameObject player = Instantiate(playerPrefab, GameSystemsViewModel.GetPlayerSpawnPoint(), Quaternion.identity, _Player.transform);
 		}
 		public void SpawnEnemies()
 		{
@@ -42,9 +44,18 @@ namespace Gameplay.Controllers
 				GameObject enemyPrefab = gameObjectReferences.Enemy[i];
 				for (int j = 0; j < enemies[i].Count; j++)
 				{
-					GameObject enemy = Instantiate(enemyPrefab, CoreData.GetEnemySpawnPoint() + new Vector2(0,-j), Quaternion.identity, _Enemies.transform);
+					GameObject enemy = Instantiate(enemyPrefab, GameSystemsViewModel.GetEnemySpawnPoint() + new Vector2(0,-j), Quaternion.identity, _Enemies.transform);
 				}
 			}
+		}
+
+		public void SpawnAltars()
+		{
+			AltarsCaptured.Item1 = 0;
+
+			//Altar spawn logic
+
+			//AltarsCaptured.Item2 = count;
 		}
 
 		private IEnumerator WaitForNavMesh()

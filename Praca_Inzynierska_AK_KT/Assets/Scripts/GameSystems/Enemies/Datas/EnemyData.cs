@@ -11,6 +11,9 @@ namespace GameSystems
 		internal EnemyType EnemyType;
 
 		[SerializeField]
+		internal int Health;
+
+		[SerializeField]
 		internal float MoveSpeed;
 
 		[Header("Combat")]

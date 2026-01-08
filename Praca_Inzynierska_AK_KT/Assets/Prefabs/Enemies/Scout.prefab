@@ -196,7 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97f47dd97ca837479bb59fda2b6929c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.LifeStateData
-  Health: 30
 --- !u!114 &5032451668135911845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,8 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameSystems::GameSystems.EnemyData
   EnemyType: 0
+  Health: 40
   MoveSpeed: 0
   AttackHitboxPrefab: {fileID: 4179232485040693637, guid: cb20609e60cd90041bbe4848eee77c44, type: 3}
+  AttackDelay: 1
 --- !u!114 &7924121463656413394
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ namespace GameSystems
 	class PlayerStats : MonoBehaviour
 	{
 		[SerializeField]
+		internal int Health;
+
+		[SerializeField]
 		internal float Experience;
 
 		[SerializeField]

@@ -6,7 +6,6 @@ namespace GameSystems
 {
 	public class LifeStateData : MonoBehaviour
 	{
-		[SerializeField]
 		internal int Health;
 
 		internal Animator Animator;
@@ -14,6 +13,14 @@ namespace GameSystems
 		private void Awake()
 		{
 			this.Animator = this.GetComponent<Animator>();
+			if (this.GetComponent<PlayerStats>())
+			{
+				Health = this.GetComponent<PlayerStats>().Health;
+			}
+			else if (this.GetComponent<EnemyData>())
+			{
+				Health = this.GetComponent<EnemyData>().Health;
+			}
 		}
 
 		public void TakeDamage(int damage)
