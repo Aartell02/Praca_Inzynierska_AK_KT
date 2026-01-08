@@ -36,6 +36,7 @@ namespace Gameplay.Controllers
 
 			GameObject player = Instantiate(playerPrefab, GameSystemsViewModel.GetPlayerSpawnPoint(), Quaternion.identity, _Player.transform);
 		}
+
 		public void SpawnEnemies()
 		{
 			var enemies = enemySpawnConfig.EnemySpawnData;

@@ -269,6 +269,34 @@ namespace GameSystems.MapGeneration
 			return corridors;
 		}
 
+		private void PlaceDoors(HashSet<Vector2Int> floorPositions)
+		{
+			// 1. Wyznacz œciany wokó³ pod³ogi
+			HashSet<Vector2Int> wallPositions = GetWallPositions(floorPositions);
+
+			// 2. Dolne drzwi
+			var bottom = FindDoorWallSpot(floorPositions, wallPositions, findTop: false);
+			doorsTilemap.SetTile((Vector3Int)bottom[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)bottom[1], doorRightTile);
+
+			// 3. Górne drzwi
+			var top = FindDoorWallSpot(floorPositions, wallPositions, findTop: true);
+			doorsTilemap.SetTile((Vector3Int)top[0], doorLeftTile);
+			doorsTilemap.SetTile((Vector3Int)top[1], doorRightTile);
+
+			GameSystemsViewModel.SetSpawnPoints(new Vector2(bottom[0].x + 0.5f, bottom[0].y + 1f), new Vector2(top[0].x + 0.5f, top[0].y - 1f));
+
+			doorPositions.Clear();
+
+			doorPositions.Add(bottom[0]);
+			doorPositions.Add(bottom[1]);
+			doorPositions.Add(top[0]);
+			doorPositions.Add(top[1]);
+
+			Debug.Log($"Drzwi dol: {bottom[0]} , {bottom[1]}");
+			Debug.Log($"Drzwi gora: {top[0]} , {top[1]}");
+		}
+
 		private Vector2Int[] FindDoorWallSpot(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> wallPositions, bool findTop)
 		{
 			var rows = wallPositions.Select(p => p.y).Distinct().ToList();
