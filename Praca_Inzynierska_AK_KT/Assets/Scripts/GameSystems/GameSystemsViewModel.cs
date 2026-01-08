@@ -8,6 +8,8 @@ namespace GameSystems
     {
 		static Vector2 EnemySpawnPoint;
 		static Vector2 PlayerSpawnPoint;
+		static Vector2 TopRoomCenter;
+		static Vector2 BottomRoomCenter;
 
 		public static void SetSpawnPoints(Vector2 playerSpawnPoint, Vector2 enemySpawnPoint)
 		{
@@ -15,8 +17,18 @@ namespace GameSystems
 			EnemySpawnPoint = enemySpawnPoint;
 		}
 
+		public static void GetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
+		{
+			TopRoomCenter = topRoomCenter;
+			BottomRoomCenter = bottomRoomCenter;
+		}
+
 		public static Vector2 GetPlayerSpawnPoint() => PlayerSpawnPoint;
 		public static Vector2 GetEnemySpawnPoint() => EnemySpawnPoint;
+
+		public static Vector2 GetTopRoomCenter() => TopRoomCenter;
+
+		public static Vector2 GetBottomRoomCenter() => BottomRoomCenter;
 
 		public static void BakeNavMesh() => NavigationService.BakeNavMesh();
 

@@ -71,6 +71,12 @@ MonoBehaviour:
   minAlpha: 0.1
   capturedColor: {r: 1, g: 1, b: 1, a: 1}
   capturingColor: {r: 0.7830189, g: 0.631586, b: 0.74251246, a: 1}
+  OnCaptured:
+    m_PersistentCalls:
+      m_Calls: []
+  OnProgress:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &6043467482881439485
 SpriteRenderer:
   m_ObjectHideFlags: 0
