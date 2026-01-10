@@ -40,6 +40,8 @@ namespace GameSystems.MapGeneration
 		private float roomPercent;
 		private RandomWalkData randomWalkParameters;
 
+		private List<Vector2> generatedRoomCenters = new List<Vector2>();
+
 		public DungeonGenerator()
 		{
 			startPosition = worldConfig.startPosition;
@@ -164,6 +166,16 @@ namespace GameSystems.MapGeneration
 				2,
 				0.2f
 			);
+
+			GameSystemsViewModel.SetGeneratedRoomCenters(generatedRoomCenters);
+			Debug.Log($"[DungeonGenerator] Generated rooms: {generatedRoomCenters.Count}");
+
+			var centers = GameSystemsViewModel.GetGeneratedRoomCenters();
+
+			for (int i = 0; i < centers.Count; i++)
+			{
+				Debug.Log($"Room center {i}: {centers[i]}");
+			}
 		}
 
 		public List<Vector2Int> IncreaseCorridorSizeByOne(List<Vector2Int> corridor)
@@ -207,13 +219,21 @@ namespace GameSystems.MapGeneration
 		{
 			foreach (var position in deadEnds)
 			{
-				if (roomFloors.Contains(position) == false)
-				{
-					var roomFloor = RunRandomWalk(randomWalkParameters, position);
-					roomFloors.UnionWith(roomFloor);
-				}
+				if (roomFloors.Contains(position))
+					continue;
+
+				var roomFloor = RunRandomWalk(randomWalkParameters, position);
+				roomFloors.UnionWith(roomFloor);
+
+				Vector2 center = Vector2.zero;
+				foreach (var p in roomFloor)
+					center += (Vector2)p;
+
+				center /= roomFloor.Count;
+				generatedRoomCenters.Add(center);
 			}
 		}
+
 
 		private List<Vector2Int> FindAllDeadEnds(HashSet<Vector2Int> floorPositions)
 		{
@@ -242,15 +262,27 @@ namespace GameSystems.MapGeneration
 			HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
 			int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
 
-			List<Vector2Int> roomToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList();
+			List<Vector2Int> roomToCreate = potentialRoomPositions
+				.OrderBy(x => Guid.NewGuid())
+				.Take(roomToCreateCount)
+				.ToList();
 
 			foreach (var roomPosition in roomToCreate)
 			{
 				var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
 				roomPositions.UnionWith(roomFloor);
+
+				Vector2 center = Vector2.zero;
+				foreach (var p in roomFloor)
+					center += (Vector2)p;
+
+				center /= roomFloor.Count;
+				generatedRoomCenters.Add(center);
 			}
+
 			return roomPositions;
 		}
+
 
 		private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
 		{
