@@ -19,7 +19,7 @@ namespace GameSystems
 			EnemySpawnPoint = enemySpawnPoint;
 		}
 
-		public static void GetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
+		public static void  SetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
 		{
 			TopRoomCenter = topRoomCenter;
 			BottomRoomCenter = bottomRoomCenter;

@@ -1,8 +1,6 @@
-using Core;
-using GameSystems.Config;
 using UnityEngine;
 
-namespace GameSystems
+namespace GameSystems.Config
 {
 	public class ConfigReferences : MonoBehaviour
 	{

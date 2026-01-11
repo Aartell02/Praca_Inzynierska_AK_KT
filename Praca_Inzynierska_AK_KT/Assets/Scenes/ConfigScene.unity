@@ -371,6 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1979271504}
   - component: {fileID: 1979271505}
+  - component: {fileID: 1979271506}
   m_Layer: 0
   m_Name: ReferenceManager
   m_TagString: Untagged
@@ -407,6 +408,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: 121a614510df90a4f89e3d434e015b8b, type: 2}
   worldConfig: {fileID: 11400000, guid: 598c852512a374f439f0f2a33c9a62ef, type: 2}
+--- !u!114 &1979271506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979271503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22cab094161163488647447d623326b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Gameplay.PrefabReferences
+  Player: {fileID: 8016658214583311117, guid: 5f67bcc61f53d6d4ba0f3a6e41fc2392, type: 3}
+  Enemy:
+  - {fileID: 6529996829581106454, guid: f994173a6caa6104ebc475eaf56fb260, type: 3}
+  - {fileID: 6529996829581106454, guid: 7aee877ff15ff5447ac0ef900822cf8e, type: 3}
+  - {fileID: 6529996829581106454, guid: a136399fe05e40d4cbfba1dcd2c19d7b, type: 3}
+  Altar: {fileID: 2219023147149041920, guid: 4eca04a85716be746912ff0e46590ca5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

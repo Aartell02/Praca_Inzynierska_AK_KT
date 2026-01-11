@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gameplay
 {
-	public class GameObjectReferences : MonoBehaviour
+	public class PrefabReferences : MonoBehaviour
 	{
 		[SerializeField]
 		public GameObject Player;
@@ -13,7 +13,10 @@ namespace Gameplay
 		[EnumArray(typeof(EnemyType))]
 		public GameObject[] Enemy;
 
-		public static GameObjectReferences Instance { get; private set; }
+		[SerializeField]
+		public GameObject Altar;
+
+		public static PrefabReferences Instance { get; private set; }
 
 		private void Awake()
 		{

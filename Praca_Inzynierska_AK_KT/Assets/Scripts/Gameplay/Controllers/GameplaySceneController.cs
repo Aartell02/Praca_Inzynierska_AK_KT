@@ -10,10 +10,8 @@ namespace Gameplay.Controllers
 	{
 		[SerializeField] GameObject _Player;
 		[SerializeField] GameObject _Enemies;
-		GameObjectReferences gameObjectReferences;
+		PrefabReferences gameObjectReferences;
 		EnemySpawnConfig enemySpawnConfig;
-
-		(int, int) AltarsCaptured;
 
 		public IEnumerator Start()
 		{
@@ -21,12 +19,13 @@ namespace Gameplay.Controllers
 
 			yield return WaitForNavMesh();
 
-			gameObjectReferences = GameObjectReferences.Instance;
+			gameObjectReferences = PrefabReferences.Instance;
 			enemySpawnConfig = ConfigReferences.Instance.enemyConfig;
+
 
 			SpawnPlayer();
 			SpawnEnemies();
-			SpawnAltars();
+
 		}
 
 		public void SpawnPlayer()
@@ -47,15 +46,6 @@ namespace Gameplay.Controllers
 					GameObject enemy = Instantiate(enemyPrefab, GameSystemsViewModel.GetEnemySpawnPoint() + new Vector2(0,-j), Quaternion.identity, _Enemies.transform);
 				}
 			}
-		}
-
-		public void SpawnAltars()
-		{
-			AltarsCaptured.Item1 = 0;
-
-			//Altar spawn logic
-
-			//AltarsCaptured.Item2 = count;
 		}
 
 		private IEnumerator WaitForNavMesh()
