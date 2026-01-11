@@ -6,13 +6,15 @@ namespace GameSystems
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class MeleeHitbox : MonoBehaviour
 	{
+		private GameObject Attacker;
 		private int damage;
 		private LayerMask targetLayers;
 
 		private System.Collections.Generic.List<Collider2D> hitTargets = new System.Collections.Generic.List<Collider2D>();
 
-		public void Initialize(int damageAmount, LayerMask layers, float duration)
+		public void Initialize(GameObject attacker, int damageAmount, LayerMask layers, float duration)
 		{
+			this.Attacker = attacker;
 			this.damage = damageAmount;
 			this.targetLayers = layers;
 
@@ -30,7 +32,7 @@ namespace GameSystems
 
 				if (other.TryGetComponent(out LifeStateData enemy))
 				{
-					enemy.TakeDamage(damage);
+					enemy.TakeDamage(damage, Attacker);
 				}
 			}
 		}

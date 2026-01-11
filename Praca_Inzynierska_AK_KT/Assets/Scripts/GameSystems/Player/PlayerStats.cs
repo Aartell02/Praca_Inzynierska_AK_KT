@@ -14,6 +14,23 @@ namespace GameSystems
 		[SerializeField]
 		internal float MovementSpeed;
 
+		[SerializeField]
+		internal int Level = 1;
+
+		internal void Update()
+		{
+			if(Experience >= 100)
+			{
+				LevelUp();
+				Experience %= 100;
+			}
+		}
+
+		private void LevelUp()
+		{
+			Level++;
+
+		}
 
 	}
 }

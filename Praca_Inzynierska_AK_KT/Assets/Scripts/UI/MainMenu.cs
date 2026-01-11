@@ -1,4 +1,4 @@
-using Boot;
+using Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +15,7 @@ namespace UI
 			Quit.onClick.AddListener(OnButtonQuit);
 		}
 
-		private void OnButtonPlay() => BootViewModel.StartGame();
+		private void OnButtonPlay() => GameRunState.StartGame();
 
 		private void OnButtonQuit()
 		{

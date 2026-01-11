@@ -65,7 +65,7 @@ namespace GameSystems.AI
 				LayerMask playerLayer = LayerMask.GetMask("Player");
 				int damage = 10;
 
-				hitboxScript.Initialize(damage, playerLayer, 0.2f);
+				hitboxScript.Initialize(agent.gameObject, damage, playerLayer, 0.2f);
 				data.EnemyStats.ReadyToAttack--;
 			}
 		}

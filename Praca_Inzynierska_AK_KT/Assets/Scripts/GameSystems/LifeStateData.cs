@@ -23,12 +23,24 @@ namespace GameSystems
 			}
 		}
 
-		public void TakeDamage(int damage)
+		public void TakeDamage(int damage, GameObject attacker)
 		{
 			this.Health -= damage;
 			Animator.SetTrigger("GotHit");
 			if (this.Health < 0)
+			{
+				RewardAttacker(attacker);
 				Object.Destroy(this.gameObject);
+			}
+		}
+
+		private void RewardAttacker(GameObject attacker)
+		{
+			if (attacker.GetComponent<PlayerStats>())
+			{
+				var playerStats = attacker.GetComponent<PlayerStats>();
+				playerStats.Experience += 30;
+			}
 		}
 	}
 }
