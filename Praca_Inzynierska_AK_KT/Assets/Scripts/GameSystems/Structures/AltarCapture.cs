@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -91,6 +92,7 @@ namespace GameSystems.Gameplay
 		private void CompleteCapture()
 		{
 			isCaptured = true;
+			FindFirstObjectByType<FloorProgress>().OnAltarCaptured();
 			Debug.Log("Ołtarz przejęty!");
 		}
 	}

@@ -7,15 +7,10 @@ namespace Gameplay.Controllers
 	{
 		[SerializeField] int floorCount;
 
-		private void Awake()
-		{
-			BootViewModel.LoadFloor();
-		}
 		private void Start()
 		{
 			GameRunState.SetFloorCount(floorCount);
-			GameRunState.NextFloor();
+			GameRunState.LoadNextFloor();
 		}
-
 	}
 }

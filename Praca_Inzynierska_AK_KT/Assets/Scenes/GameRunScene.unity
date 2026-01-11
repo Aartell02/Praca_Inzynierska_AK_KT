@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278bb77deefdfba47a382009e04c8c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gameplay::Gameplay.Controllers.GameRunController
+  floorCount: 1
 --- !u!1 &1154623900
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,19 +2,21 @@ using Core;
 using Core.Inspector;
 using UnityEngine;
 
-namespace Gameplay
+namespace GameSystems
 {
 	public class PrefabReferences : MonoBehaviour
 	{
-		[SerializeField]
-		public GameObject Player;
+		[Header("Player")]
+		[SerializeField] public GameObject Player;
 
-		[SerializeField]
+		[Header("Enemies")]
 		[EnumArray(typeof(EnemyType))]
-		public GameObject[] Enemy;
+		[SerializeField] public GameObject[] Enemy;
 
-		[SerializeField]
-		public GameObject Altar;
+		[Header("Structures")]
+		[SerializeField] public GameObject Altar;
+		[SerializeField] public GameObject ExitTrigger;
+
 
 		public static PrefabReferences Instance { get; private set; }
 

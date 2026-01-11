@@ -22,10 +22,8 @@ namespace Gameplay.Controllers
 			gameObjectReferences = PrefabReferences.Instance;
 			enemySpawnConfig = ConfigReferences.Instance.enemyConfig;
 
-
 			SpawnPlayer();
 			SpawnEnemies();
-
 		}
 
 		public void SpawnPlayer()
@@ -50,7 +48,6 @@ namespace Gameplay.Controllers
 
 		private IEnumerator WaitForNavMesh()
 		{
-			// Czekamy aż NavMesh będzie gotowy
 			while (!NavMesh.SamplePosition(transform.position, out _, 1f, NavMesh.AllAreas))
 				yield return null;
 		}

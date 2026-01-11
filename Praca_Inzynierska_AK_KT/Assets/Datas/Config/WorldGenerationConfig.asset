@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0}
   corridorLength: 20
-  corridorCount: 10
-  roomPercent: 0.7
+  corridorCount: 5
+  roomPercent: 0.4
   randomWalkParameters: {fileID: 11400000, guid: 696741b4f0b3f5645b75f37307a0c752, type: 2}
