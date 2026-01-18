@@ -1,6 +1,7 @@
 using Boot;
 using Core;
 using GameSystems;
+using GameSystems.Config;
 using GameSystems.MapGeneration;
 using UnityEngine;
 
@@ -42,6 +43,6 @@ namespace Gameplay
 			BootViewModel.LoadFloor();
 			return CurrentFloor;
 		}
-		public static void SetFloorCount(int floorCount) => FloorCount = floorCount;
+		public static void SetFloorCount(int count) => FloorCount = count;
 	}
 }

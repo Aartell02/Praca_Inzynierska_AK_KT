@@ -10,6 +10,12 @@ namespace GameSystems.Config
 		[SerializeField]
 		public WorldGenerationConfig worldConfig;
 
+		[SerializeField]
+		public RunConfig runConfig;
+
+		[SerializeField]
+		public StatsConfig statsConfig;
+
 		public static ConfigReferences Instance { get; private set; }
 
 		private void Awake()

@@ -35,7 +35,7 @@ namespace GameSystems.AI
 
 			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 			foreach (Collider2D hit in hits)
-				if(hit.GetComponent<PlayerStats>())
+				if(hit.GetComponent<PlayerState>())
 					return ActionRunState.Completed;
 
 

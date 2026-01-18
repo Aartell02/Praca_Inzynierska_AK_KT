@@ -58,6 +58,7 @@ namespace GameSystems.MapGeneration
 		protected void RunProceduralGeneration()
 		{
 			CorridorFirstGeneration();
+
 		}
 		protected HashSet<Vector2Int> RunRandomWalk(RandomWalkData parameters, Vector2Int position)
 		{
@@ -172,6 +173,7 @@ namespace GameSystems.MapGeneration
 
 			var centers = GameSystemsViewModel.GetGeneratedRoomCenters();
 
+			tilemapVisualizer.PaintBackground(floorPositions, wallPositions);
 			for (int i = 0; i < centers.Count; i++)
 			{
 				Debug.Log($"Room center {i}: {centers[i]}");

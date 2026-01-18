@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ab56c705fa58fc4d9dc8cc3099665a3, type: 3}
+  m_Name: StatsConfig
+  m_EditorClassIdentifier: GameSystems::GameSystems.Config.StatsConfig
+  PlayerStatsData:
+    Health: 150
+    Defence: 0
+    MovementSpeed: 5
+    BasicAttackDamage: 15
+    AttackSpeed: 1
+  EnemyStatsData:
+  - Health: 40
+    Defence: 0
+    MovementSpeed: 3
+    BasicAttackDamage: 10
+    AttackSpeed: 1
+  - Health: 60
+    Defence: 0
+    MovementSpeed: 4
+    BasicAttackDamage: 20
+    AttackSpeed: 1
+  - Health: 200
+    Defence: 0
+    MovementSpeed: 3
+    BasicAttackDamage: 30
+    AttackSpeed: 1

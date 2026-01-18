@@ -51,6 +51,8 @@ namespace Boot
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'ConfigScene'...");
 			yield return StartCoroutine(LoadSceneAsync("ConfigScene"));
 
+			yield return null;
+
 			OnBootLog?.Invoke($"BootManager: Loading initial scene 'GameRunScene'...");
 			yield return StartCoroutine(LoadSceneAsync("GameRunScene"));
 		}

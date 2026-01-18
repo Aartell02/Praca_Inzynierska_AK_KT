@@ -408,6 +408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: 121a614510df90a4f89e3d434e015b8b, type: 2}
   worldConfig: {fileID: 11400000, guid: 598c852512a374f439f0f2a33c9a62ef, type: 2}
+  runConfig: {fileID: 11400000, guid: cf6c4d564625f7d46b9e76b38b27f4b8, type: 2}
+  statsConfig: {fileID: 11400000, guid: 1839427ca1f39364a8ae9d4535431844, type: 2}
 --- !u!114 &1979271506
 MonoBehaviour:
   m_ObjectHideFlags: 0

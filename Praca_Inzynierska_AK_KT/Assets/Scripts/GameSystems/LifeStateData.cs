@@ -13,9 +13,9 @@ namespace GameSystems
 		private void Awake()
 		{
 			this.Animator = this.GetComponent<Animator>();
-			if (this.GetComponent<PlayerStats>())
+			if (this.GetComponent<PlayerState>())
 			{
-				Health = this.GetComponent<PlayerStats>().Health;
+				Health = this.GetComponent<PlayerState>().playerStats.Health;
 			}
 			else if (this.GetComponent<EnemyData>())
 			{
@@ -36,9 +36,9 @@ namespace GameSystems
 
 		private void RewardAttacker(GameObject attacker)
 		{
-			if (attacker.GetComponent<PlayerStats>())
+			if (attacker.GetComponent<PlayerState>())
 			{
-				var playerStats = attacker.GetComponent<PlayerStats>();
+				var playerStats = attacker.GetComponent<PlayerState>();
 				playerStats.Experience += 30;
 			}
 		}

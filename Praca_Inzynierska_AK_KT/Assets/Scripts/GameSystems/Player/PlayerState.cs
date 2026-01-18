@@ -3,17 +3,12 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	class PlayerStats : MonoBehaviour
+	class PlayerState : MonoBehaviour
 	{
-		[SerializeField]
-		internal int Health;
+		internal PlayerStats playerStats = PlayerStats.Instance;
 
 		[SerializeField]
 		internal float Experience;
-
-		[SerializeField]
-		internal float MovementSpeed;
-
 		[SerializeField]
 		internal int Level = 1;
 
@@ -31,6 +26,5 @@ namespace GameSystems
 			Level++;
 
 		}
-
 	}
 }
