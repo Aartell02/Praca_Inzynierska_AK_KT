@@ -18,6 +18,7 @@ namespace Gameplay.Controllers
 		{
 			SpawnAltars();
 			GameSystemsViewModel.BakeNavMesh();
+			ExplorationGrid.Instance.InitializeGrid();
 		}
 
 		public void GenerateMap()

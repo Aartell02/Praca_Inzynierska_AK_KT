@@ -31,6 +31,8 @@ namespace GameSystems.AI
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
 			data.Timer -= context.DeltaTime;
+			if (data.RemainingSoldiers < 1)
+				return ActionRunState.WaitThenComplete(10);
 
 			float range = enemyConfig.EnemyCommunicationData.CommunicationRadius;
 
@@ -39,19 +41,18 @@ namespace GameSystems.AI
 
 			foreach(var altar in commanderBrainData.Altars)
 			{
-				if(altar.gameObject.GetComponent<AltarData>().Occupied)
+				if(altar.Occupied)
 					continue;
+
 				Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 				foreach (Collider2D hit in hits)
 				{
-					if(data.RemainingSoldiers < 1)
-						return ActionRunState.WaitThenComplete(10);
 					EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
 					SoldierBrainBehaviour soldierBrainData = hit.GetComponent<SoldierBrainBehaviour>();
 
 					if (soldierBrainData != null)
 					{
-						brainData.SetDeufaultPosition(altar.transform.position);
+						brainData.SetDeufaultPosition(altar.Position);
 						soldierBrainData.GiveOrder(AIEnemyGoal.Guard);
 						data.RemainingSoldiers--;
 					}
@@ -59,7 +60,7 @@ namespace GameSystems.AI
 
 					if (scoutBrainData != null)
 					{
-						brainData.SetDeufaultPosition(altar.transform.position);
+						brainData.SetDeufaultPosition(altar.Position);
 						scoutBrainData.GiveOrder(AIEnemyGoal.Guard);
 						data.RemainingScouts--;
 					}
@@ -68,7 +69,6 @@ namespace GameSystems.AI
 			}
 			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Completed;
 		}
-
 		public override void Complete(IMonoAgent agent, Data data)
 		{
 
