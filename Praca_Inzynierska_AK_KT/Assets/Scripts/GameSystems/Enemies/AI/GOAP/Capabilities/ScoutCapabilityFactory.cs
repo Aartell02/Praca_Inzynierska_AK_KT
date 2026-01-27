@@ -22,20 +22,19 @@ namespace GameSystems.AI
 		{
 			builder.AddGoal<DeliverPillarLocationsGoal>()
 				.AddCondition<HasGoal>(Comparison.SmallerThan, 1)
-				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
-				.SetBaseCost(5);
+				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
 			builder.AddAction<SearchForTargetAction>()
 				.SetTarget<SearchTarget>()
-				.AddEffect<KnownAltars>(EffectType.Increase)
+				.AddEffect<InfoPoints>(EffectType.Increase)
 				.SetBaseCost(1)
-				.SetStoppingDistance(1f);
+				.SetStoppingDistance(2f);
 
 			builder.AddAction<ReportInformationAction>()
-				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1)
 				.SetTarget<CommanderTarget>()
 				.AddEffect<HasGoal>(EffectType.Decrease)
 				.SetBaseCost(1)
@@ -46,7 +45,7 @@ namespace GameSystems.AI
 		void BuildSensors(CapabilityBuilder builder)
 		{
 			builder.AddTargetSensor<SearchTargetSensor>().SetTarget<SearchTarget>();
-			builder.AddWorldSensor<KnownAltarsSensor>().SetKey<KnownAltars>();
+			builder.AddWorldSensor<InfoPointsSensor>().SetKey<InfoPoints>();
 
 		}
 

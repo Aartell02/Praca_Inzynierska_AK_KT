@@ -8,6 +8,7 @@ namespace GameSystems
 		NormalAttack,
 		HeavyAttack,
 	}
+
 	public enum AIEnemyGoal
 	{
 		Default = int.MinValue,
@@ -15,5 +16,20 @@ namespace GameSystems
 		Scout,
 		Guard,
 		Attack
+	}
+
+	public enum PopupType
+	{
+		PauseMenu,
+		LevelUp
+	}
+
+	public enum Stat
+	{
+		Health,
+		Defence,
+		MovementSpeed,
+		AttackDamage,
+		AttackSpeed
 	}
 }

@@ -6,21 +6,21 @@ namespace GameSystems.AI
 {
 	public class StrategizeAction : GoapActionBase<StrategizeAction.Data>
 	{
+		public class Data : IActionData
+		{
+			public ITarget Target { get; set; }
+			public float Timer { get; set; }
+		}
+
 		public override void Start(IMonoAgent agent, Data data)
 		{
-			data.commanderData = agent.GetComponent<CommanderBrainBehaviour>();
+			data.Timer = 1.5f;
 		}
 
 		public override IActionRunState Perform(IMonoAgent agent, Data data, IActionContext context)
 		{
-
-			return ActionRunState.Continue;
-		}
-
-		public class Data : IActionData
-		{
-			public CommanderBrainBehaviour commanderData { get; set; }
-			public ITarget Target { get; set; }
+			data.Timer -= context.DeltaTime;
+			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
 		}
 	}
 }

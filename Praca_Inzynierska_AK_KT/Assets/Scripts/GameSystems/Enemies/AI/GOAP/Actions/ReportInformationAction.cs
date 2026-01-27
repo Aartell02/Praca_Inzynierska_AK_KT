@@ -47,7 +47,7 @@ namespace GameSystems.AI
 
 						data.brainData.SetGoal(AIEnemyGoal.None, true);
 						if(!success)
-							data.brainData.Altars.Clear();
+							data.brainData.ClearInfo();
 						return ActionRunState.Completed;
 					}
 

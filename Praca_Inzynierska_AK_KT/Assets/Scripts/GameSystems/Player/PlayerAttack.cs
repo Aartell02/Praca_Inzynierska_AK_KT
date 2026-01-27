@@ -71,7 +71,7 @@ namespace GameSystems
 
 				if (hitbox.TryGetComponent(out MeleeHitbox meleeScript))
 				{
-					meleeScript.Initialize(damageAmount, enemyLayers, attackDuration);
+					meleeScript.Initialize(this.gameObject, damageAmount, enemyLayers, attackDuration);
 				}
 			}
 			else

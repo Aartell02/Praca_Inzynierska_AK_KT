@@ -20,21 +20,23 @@ namespace GameSystems.AI
 		{
 			builder.AddGoal<StrategizeGoal>()
 				.AddCondition<IsPlanning>(Comparison.GreaterThanOrEqual, 1)
-				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1);
+				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<MapDiscovered>(Comparison.GreaterThanOrEqual, 80);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
 			builder.AddAction<StrategizeAction>()
-				.AddCondition<ScoutsToCommand>(Comparison.SmallerThan, 2)
 				.AddEffect<IsPlanning>(EffectType.Increase)
-				.SetBaseCost(1)
+				.SetBaseCost(30)
 				.SetRequiresTarget(false);
 
 			builder.AddAction<SendTroopsAction>()
 				.AddCondition<SoldiersToCommand>(Comparison.GreaterThanOrEqual, 2)
-				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual, 1)
-				.AddCondition<KnownAltars>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<MapDiscovered>(Comparison.GreaterThanOrEqual, 40)
+				.AddCondition<UnoccupiedAltars>(Comparison.GreaterThanOrEqual, 1)
+				.AddEffect<UnoccupiedAltars>(EffectType.Increase)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.AddEffect<SoldiersToCommand>(EffectType.Decrease)
 				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
@@ -43,7 +45,10 @@ namespace GameSystems.AI
 
 			builder.AddAction<SendScoutsAction>()
 				.AddCondition<ScoutsToCommand>(Comparison.GreaterThanOrEqual,2)
+				.AddCondition<MapDiscovered>(Comparison.SmallerThanOrEqual, 90)
 				.AddEffect<IsPlanning>(EffectType.Increase)
+				.AddEffect<MapDiscovered>(EffectType.Increase)
+				.AddEffect<UnoccupiedAltars>(EffectType.Increase)
 				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
 				.SetBaseCost(5)
 				.SetRequiresTarget(false);
@@ -53,7 +58,9 @@ namespace GameSystems.AI
 		{
 			builder.AddWorldSensor<SoldiersToCommandSensor>().SetKey<SoldiersToCommand>();
 			builder.AddWorldSensor<ScoutsToCommandSensor>().SetKey<ScoutsToCommand>();
-			builder.AddWorldSensor<KnownAltarsSensor>().SetKey<KnownAltars>();
+			builder.AddWorldSensor<InfoPointsSensor>().SetKey<InfoPoints>();
+			builder.AddWorldSensor<MapDiscoveredSensor>().SetKey<MapDiscovered>();
+			builder.AddWorldSensor<UnoccupiedAltarsSensor>().SetKey<UnoccupiedAltars>();
 		}
 	}
 }

@@ -7,9 +7,9 @@ namespace GameSystems
 {
 	public class PlayerMovement : MonoBehaviour
 	{
-		public float MovementSpeed;
+		private PlayerStats playerStats = PlayerStats.Instance;
+		private float movementSpeed;
 		private float currentMoveSpeed;
-		private const float maxSpeed = 5;
 
 		private Rigidbody2D rb;
 		private Animator animator;
@@ -26,6 +26,12 @@ namespace GameSystems
 
 		void Update()
 		{
+			movementSpeed = playerStats.MovementSpeed;
+			if (PlayerInputService.Sprint)
+			{
+				movementSpeed = playerStats.MovementSpeed * Constants.SprintModifier;
+			}
+
 			Vector3 mouseScreenPos = PlayerInputService.MousePosition;
 			mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z);
 			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
@@ -44,12 +50,12 @@ namespace GameSystems
 
 			if (isTryingToMove)
 			{
-				currentMoveSpeed += MovementSpeed;
-				currentMoveSpeed = math.min(currentMoveSpeed, maxSpeed);
+				currentMoveSpeed += Constants.AccelerationValue;
+				currentMoveSpeed = math.min(currentMoveSpeed, movementSpeed);
 			}
 			else if (isMoving)
 			{
-				currentMoveSpeed -= (MovementSpeed);
+				currentMoveSpeed -= Constants.AccelerationValue;
 				currentMoveSpeed = math.max(currentMoveSpeed, 0f);
 			}
 
