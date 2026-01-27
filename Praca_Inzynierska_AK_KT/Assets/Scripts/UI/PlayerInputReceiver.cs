@@ -16,6 +16,7 @@ namespace GameSystems
 			if (PlayerInputService.Cancel)
 			{
 				FindFirstObjectByType<PauseMenu>().ResumeGame();
+				FindFirstObjectByType<SkillTree>().ResumeGame();
 			}
 		}
 	}

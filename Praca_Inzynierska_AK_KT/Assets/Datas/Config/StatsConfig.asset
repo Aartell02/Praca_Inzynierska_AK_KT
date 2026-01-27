@@ -21,7 +21,7 @@ MonoBehaviour:
   EnemyStatsData:
   - Health: 40
     Defence: 0
-    MovementSpeed: 3
+    MovementSpeed: 5
     BasicAttackDamage: 10
     AttackSpeed: 1
   - Health: 60

@@ -18,6 +18,7 @@ namespace GameSystems
 		public float Experience;
 
 		public int Level = 1;
+		public int SkillPoints = 0;
 
 		private void Awake()
 		{
@@ -31,31 +32,27 @@ namespace GameSystems
 
 		internal void Start()
 		{
-			Health = statsConfig.PlayerStatsData.Health;
-			Defence = statsConfig.PlayerStatsData.Defence;
-			MovementSpeed = statsConfig.PlayerStatsData.MovementSpeed;
-			BasicAttackDamage = statsConfig.PlayerStatsData.BasicAttackDamage;
-			AttackSpeed = statsConfig.PlayerStatsData.AttackSpeed;
-		}
-
-		internal void Update()
-		{
-			if (Experience >= 100)
-			{
-				LevelUp();
-				Experience %= 100;
-			}
-		}
-
-		private void LevelUp()
-		{
-			Level++;
-
+			SetStats(statsConfig.PlayerStatsData);
 		}
 
 		void SetStats(StatsDto stats)
 		{
-
+			Health = stats.Health;
+			Defence = stats.Defence;
+			MovementSpeed = stats.MovementSpeed;
+			BasicAttackDamage = stats.BasicAttackDamage;
+			AttackSpeed = stats.AttackSpeed;
+		}
+		public void UpgradeStat(Stat stat, int value)
+		{
+			switch (stat)
+			{
+				case Stat.Health: Health += value; break;
+				case Stat.Defence: Defence += value; break;
+				case Stat.MovementSpeed: MovementSpeed += value; break;
+				case Stat.AttackSpeed: AttackSpeed += value; break;
+				case Stat.AttackDamage: BasicAttackDamage += value; break;
+			}
 		}
 	}
 }

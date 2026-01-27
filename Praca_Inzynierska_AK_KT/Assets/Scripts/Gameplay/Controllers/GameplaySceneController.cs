@@ -1,3 +1,4 @@
+using Boot;
 using GameSystems;
 using GameSystems.Config;
 using System;
@@ -27,7 +28,13 @@ namespace Gameplay.Controllers
 			SpawnPlayer();
 			SpawnEnemies();
 		}
-
+		private void Update()
+		{
+			if(PlayerStats.Instance.Health <= 0)
+			{
+				BootViewModel.FinishGame(false);
+			}
+		}
 		public void SpawnPlayer()
 		{
 

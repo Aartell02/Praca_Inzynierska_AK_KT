@@ -10,12 +10,11 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	public class CommanderBrainBehaviour : MonoBehaviour, IInjectable
+	public class CommanderBrainBehaviour : MonoBehaviour
 	{
 		[SerializeField]
 		internal List<GameObject>[] TroopsToCommand;
 
-		private EnemyConfig enemyConfig;
 		private PlayerSensor playerSensor;
 		private TroopsSensor troopsSensor;
 
@@ -56,8 +55,31 @@ namespace GameSystems.AI
 
 		private void Start()
 		{
+			SetGoal(AIEnemyGoal.None);
+		}
 
-			provider.RequestGoal<StrategizeGoal>(true);
+		private void Update()
+		{
+			if (this.brainData.dirty)
+				SetGoal(brainData.Goal);
+		}
+
+		private void OnPlayerEnter(Transform Player) => brainData.SetGoal(AIEnemyGoal.Attack);
+
+		private void OnPlayerExit(Vector2 LastKnownPosition) => brainData.SetGoal(brainData.Order);
+
+		void SetGoal(AIEnemyGoal goal)
+		{
+			switch (goal)
+			{
+				case AIEnemyGoal.Attack:
+					provider.RequestGoal<KillPlayerGoal>(true);
+					break;
+				case AIEnemyGoal.None:
+					provider.RequestGoal<StrategizeGoal>(true);
+					break;
+			}
+			brainData.dirty = false;
 		}
 
 		private void OnUnitEnter(GameObject unit)
@@ -72,17 +94,5 @@ namespace GameSystems.AI
 			TroopsToCommand[(int)unitData.EnemyType].Remove(unit);
 		}
 
-		private void OnPlayerEnter(Transform Player)
-		{
-		}
-
-		private void OnPlayerExit(Vector2 LastKnownPosition)
-		{
-		}
-
-		public void Inject(DependencyInjector injector)
-		{
-			enemyConfig = injector.EnemyConfig;
-		}
 	}
 }

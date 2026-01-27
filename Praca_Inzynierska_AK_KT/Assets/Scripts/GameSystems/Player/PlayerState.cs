@@ -1,4 +1,5 @@
 using Core;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 namespace GameSystems
@@ -10,21 +11,24 @@ namespace GameSystems
 		[SerializeField]
 		internal float Experience;
 		[SerializeField]
-		internal int Level = 1;
+		private int Level = 1;
+
+		internal void Start()
+		{
+			Experience = playerStats.Experience;
+			Level = playerStats.Level;
+		}
 
 		internal void Update()
 		{
-			if(Experience >= 100)
+			playerStats.Experience = Experience;
+			playerStats.Level = Level;
+			if (Experience >= 100)
 			{
-				LevelUp();
+				Level++;
+				playerStats.SkillPoints++;
 				Experience %= 100;
 			}
-		}
-
-		private void LevelUp()
-		{
-			Level++;
-
 		}
 	}
 }

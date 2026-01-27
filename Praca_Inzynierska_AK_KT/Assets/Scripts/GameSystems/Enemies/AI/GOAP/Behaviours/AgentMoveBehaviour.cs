@@ -28,6 +28,11 @@ namespace GameSystems.AI
 			navigationAgent.updateUpAxis = false;
 		}
 
+		private void Start()
+		{
+			navigationAgent.speed = enemyData.MoveSpeed;
+		}
+
 		private void OnEnable()
 		{
 			this.agent.Events.OnTargetInRange += this.OnTargetInRange;
@@ -103,6 +108,7 @@ namespace GameSystems.AI
 				navigationAgent.ResetPath();
 				return;
 			}
+
 
 			if (Vector3.Distance(currentTarget.Position, lastTargetPosition) > updateThreshold)
 			{

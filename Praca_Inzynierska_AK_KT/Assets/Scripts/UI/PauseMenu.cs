@@ -9,32 +9,28 @@ namespace GameSystems
 	{
 		public Button Resume;
 		public Button Quit;
-		public GameObject Menu;
+		public GameObject Body;
 
 		private void Start()
 		{
 			Resume.onClick.AddListener(OnButtonResume);
 			Quit.onClick.AddListener(OnButtonQuit);
-			Menu.SetActive(false);
+			Body.SetActive(false);
 		}
 
 		public void PauseGame()
 		{
-			Menu.SetActive(true);
+			Body.SetActive(true);
 			GameRunState.PauseGame();
-			PlayerInputService._inputActions.Player.Disable();
-			PlayerInputService._inputActions.UI.Enable();
 		}
 
 		public void ResumeGame()
 		{
 			GameRunState.ResumeGame();
-			Menu.SetActive(false);
-			PlayerInputService._inputActions.Player.Enable();
-			PlayerInputService._inputActions.UI.Disable();
+			Body.SetActive(false);
 		}
 
-		private void OnButtonResume() => GameRunState.ResumeGame();
+		private void OnButtonResume() => ResumeGame();
 
 		private void OnButtonQuit()
 		{

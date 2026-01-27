@@ -23,4 +23,13 @@ namespace GameSystems
 		PauseMenu,
 		LevelUp
 	}
+
+	public enum Stat
+	{
+		Health,
+		Defence,
+		MovementSpeed,
+		AttackDamage,
+		AttackSpeed
+	}
 }

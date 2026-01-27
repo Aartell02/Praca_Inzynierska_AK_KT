@@ -6,7 +6,6 @@ namespace Gameplay
 {
 	class FloorProgress : MonoBehaviour
 	{
-		bool IsCompleted = false;
 		int TotalAltarCount;
 		int CapturedAltarCount;
 		PrefabReferences PrefabReferences;
@@ -21,7 +20,6 @@ namespace Gameplay
 			CapturedAltarCount++;
 			if (CapturedAltarCount >= TotalAltarCount)
 			{
-				IsCompleted = true;
 				Instantiate(PrefabReferences.ExitTrigger, GameSystemsViewModel.GetEnemySpawnPoint(), default);
 				Debug.Log("Przejście otwarte!");
 			}
