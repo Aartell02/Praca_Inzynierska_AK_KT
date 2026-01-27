@@ -13,6 +13,7 @@ namespace GameSystems.AI
 		public class Data : IActionData
 		{
 			public CommanderBrainBehaviour commanderData { get; set; }
+			public EnemyBrainData commanderBrainData { get; set; }
 			public List<Collider2D> group {  get; set; }
 			public float Timer { get; set; }
 			public ITarget Target { get; set; }
@@ -23,6 +24,7 @@ namespace GameSystems.AI
 		{
 			data.commanderData = agent.GetComponent<CommanderBrainBehaviour>();
 			data.Timer = enemyConfig.EnemyCommunicationData.Delay;
+			data.commanderBrainData = agent.GetComponent<EnemyBrainData>();
 			data.RemainingSoldiers = enemyConfig.EnemyGroupData.SoldiersCount;
 			data.RemainingScouts = enemyConfig.EnemyGroupData.ScoutsCount;
 			data.group = new();
@@ -37,16 +39,18 @@ namespace GameSystems.AI
 			float range = enemyConfig.EnemyCommunicationData.CommunicationRadius;
 
 			Vector3 position = agent.transform.position;
-			var commanderBrainData = agent.GetComponent<EnemyBrainData>();
 
-			foreach(var altar in commanderBrainData.Altars)
+			for (int i =0; i< data.commanderBrainData.Altars.Count; i++)
 			{
-				if(altar.Occupied)
+				var altar = data.commanderBrainData.Altars[i];
+				if (altar.Occupied)
 					continue;
 
 				Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 				foreach (Collider2D hit in hits)
 				{
+					if (data.RemainingSoldiers < 1)
+						break;
 					EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
 					SoldierBrainBehaviour soldierBrainData = hit.GetComponent<SoldierBrainBehaviour>();
 
@@ -65,7 +69,7 @@ namespace GameSystems.AI
 						data.RemainingScouts--;
 					}
 				}
-				altar.gameObject.GetComponent<AltarData>().Occupied = true;
+				altar.Occupied = true;
 			}
 			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Completed;
 		}

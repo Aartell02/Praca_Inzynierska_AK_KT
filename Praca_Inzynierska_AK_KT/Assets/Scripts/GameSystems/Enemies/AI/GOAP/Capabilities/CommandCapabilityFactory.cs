@@ -27,7 +27,6 @@ namespace GameSystems.AI
 		void BuildActions(CapabilityBuilder builder)
 		{
 			builder.AddAction<StrategizeAction>()
-				.AddCondition<ScoutsToCommand>(Comparison.SmallerThan, 2)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.SetBaseCost(30)
 				.SetRequiresTarget(false);
