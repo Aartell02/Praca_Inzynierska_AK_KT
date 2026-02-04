@@ -36,11 +36,11 @@ namespace GameSystems
 		{
 			GameRunState.PauseGame();
 			Body.SetActive(true);
-			List<Stat> statups = new();
+			List<StatType> statups = new();
 			foreach (var item in Options)
 				for (int attempts = 10; attempts > 0; attempts--)
 				{
-					var stat = (Stat)UnityEngine.Random.Range(0, Enum.GetValues(typeof(Stat)).Length);
+					var stat = (StatType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(StatType)).Length);
 					if (!statups.Contains(stat))
 					{
 						statups.Add(stat);
@@ -54,10 +54,10 @@ namespace GameSystems
 		{
 			GameRunState.ResumeGame();
 			Body.SetActive(false);
-			SelectReward(Options[0]._option, 10);
+			SelectReward(Options[0].Stat, 10);
 		}
 
-		public void SelectReward(Stat stat, int value)
+		public void SelectReward(StatType stat, float value)
 		{
 			PlayerStats.Instance.UpgradeStat(stat, value);
 			Body.SetActive(false);

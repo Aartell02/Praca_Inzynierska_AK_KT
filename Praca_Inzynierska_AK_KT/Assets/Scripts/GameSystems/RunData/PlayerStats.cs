@@ -1,5 +1,6 @@
 using Core;
 using GameSystems.Config;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 namespace GameSystems
@@ -35,7 +36,7 @@ namespace GameSystems
 			SetStats(statsConfig.PlayerStatsData);
 		}
 
-		void SetStats(StatsDto stats)
+		public void SetStats(StatsDto stats)
 		{
 			Health = stats.Health;
 			Defence = stats.Defence;
@@ -43,15 +44,32 @@ namespace GameSystems
 			BasicAttackDamage = stats.BasicAttackDamage;
 			AttackSpeed = stats.AttackSpeed;
 		}
-		public void UpgradeStat(Stat stat, int value)
+		public float GetStat(StatType stat)
 		{
 			switch (stat)
 			{
-				case Stat.Health: Health += value; break;
-				case Stat.Defence: Defence += value; break;
-				case Stat.MovementSpeed: MovementSpeed += value; break;
-				case Stat.AttackSpeed: AttackSpeed += value; break;
-				case Stat.AttackDamage: BasicAttackDamage += value; break;
+				case StatType.Health:
+					return Health;
+				case StatType.Defence:
+					return Defence;
+				case StatType.MovementSpeed:
+					return MovementSpeed;
+				case StatType.AttackSpeed:
+					return AttackSpeed;
+				case StatType.AttackDamage:
+					return BasicAttackDamage;
+			}
+			return new float();
+		}
+		public void UpgradeStat(StatType stat, float value)
+		{
+			switch (stat)
+			{
+				case StatType.Health: Health += (int)value; break;
+				case StatType.Defence: Defence += (int)value; break;
+				case StatType.MovementSpeed: MovementSpeed += value; break;
+				case StatType.AttackSpeed: AttackSpeed += value; break;
+				case StatType.AttackDamage: BasicAttackDamage += (int)value; break;
 			}
 		}
 	}

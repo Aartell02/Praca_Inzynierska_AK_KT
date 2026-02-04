@@ -2,6 +2,7 @@ using Core;
 using Core.Inspector;
 using System;
 using System.ComponentModel;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameSystems.Config
@@ -10,11 +11,13 @@ namespace GameSystems.Config
 	public class StatsConfig : ScriptableObject
 	{
 		[Header("Player Stats")]
-		[SerializeField]
 		public StatsDto PlayerStatsData;
 
+		[Header("Stat Upgrade Ranges")]
+		[EnumArray(typeof(StatType))]
+		public float2[] StatsUpgradeRanges;
+
 		[Header("Enemy Stats")]
-		[SerializeField]
 		[EnumArray(typeof(EnemyType))]
 		public StatsDto[] EnemyStatsData;
 	}
