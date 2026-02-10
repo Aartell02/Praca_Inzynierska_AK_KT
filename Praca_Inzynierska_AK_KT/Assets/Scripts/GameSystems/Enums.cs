@@ -24,7 +24,7 @@ namespace GameSystems
 		LevelUp
 	}
 
-	public enum Stat
+	public enum StatType
 	{
 		Health,
 		Defence,
