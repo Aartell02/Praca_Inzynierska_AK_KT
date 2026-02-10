@@ -35,7 +35,7 @@ namespace GameSystems.AI
 
 			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 			foreach (Collider2D hit in hits)
-				if(hit.GetComponent<PlayerStats>())
+				if(hit.GetComponent<PlayerState>())
 					return ActionRunState.Completed;
 
 
@@ -65,7 +65,7 @@ namespace GameSystems.AI
 				LayerMask playerLayer = LayerMask.GetMask("Player");
 				int damage = 10;
 
-				hitboxScript.Initialize(damage, playerLayer, 0.2f);
+				hitboxScript.Initialize(agent.gameObject, damage, playerLayer, 0.2f);
 				data.EnemyStats.ReadyToAttack--;
 			}
 		}

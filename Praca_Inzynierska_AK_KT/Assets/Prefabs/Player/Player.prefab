@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 8108840324473111709}
   - component: {fileID: -8407679306874125081}
   - component: {fileID: 9061605308804634811}
+  - component: {fileID: 9020531026319421222}
   - component: {fileID: 1933412047901898681}
   - component: {fileID: 7481955899817624992}
   - component: {fileID: 3784052936220698549}
@@ -203,7 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameSystems::GameSystems.PlayerData
   Health: 150
   Experience: 0
-  MovementSpeed: 0
+  MovementSpeed: 2
+  Level: 1
 --- !u!114 &-8407679306874125081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e907b154ff0c14681f55b3d3e300fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 5
+  BasicMovementSpeed: 2
 --- !u!114 &9061605308804634811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,18 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &9020531026319421222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8016658214583311117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7d36f8f2202654b89b4a7c6b20e573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UI::GameSystems.PlayerInputReceiver
 --- !u!70 &1933412047901898681
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

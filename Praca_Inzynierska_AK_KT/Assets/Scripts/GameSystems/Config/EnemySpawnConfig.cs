@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystems.Config
 {
-    [CreateAssetMenu(fileName = "EnemySpawnConfig", menuName = "Config/Gameplay/EnemySpawnConfig")]
+    [CreateAssetMenu(fileName = "EnemySpawnConfig", menuName = "Config/EnemySpawnConfig")]
 	public class EnemySpawnConfig : ScriptableObject
 	{
 		[Header("Spawn configuration")]

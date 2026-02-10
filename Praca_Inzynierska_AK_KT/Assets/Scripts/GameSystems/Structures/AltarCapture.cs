@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -29,7 +30,8 @@ namespace GameSystems.Gameplay
 		{
 			if (((1 << other.gameObject.layer) & playerLayer) != 0)
 			{
-				isPlayerInside = true;
+				if(other.GetComponent<PlayerState>())
+					isPlayerInside = true;
 			}
 		}
 
@@ -37,7 +39,8 @@ namespace GameSystems.Gameplay
 		{
 			if (((1 << other.gameObject.layer) & playerLayer) != 0)
 			{
-				isPlayerInside = false;
+				if (other.GetComponent<PlayerState>())
+					isPlayerInside = false;
 			}
 		}
 
@@ -91,6 +94,7 @@ namespace GameSystems.Gameplay
 		private void CompleteCapture()
 		{
 			isCaptured = true;
+			FindFirstObjectByType<FloorProgress>().OnAltarCaptured();
 			Debug.Log("Ołtarz przejęty!");
 		}
 	}

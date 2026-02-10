@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameSystems.AI
 {
-	[CreateAssetMenu(fileName = "EnemyConfig", menuName = "Config/GameSystems/EnemyConfig")]
+	[CreateAssetMenu(fileName = "EnemyConfig", menuName = "Config/AI/EnemyConfig")]
 	public class EnemyConfig : ScriptableObject
 	{
 		[Header("Enemy stats configuration")]

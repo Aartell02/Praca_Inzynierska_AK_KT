@@ -23,13 +23,12 @@ namespace GameSystems.AI
 			builder.AddGoal<GetOrderGoal>()
 				.AddCondition<HasGoal>(Comparison.GreaterThanOrEqual, 1)
 				.SetBaseCost(1);
+			builder.AddGoal<GuardAltarGoal>()
+				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
 		{
-			builder.AddGoal<GuardAltarGoal>()
-				.AddCondition<HasGoal>(Comparison.SmallerThanOrEqual, 0);
-
 			builder.AddAction<WaitForCommandsAction>()
 				.SetTarget<CommanderTarget>()
 				.AddEffect<HasGoal>(EffectType.Increase)
@@ -38,11 +37,13 @@ namespace GameSystems.AI
 				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius - 1);
 
 			builder.AddAction<GoToPositionAction>()
+				.AddCondition<HasPosition>(Comparison.GreaterThanOrEqual, 1)
+				.AddCondition<HasGoal>(Comparison.GreaterThanOrEqual,2)
 				.SetTarget<UnitPositionTarget>()
 				.AddEffect<HasGoal>(EffectType.Decrease)
 				.SetBaseCost(2)
 				.SetMoveMode(ActionMoveMode.MoveBeforePerforming)
-				.SetStoppingDistance(enemyConfig.EnemyCommunicationData.CommunicationRadius - 1);
+				.SetStoppingDistance(2f);
 		}
 
 		void BuildSensors(CapabilityBuilder builder)
@@ -50,6 +51,7 @@ namespace GameSystems.AI
 			builder.AddTargetSensor<CommanderTargetSensor>().SetTarget<CommanderTarget>();
 			builder.AddTargetSensor<UnitPositionTargetSensor>().SetTarget<UnitPositionTarget>();
 			builder.AddWorldSensor<HasOrderSensor>().SetKey<HasGoal>();
+			builder.AddWorldSensor<HasOrderSensor>().SetKey<HasPosition>();
 		}
 
 		public void Inject(DependencyInjector injector)

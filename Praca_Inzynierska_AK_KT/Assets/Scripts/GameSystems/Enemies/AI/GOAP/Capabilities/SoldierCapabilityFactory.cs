@@ -38,7 +38,7 @@ namespace GameSystems.AI
 		void BuildSensors(CapabilityBuilder builder)
 		{
 			builder.AddTargetSensor<PlayerTargetSensor>().SetTarget<PlayerTarget>();
-			builder.AddWorldSensor<ReadyToAttackSensor>().SetKey<ReadyToAttack>();
+			builder.AddWorldSensor<ReadyToAttackSensor>().SetKey<ReadyToAttack>(); 
 		}
 
 		public void Inject(DependencyInjector injector)

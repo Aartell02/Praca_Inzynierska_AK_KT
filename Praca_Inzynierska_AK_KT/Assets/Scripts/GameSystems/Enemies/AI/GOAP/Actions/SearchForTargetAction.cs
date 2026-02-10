@@ -29,13 +29,15 @@ namespace GameSystems.AI
 
 			Vector3 position = agent.transform.position;
 
+			ExplorationGrid.Instance.RevealArea(position, (int)range);
+
 			Collider2D[] hits = Physics2D.OverlapCircleAll(position, range);
 			foreach (Collider2D hit in hits)
 			{
 				AltarData altarData = hit.GetComponent<AltarData>();
 
 				if (altarData != null) 
-					if(data.brainData.AddAltarPosition(hit.gameObject))
+					if(data.brainData.AddAltarPosition(altarData))
 						return ActionRunState.Completed;
 			}
 

@@ -148,12 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b826a7c4d9df444b965af39467b779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenes:
-  - BootScene
-  - 
-  - GameplayScene
-  - WorldScene
-  persistAcrossScenes: 0
+  persistAcrossScenes: 1
 --- !u!4 &1745525092
 Transform:
   m_ObjectHideFlags: 0

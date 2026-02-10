@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameSystems.Config
 {
-    [CreateAssetMenu(fileName = "WorldGenerationConfig", menuName = "Config/Gameplay/WorldGenerationConfig")]
+    [CreateAssetMenu(fileName = "WorldGenerationConfig", menuName = "Config/WorldGenerationConfig")]
     public class WorldGenerationConfig : ScriptableObject
     {
 		[SerializeField]

@@ -9,7 +9,6 @@ namespace GameSystems
 		[SerializeField] private GameObject hitboxPrefab;
 		[SerializeField] private float attackOffset = 1.0f;
 		[SerializeField] private float attackDuration = 0.2f;
-		[SerializeField] private float attackCooldown = 0.5f;
 		[SerializeField] private int damageAmount = 20;
 
 		[Header("Layers")]
@@ -30,7 +29,6 @@ namespace GameSystems
 
 		private void Update()
 		{
-			// Jeśli gra jest zapauzowana (TimeScale=0), nie obliczaj, bo może sypać błędami
 			if (Time.timeScale == 0) return;
 
 			CalculateAttackTransform();
@@ -38,7 +36,7 @@ namespace GameSystems
 			if (PlayerInputService.LeftMouseButton > 0.5f && Time.time >= nextAttackTime)
 			{
 				Attack();
-				nextAttackTime = Time.time + attackCooldown;
+				nextAttackTime = Time.time + 1f/PlayerStats.Instance.AttackSpeed;
 			}
 		}
 
@@ -46,7 +44,6 @@ namespace GameSystems
 		{
 			Vector3 mouseScreenPos = PlayerInputService.MousePosition;
 
-			// FIX: Dodanie odległości kamery od płaszczyzny
 			if (mainCam != null)
 			{
 				mouseScreenPos.z = Mathf.Abs(mainCam.transform.position.z);
@@ -71,7 +68,7 @@ namespace GameSystems
 
 				if (hitbox.TryGetComponent(out MeleeHitbox meleeScript))
 				{
-					meleeScript.Initialize(damageAmount, enemyLayers, attackDuration);
+					meleeScript.Initialize(this.gameObject, damageAmount, enemyLayers, attackDuration);
 				}
 			}
 			else

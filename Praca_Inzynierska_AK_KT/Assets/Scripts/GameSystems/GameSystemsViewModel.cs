@@ -19,7 +19,7 @@ namespace GameSystems
 			EnemySpawnPoint = enemySpawnPoint;
 		}
 
-		public static void GetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
+		public static void  SetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
 		{
 			TopRoomCenter = topRoomCenter;
 			BottomRoomCenter = bottomRoomCenter;
@@ -43,7 +43,7 @@ namespace GameSystems
 
 		public static bool TryGetPlayerHp(out (int current, int max) hp)
 		{
-			var player = GameObject.FindFirstObjectByType<PlayerStats>();
+			var player = GameObject.FindFirstObjectByType<PlayerState>();
 			if (player == null)
 			{
 				hp = default;
@@ -57,7 +57,7 @@ namespace GameSystems
 				return false;
 			}
 
-			hp = (lifeState.Health, player.Health);
+			hp = (lifeState.Health, player.playerStats.Health);
 			return true;
 		}
 	}
