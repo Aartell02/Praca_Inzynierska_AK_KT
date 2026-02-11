@@ -16,6 +16,14 @@ namespace GameSystems
 		private SpriteRenderer spriteRenderer;
 		private Camera mainCamera;
 
+		private float dashForce = 20f;
+		private float dashDuration = 0.15f;
+		private float dashCooldown = 1.5f;
+
+		private bool isDashing;
+		private float nextDashTime;
+
+
 		void Awake()
 		{
 			rb = GetComponent<Rigidbody2D>();
@@ -26,6 +34,14 @@ namespace GameSystems
 
 		void Update()
 		{
+			if (isDashing) return;
+			if (PlayerInputService.Dash && !isDashing && Time.time >= nextDashTime)
+			{
+				isDashing = true;
+				StartCoroutine(DashRoutine());
+				return;
+			}
+			Debug.Log("MOVE");
 			movementSpeed = playerStats.MovementSpeed;
 			if (PlayerInputService.Sprint)
 			{
@@ -70,5 +86,28 @@ namespace GameSystems
 
 			animator.SetFloat("Move", rb.linearVelocity.magnitude);
 		}
+
+		private System.Collections.IEnumerator DashRoutine()
+		{
+			Debug.Log("DASH");
+			nextDashTime = Time.time + dashCooldown;
+
+			Vector2 dashDir = PlayerInputService.Move;
+
+			if (dashDir.sqrMagnitude < 0.01f)
+				dashDir = Vector2.up;
+
+			dashDir.Normalize();
+
+			float cachedSpeed = currentMoveSpeed;
+
+			rb.linearVelocity = dashDir * dashForce;
+
+			yield return new WaitForSeconds(dashDuration);
+
+			currentMoveSpeed = cachedSpeed;
+			isDashing = false;
+		}
+
 	}
 }

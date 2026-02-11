@@ -20,6 +20,7 @@ namespace Core.Services
 		public static Vector2 Move => _inputActions.Player.Move.ReadValue<Vector2>();
 		public static bool Pause => _inputActions.Player.Escape.IsPressed();
 		public static bool Sprint => _inputActions.Player.Sprint.IsPressed();
+		public static bool Dash => _inputActions.Player.Dash.IsPressed();
 		public static float LeftMouseButton => _inputActions.Player.Attack.ReadValue<float>();
 
 		// UI Inputs

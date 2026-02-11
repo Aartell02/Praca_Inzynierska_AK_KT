@@ -25,8 +25,8 @@ namespace Gameplay.Controllers
 			gameObjectReferences = PrefabReferences.Instance;
 			enemySpawnConfig = ConfigReferences.Instance.enemyConfig;
 
-			SpawnPlayer();
 			SpawnEnemies();
+			SpawnPlayer();
 		}
 		private void Update()
 		{
