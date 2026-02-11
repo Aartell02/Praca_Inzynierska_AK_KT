@@ -26,6 +26,9 @@ namespace Gameplay.Controllers
 			enemySpawnConfig = ConfigReferences.Instance.enemyConfig;
 
 			SpawnEnemies();
+			Time.timeScale = 60f;
+			yield return new WaitForSeconds(180);
+			Time.timeScale = 1f;
 			SpawnPlayer();
 		}
 		private void Update()
