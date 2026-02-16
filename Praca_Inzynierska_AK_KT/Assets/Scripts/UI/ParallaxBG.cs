@@ -1,4 +1,3 @@
-using Boot;
 using UnityEngine;
 using UnityEngine.UI;
 
