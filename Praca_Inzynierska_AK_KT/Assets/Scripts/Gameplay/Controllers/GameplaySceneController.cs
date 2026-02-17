@@ -25,8 +25,11 @@ namespace Gameplay.Controllers
 			gameObjectReferences = PrefabReferences.Instance;
 			enemySpawnConfig = ConfigReferences.Instance.enemyConfig;
 
-			SpawnPlayer();
 			SpawnEnemies();
+			Time.timeScale = 60f;
+			yield return new WaitForSeconds(180);
+			Time.timeScale = 1f;
+			SpawnPlayer();
 		}
 		private void Update()
 		{

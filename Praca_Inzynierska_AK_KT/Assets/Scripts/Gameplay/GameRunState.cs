@@ -35,6 +35,7 @@ namespace Gameplay
 			PlayerInputService._inputActions.Player.Enable();
 			PlayerInputService._inputActions.UI.Disable();
 		}
+
 		public static void FinishGame(bool result) => BootViewModel.FinishGame(result);
 		public static int LoadNextFloor()
 		{
