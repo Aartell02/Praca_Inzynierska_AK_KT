@@ -15,5 +15,5 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0}
   corridorLength: 10
   corridorCount: 10
-  roomPercent: 1
+  roomPercent: 0.7
   randomWalkParameters: {fileID: 11400000, guid: 3e972c4064ed52547ba4519ae6469d60, type: 2}

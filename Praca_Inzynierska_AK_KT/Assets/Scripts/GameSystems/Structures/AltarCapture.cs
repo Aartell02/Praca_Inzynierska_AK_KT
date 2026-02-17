@@ -15,7 +15,7 @@ namespace GameSystems.Gameplay
 
 		[Header("Visuals (Optional)")]
 		[SerializeField] private SpriteRenderer visualIndicator;
-		[SerializeField] private float minAlpha = 0.1f;
+		[SerializeField] private float minAlpha = 0f;
 		[SerializeField] private Color capturedColor = Color.green;
 		[SerializeField] private Color capturingColor = Color.white;
 
