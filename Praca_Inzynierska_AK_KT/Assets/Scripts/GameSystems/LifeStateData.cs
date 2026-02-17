@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace GameSystems
 {
@@ -9,6 +10,8 @@ namespace GameSystems
 		internal Animator Animator;
 
 		float Timer = 0;
+
+		public static event Action OnGameOver;
 		private void Start()
 		{
 			this.Animator = this.GetComponent<Animator>();
@@ -43,7 +46,14 @@ namespace GameSystems
 			{
 				Debug.Log($"{this.gameObject} got killed by {attacker}");
 				RewardAttacker(attacker);
-				Object.Destroy(this.gameObject);
+				if (attacker.GetComponent<PlayerState>())
+				{
+					Destroy(this.gameObject);
+				}
+				else if (!attacker.GetComponent<PlayerState>())
+				{
+					OnGameOver?.Invoke();
+				}
 			}
 		}
 
@@ -53,6 +63,7 @@ namespace GameSystems
 			{
 				var playerStats = attacker.GetComponent<PlayerState>();
 				playerStats.Experience += 30;
+				PointsAmount.Instance.AddPoints(10);
 			}
 		}
 	}

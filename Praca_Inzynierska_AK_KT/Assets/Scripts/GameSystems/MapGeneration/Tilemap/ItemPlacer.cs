@@ -11,16 +11,19 @@ namespace GameSystems.MapGeneration
 			HashSet<Vector2Int> floorPositions,
 			HashSet<Vector2Int> wallPositions,
 			HashSet<Vector2Int> doorPositions,
-			Tilemap itemTilemap,
-			List<TileBase> itemTiles, // teraz lista dostępnych itemów
+			Tilemap walkableItemsTilemap,
+			Tilemap unwalkableItemsTilemap,
+			List<TileBase> walkableTiles,
+			List<TileBase> blockingTiles,
 			int minDistanceBetweenItems = 3,
 			int wallClearance = 1,
 			int doorClearance = 2,
-			float spawnChance = 0.08f)
+			float spawnChance = 1f,
+			float walkableChance = 0.3f
+		)
 		{
 			List<Vector2Int> placedItems = new List<Vector2Int>();
 
-			// losowa kolejność podłóg
 			var shuffledFloors = floorPositions.OrderBy(_ => Random.value).ToList();
 
 			foreach (var pos in shuffledFloors)
@@ -39,18 +42,22 @@ namespace GameSystems.MapGeneration
 					doorClearance))
 					continue;
 
-				// wybór losowego itemu
-				TileBase selectedItem = itemTiles[Random.Range(0, itemTiles.Count)];
+				bool spawnWalkable = Random.value < walkableChance;
 
-				Vector3Int cellPos = itemTilemap.WorldToCell((Vector3Int)pos);
-				itemTilemap.SetTile(cellPos, selectedItem);
+				Tilemap targetTilemap = spawnWalkable ? walkableItemsTilemap : unwalkableItemsTilemap;
+				var sourceList = spawnWalkable ? walkableTiles : blockingTiles;
+
+				if (sourceList == null || sourceList.Count == 0)
+					continue;
+
+				TileBase selectedItem = sourceList[Random.Range(0, sourceList.Count)];
+
+				Vector3Int cellPos = targetTilemap.WorldToCell((Vector3Int)pos);
+				targetTilemap.SetTile(cellPos, selectedItem);
 
 				placedItems.Add(pos);
 			}
 
-			Debug.Log($"[ItemPlacer] Floors: {floorPositions.Count}");
-			Debug.Log($"[ItemPlacer] Walls: {wallPositions.Count}");
-			Debug.Log($"[ItemPlacer] Doors: {doorPositions.Count}");
 			Debug.Log($"[ItemPlacer] Items placed: {placedItems.Count}");
 		}
 

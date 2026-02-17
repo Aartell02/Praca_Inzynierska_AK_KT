@@ -1,4 +1,5 @@
 using Gameplay;
+using GameSystems.AI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -94,6 +95,7 @@ namespace GameSystems.Gameplay
 		private void CompleteCapture()
 		{
 			isCaptured = true;
+			PointsAmount.Instance.AddPoints(100);
 			FindFirstObjectByType<FloorProgress>().OnAltarCaptured();
 			Debug.Log("Ołtarz przejęty!");
 		}

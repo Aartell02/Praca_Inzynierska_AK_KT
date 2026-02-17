@@ -21,7 +21,8 @@ namespace GameSystems
 	public enum PopupType
 	{
 		PauseMenu,
-		LevelUp
+		LevelUp,
+		EndgameScreen
 	}
 
 	public enum StatType

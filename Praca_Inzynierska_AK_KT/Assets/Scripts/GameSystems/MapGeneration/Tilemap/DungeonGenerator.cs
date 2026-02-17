@@ -25,7 +25,11 @@ namespace GameSystems.MapGeneration
 		private TileBase doorRightTile;
 
 		[SerializeField]
-		private Tilemap itemsTilemap;
+		private Tilemap walkableItemsTilemap;
+
+		[SerializeField]
+		private Tilemap unwalkableItemsTilemap;
+
 
 		[SerializeField]
 		private TileBase bones, box1, box2, box3, box4, rocks, table1, table2, torch1, torch2;
@@ -156,17 +160,23 @@ namespace GameSystems.MapGeneration
 				floorPositions,
 				finalWallPositions,
 				doorPositions,
-				itemsTilemap,
+				walkableItemsTilemap,
+				unwalkableItemsTilemap,
+				new List<TileBase> { rocks, bones },
 				new List<TileBase>
 				{
-					bones, box1, box2, box3, box4,
-					rocks, table1, table2, torch1, torch2
+					box1, box2, box3, box4,
+					table1, table2,
+					torch1, torch2
 				},
-				3,
+				5,
 				1,
 				2,
-				0.2f
+				0.04f,
+				0.4f
 			);
+
+
 
 			GameSystemsViewModel.SetGeneratedRoomCenters(generatedRoomCenters);
 			Debug.Log($"[DungeonGenerator] Generated rooms: {generatedRoomCenters.Count}");
