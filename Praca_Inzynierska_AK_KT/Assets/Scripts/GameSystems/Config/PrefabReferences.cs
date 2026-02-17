@@ -1,5 +1,7 @@
 using Core;
-using Core.Inspector;
+#if UNITY_EDITOR
+using Editor;
+#endif
 using UnityEngine;
 
 namespace GameSystems
@@ -10,7 +12,9 @@ namespace GameSystems
 		[SerializeField] public GameObject Player;
 
 		[Header("Enemies")]
+#if UNITY_EDITOR
 		[EnumArray(typeof(EnemyType))]
+#endif
 		[SerializeField] public GameObject[] Enemy;
 
 		[Header("Structures")]

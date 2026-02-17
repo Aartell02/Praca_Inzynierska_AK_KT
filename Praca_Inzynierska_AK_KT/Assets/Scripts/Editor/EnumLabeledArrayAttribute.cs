@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Core.Inspector
+namespace Editor
 {
 	[AttributeUsage(AttributeTargets.Field)]
 	public class EnumArrayAttribute : PropertyAttribute

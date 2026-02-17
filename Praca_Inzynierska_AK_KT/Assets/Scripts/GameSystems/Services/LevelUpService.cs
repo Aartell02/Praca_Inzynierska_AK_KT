@@ -1,7 +1,5 @@
-using CrashKonijn.Goap.Core;
 using GameSystems;
 using GameSystems.Config;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public static class LevelUpService

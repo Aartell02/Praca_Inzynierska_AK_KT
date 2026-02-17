@@ -1,5 +1,7 @@
 using Core;
-using Core.Inspector;
+#if UNITY_EDITOR
+using Editor;
+#endif
 using System;
 using UnityEngine;
 
@@ -10,7 +12,9 @@ namespace GameSystems.Config
 	{
 		[Header("Spawn configuration")]
 		[SerializeField]
+#if UNITY_EDITOR
 		[EnumArray(typeof(EnemyType))]
+#endif
 		public EnemySpawnData[] EnemySpawnData;
     }
 

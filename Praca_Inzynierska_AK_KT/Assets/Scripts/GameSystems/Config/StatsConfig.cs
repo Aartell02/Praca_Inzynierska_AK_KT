@@ -1,7 +1,8 @@
 using Core;
-using Core.Inspector;
-using System;
-using System.ComponentModel;
+using Core.Dto;
+#if UNITY_EDITOR
+using Editor;
+#endif
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,11 +15,15 @@ namespace GameSystems.Config
 		public StatsDto PlayerStatsData;
 
 		[Header("Stat Upgrade Ranges")]
+#if UNITY_EDITOR
 		[EnumArray(typeof(StatType))]
+#endif
 		public float2[] StatsUpgradeRanges;
 
 		[Header("Enemy Stats")]
+#if UNITY_EDITOR
 		[EnumArray(typeof(EnemyType))]
+#endif
 		public StatsDto[] EnemyStatsData;
 	}
 }

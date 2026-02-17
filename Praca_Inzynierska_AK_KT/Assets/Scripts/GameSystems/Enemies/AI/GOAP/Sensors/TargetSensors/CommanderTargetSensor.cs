@@ -1,8 +1,5 @@
 using CrashKonijn.Agent.Core;
 using CrashKonijn.Goap.Runtime;
-using log4net.Util;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameSystems.AI
 {
