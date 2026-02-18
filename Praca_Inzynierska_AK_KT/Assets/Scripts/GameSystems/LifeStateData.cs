@@ -8,7 +8,7 @@ namespace GameSystems
 {
 	public class LifeStateData : MonoBehaviour
 	{
-		internal int Health;
+		public int Health;
 
 		internal Animator Animator;
 

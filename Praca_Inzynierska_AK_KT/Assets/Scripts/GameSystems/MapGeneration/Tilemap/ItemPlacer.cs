@@ -61,7 +61,7 @@ namespace GameSystems.MapGeneration
 			Debug.Log($"[ItemPlacer] Items placed: {placedItems.Count}");
 		}
 
-		private static bool IsPositionValid(
+		public static bool IsPositionValid(
 			Vector2Int pos,
 			HashSet<Vector2Int> floorPositions,
 			HashSet<Vector2Int> wallPositions,

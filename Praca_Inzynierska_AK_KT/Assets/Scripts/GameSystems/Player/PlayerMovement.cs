@@ -87,7 +87,7 @@ namespace GameSystems
 			animator.SetFloat("Move", rb.linearVelocity.magnitude);
 		}
 
-		private System.Collections.IEnumerator DashRoutine()
+		public System.Collections.IEnumerator DashRoutine()
 		{
 			Debug.Log("DASH");
 			nextDashTime = Time.time + dashCooldown;

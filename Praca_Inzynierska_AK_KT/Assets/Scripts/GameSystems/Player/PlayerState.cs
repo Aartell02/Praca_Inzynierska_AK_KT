@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace GameSystems
 {
-	class PlayerState : MonoBehaviour
+	public class PlayerState : MonoBehaviour
 	{
 		internal PlayerStats playerStats = PlayerStats.Instance;
 
 		[SerializeField]
-		internal float Experience;
+		public float Experience;
 		[SerializeField]
 		private int Level = 1;
 

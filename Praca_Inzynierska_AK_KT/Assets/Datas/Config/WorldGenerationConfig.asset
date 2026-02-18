@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WorldGenerationConfig
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0}
-  corridorLength: 10
+  corridorLength: 30
   corridorCount: 10
   roomPercent: 1
-  randomWalkParameters: {fileID: 11400000, guid: 3e972c4064ed52547ba4519ae6469d60, type: 2}
+  randomWalkParameters: {fileID: 11400000, guid: 696741b4f0b3f5645b75f37307a0c752, type: 2}

@@ -176,8 +176,6 @@ namespace GameSystems.MapGeneration
 				0.4f
 			);
 
-
-
 			GameSystemsViewModel.SetGeneratedRoomCenters(generatedRoomCenters);
 			Debug.Log($"[DungeonGenerator] Generated rooms: {generatedRoomCenters.Count}");
 
