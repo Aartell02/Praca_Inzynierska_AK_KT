@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace GameSystems
 {
-    public static class GameSystemsViewModel
-    {
+	public static class GameSystemsViewModel
+	{
 		static Vector2 EnemySpawnPoint;
 		static Vector2 PlayerSpawnPoint;
 		static Vector2 TopRoomCenter;
 		static Vector2 BottomRoomCenter;
 		static List<Vector2> GeneratedRoomCenters = new List<Vector2>();
+		static string Announcement = default;
 
 		public static void SetSpawnPoints(Vector2 playerSpawnPoint, Vector2 enemySpawnPoint)
 		{
@@ -19,7 +20,7 @@ namespace GameSystems
 			EnemySpawnPoint = enemySpawnPoint;
 		}
 
-		public static void  SetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
+		public static void SetRoomCenters(Vector2 topRoomCenter, Vector2 bottomRoomCenter)
 		{
 			TopRoomCenter = topRoomCenter;
 			BottomRoomCenter = bottomRoomCenter;
@@ -60,6 +61,19 @@ namespace GameSystems
 			hp = (lifeState.Health, player.playerStats.Health);
 			return true;
 		}
+
+		public static bool TryGetAnnouncement(out string announcement)
+		{
+			if (Announcement == default)
+			{
+				announcement = default;
+				return false;
+			}
+			announcement = Announcement;
+			return true;
+		}
+		public static void ResetAnnouncement() => Announcement = default;
+		public static void SetAnnouncement(string value) => Announcement = value;
 	}
 }
 

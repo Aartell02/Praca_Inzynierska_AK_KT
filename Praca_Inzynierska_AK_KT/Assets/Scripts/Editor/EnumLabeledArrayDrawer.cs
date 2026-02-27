@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Core.Inspector
+namespace Editor
 {
 	[CustomPropertyDrawer(typeof(EnumArrayAttribute))]
 	public class EnumArrayDrawer : PropertyDrawer

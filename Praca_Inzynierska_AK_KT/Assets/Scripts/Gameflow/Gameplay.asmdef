@@ -1,6 +1,6 @@
 {
-    "name": "Gameplay",
-    "rootNamespace": "Gameplay",
+    "name": "Gameflow",
+    "rootNamespace": "Gameflow",
     "references": [
         "GUID:db6cb664d983c4a49bec8417b93d046c",
         "GUID:7d2a3f54767a02b448d1613fa19c87b2",

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace GameSystems.Config
+namespace Core.Dto
 {
 	[Serializable]
 	public struct StatsDto

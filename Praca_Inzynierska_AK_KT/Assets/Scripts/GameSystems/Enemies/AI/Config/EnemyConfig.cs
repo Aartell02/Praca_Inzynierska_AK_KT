@@ -1,5 +1,3 @@
-using Core;
-using Core.Inspector;
 using System;
 using UnityEngine;
 

@@ -41,7 +41,6 @@ namespace GameSystems
 				StartCoroutine(DashRoutine());
 				return;
 			}
-			Debug.Log("MOVE");
 			movementSpeed = playerStats.MovementSpeed;
 			if (PlayerInputService.Sprint)
 			{

@@ -1,6 +1,6 @@
 using Boot;
 using Core.Services;
-using GameSystems;
+using Core;
 using GameSystems.Config;
 using UnityEngine;
 
@@ -8,7 +8,13 @@ namespace Gameplay.Controllers
 {
 	public class GameRunController : MonoBehaviour
 	{
-		RunConfig runConfig = ConfigReferences.Instance.runConfig;
+		RunConfig runConfig;
+
+		private void Awake()
+		{
+			runConfig = ConfigReferences.Instance.runConfig;
+		}
+
 		private void Start()
 		{
 			GameRunState.SetFloorCount(runConfig.floorCount);

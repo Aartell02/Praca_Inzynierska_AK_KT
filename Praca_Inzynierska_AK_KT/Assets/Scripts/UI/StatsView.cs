@@ -1,13 +1,8 @@
-using Core.Inspector;
-using Core.Services;
-using Gameplay;
-using GameSystems.Config;
-using System;
+#if UNITY_EDITOR
+using Editor;
+#endif
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace GameSystems
 {
@@ -15,7 +10,9 @@ namespace GameSystems
 	{
 		PlayerStats playerStats = PlayerStats.Instance;
 		[SerializeField]
+#if UNITY_EDITOR
 		[EnumArray(typeof(StatType))]
+#endif
 		private TextMeshProUGUI[] _stats;
 
 		public void Update()

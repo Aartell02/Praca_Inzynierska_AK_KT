@@ -21,6 +21,7 @@ namespace Gameplay
 			if (CapturedAltarCount >= TotalAltarCount)
 			{
 				Instantiate(PrefabReferences.ExitTrigger, GameSystemsViewModel.GetEnemySpawnPoint(), default);
+				GameSystemsViewModel.SetAnnouncement("Przejście otwarte!");
 				Debug.Log("Przejście otwarte!");
 			}
 		}
