@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Name
+  m_text: Inzynierka The Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c3fa9c61011df554dbb02dd3f17265b7, type: 2}
   m_sharedMaterial: {fileID: -4733954528071877697, guid: c3fa9c61011df554dbb02dd3f17265b7, type: 2}
@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Name
+  m_text: Inzynierka The Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ae4a58b8ba95dc4ca77328380c33493, type: 2}
   m_sharedMaterial: {fileID: 3382490863857719557, guid: 9ae4a58b8ba95dc4ca77328380c33493, type: 2}
