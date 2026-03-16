@@ -41,8 +41,12 @@ namespace GameSystems.AI
 						EnemyBrainData brainData = hit.GetComponent<EnemyBrainData>();
 						foreach(var altar in data.brainData.Altars)
 						{
-							if(brainData.AddAltarPosition(altar))
+							if (brainData.AddAltar(altar))
+							{
+								brainData.AddInfoPoint();
 								success = true;
+							}
+
 						}
 
 						data.brainData.SetGoal(AIEnemyGoal.None, true);

@@ -40,6 +40,10 @@ namespace GameSystems.AI
 		}
 		private void Update()
 		{
+			if (ExplorationGrid.Instance.GetExplorationProgress() > 0.98)
+			{
+				//brainData.SetGoal(true);
+			}
 			if(this.brainData.dirty)
 				SetGoal(brainData.Goal);
 		}

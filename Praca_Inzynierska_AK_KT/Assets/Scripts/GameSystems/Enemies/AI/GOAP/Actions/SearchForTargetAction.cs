@@ -25,6 +25,12 @@ namespace GameSystems.AI
 		{
 			data.Timer -= context.DeltaTime;
 
+			if (ExplorationGrid.Instance.GetExplorationProgress() > 97)
+			{
+				data.brainData.AddInfoPoint();
+				return ActionRunState.Completed;
+			}
+
 			float range = enemyConfig.EnemyCommunicationData.SensorRadius;
 
 			Vector3 position = agent.transform.position;
@@ -36,9 +42,17 @@ namespace GameSystems.AI
 			{
 				AltarData altarData = hit.GetComponent<AltarData>();
 
-				if (altarData != null) 
-					if(data.brainData.AddAltarPosition(altarData))
-						return ActionRunState.Completed;
+				if (altarData != null)
+					if (data.brainData.AddAltar(altarData))
+					
+						if (altarData.Noticed)
+							return ActionRunState.Stop;
+						else
+						{
+							altarData.Noticed = true;
+							data.brainData.AddInfoPoint();
+							return ActionRunState.Completed;
+						}
 			}
 
 			return data.Timer > 0 ? ActionRunState.Continue : ActionRunState.Stop;
