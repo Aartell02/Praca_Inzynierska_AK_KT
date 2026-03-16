@@ -26,18 +26,17 @@ namespace GameSystems
 			}
 		}
 
-		public bool AddAltarPosition(AltarData altar)
+		public bool AddAltar(AltarData altar)
 		{
 			if (Altars.Contains(altar))
 				return false;
 
 			Altars.Add(altar);
-			InfoPoints++;
 			return true;
 		}
 		public void ClearInfo() => InfoPoints = 0;
 
-		public void AddPlayerPosition(Vector2 playerPosition) => PlayerPosition = playerPosition;
+		public void AddInfoPoint() => InfoPoints++;
 
 		public void SetDeufaultPosition(Vector2 deufaultPosition)
 		{

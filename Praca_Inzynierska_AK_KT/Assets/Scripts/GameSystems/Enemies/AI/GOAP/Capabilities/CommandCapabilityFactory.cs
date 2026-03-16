@@ -21,7 +21,8 @@ namespace GameSystems.AI
 			builder.AddGoal<StrategizeGoal>()
 				.AddCondition<IsPlanning>(Comparison.GreaterThanOrEqual, 1)
 				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1)
-				.AddCondition<MapDiscovered>(Comparison.GreaterThanOrEqual, 80);
+				.AddCondition<MapDiscovered>(Comparison.GreaterThanOrEqual, 80)
+				.AddCondition<UnoccupiedAltars>(Comparison.SmallerThan, 1);
 		}
 
 		void BuildActions(CapabilityBuilder builder)
@@ -36,7 +37,7 @@ namespace GameSystems.AI
 				.AddCondition<InfoPoints>(Comparison.GreaterThanOrEqual, 1)
 				.AddCondition<MapDiscovered>(Comparison.GreaterThanOrEqual, 40)
 				.AddCondition<UnoccupiedAltars>(Comparison.GreaterThanOrEqual, 1)
-				.AddEffect<UnoccupiedAltars>(EffectType.Increase)
+				.AddEffect<UnoccupiedAltars>(EffectType.Decrease)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.AddEffect<SoldiersToCommand>(EffectType.Decrease)
 				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
@@ -48,7 +49,6 @@ namespace GameSystems.AI
 				.AddCondition<MapDiscovered>(Comparison.SmallerThanOrEqual, 90)
 				.AddEffect<IsPlanning>(EffectType.Increase)
 				.AddEffect<MapDiscovered>(EffectType.Increase)
-				.AddEffect<UnoccupiedAltars>(EffectType.Increase)
 				.AddEffect<ScoutsToCommand>(EffectType.Decrease)
 				.SetBaseCost(5)
 				.SetRequiresTarget(false);
